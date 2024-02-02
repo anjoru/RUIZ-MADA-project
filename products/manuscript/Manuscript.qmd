@@ -1,6 +1,6 @@
 ---
-title: "Example Manuscript Template for a Data Analysis Project"
-subtitle: ""
+title: "Factors Influencing Abundance & Virus Isolation in Mosquitoes"
+subtitle: "Which environmental, ecological, and temporal factors impact mosquito populations  "
 author: Andreas Handel
 date: "`r Sys.Date()`"
 format:
