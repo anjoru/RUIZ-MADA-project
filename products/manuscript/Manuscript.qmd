@@ -1,7 +1,7 @@
 ---
-title: "Factors Influencing Abundance & Virus Isolation in Mosquitoes"
+title: "Class Exercise: Factors Influencing Abundance & Virus Isolation in Mosquitoes"
 subtitle: "Which environmental, ecological, and temporal factors impact mosquito populations  "
-author: Andreas Handel
+author: Andrew Ruiz
 date: "`r Sys.Date()`"
 format:
   docx:
@@ -10,161 +10,221 @@ format:
     highlight-style: github
 bibliography: ../assets/dataanalysis-references.bib
 csl: ../assets/apa.csl
+editor: 
+  markdown: 
+    wrap: 72
 ---
-
-The structure below is one possible setup for a data analysis project (including the course project). For a manuscript, adjust as needed. 
-You don't need to have exactly these sections, but the content covering those sections should be addressed.
-
-This uses MS Word as output format. [See here](https://quarto.org/docs/output-formats/ms-word.html) for more information. You can switch to other formats, like html or pdf. See [the Quarto documentation](https://quarto.org/) for other formats.
-
 
 ```{r, echo=FALSE, message=FALSE}
 # load a few R packages
 library(here)
 library(knitr)
+library(readxl)
+
+here::set_here()
+
+
 ```
-
-
 
 # Summary/Abstract
-_Write a summary of your project._
 
+Eastern equine encephalitis (EEE) is caused by an Alphavirus transmitted
+to humans by the bite of an infected mosquito. Human infections are
+rare, but serious. About 30-50% of symptomatic cases lead to death and
+those who survive are left with life-long disability. The transmission
+cycle for EEE includes two distinct cycles: an amplifying enzootic cycle
+in which the virus is transmitted between the Culiseta melanura mosquito
+and birds and an epizootic cycle in which bridge vector mosquitoes
+transmit the EEE virus (EEEv) from birds to humans and other mammals.
+Because C. melanura feeds almost exclusively on birds, it is not
+considered a direct human threat. However, EEEv isolations in C.
+melanura are an early warning sign that EEEv is circulating in the
+ecosystem. Isolations in bridge vector mosquito species indicate
+heightened transmission risk to humans.
 
-{{< pagebreak >}}
+This project will lay the foundation for my dissertation research. **The
+goal for this phase of the project is to answer which environmental,
+ecological, and temporal factors influence the transmission cycles for
+EEE in southeastern Massachusetts.**
 
-
-# Introduction 
+# Introduction
 
 ## General Background Information
-_Provide enough background on your topic that others can understand the why and how of your analysis_ 
+
+Humans and other mammals are dead-end hosts for EEE. About 94% of human
+EEE infections are asymptomatic. While symptomatic cases are rare, the
+consequences can be severe. Mortality rates associated with symptomatic
+infections range from 30 to 50%. Those who survive often experience
+lifelong disability that includes debilitating neurological damage. On
+average, there are 11 cases reported in the US annually. Most occur in
+Massachusetts and Florida. Until recently, nearly all human EEE cases in
+Massachusetts occurred in two counties: Bristol and Plymouth.
+
+Since 2000, there have been 45 human cases recorded in Massachusetts,
+resulting in 22 deaths. There are no human vaccines for EEE, and
+treatment consists of palliative care only. Prevention measures include
+personal behaviors to avoid mosquito bites and decreasing the mosquito
+population through pesticide use and environmental modifications like
+removing standing water. The Bristol County Mosquito Control Project
+(BCMCP) coordinates mosquito surveillance and testing in the county from
+June to October. BCMCP has used the same sentinel collection sites and
+trapping methods for over 20 years. Once trapped, mosquitoes are sorted
+by species, and vector species are submitted to the Massachusetts
+Department of Health’s (MDPH) State Lab for PCR virus testing. Results
+are available within 24 hours of submission. When rates of EEE mosquito
+infections are above a defined threshold, MDPH notifies the local boards
+of health and recommends preventive measures. Recommended measures
+include outreach and education to increase personal protective practices
+(Heymann, 2015). Additionally, MDPH may recommend that cities and towns
+in the affected areas cancel evening outdoor events and discourage
+outdoor activities when mosquito vectors are most active (dawn and dusk)
+(Massachusetts Department of Public Health, n.d.). When infection rates
+are high enough to indicate imminent human transmission, the
+Commonwealth of Massachusetts will recommend and fund aerial pesticide
+applications over the affected areas.
 
 ## Description of data and data source
-_Describe what the data is, what it contains, where it is from, etc. Eventually this might be part of a methods section._
 
-## Questions/Hypotheses to be addressed
-_State the research questions you plan to answer with this analysis._
+*The cornerstone of this research will be the mosquito collection data
+provided by a mosquito control project in SE Massachusetts. A formal
+data-sharing agreement will be in place by January 2024. The dataset
+encompasses nearly two decades of detailed mosquito surveillance. The
+datasets include spatial identifiers. Mosquito collection data will be
+integrated with other datasets using spatial or temporal attributes.
+These datasets will include biological and ecological data,
+environmental and spatial data, and demographic data, which are crucial
+in understanding the transmission dynamics of EEE. Potential datasets
+with their sources are outlined in the table below. Other datasets may
+be included based on availability and need.*
 
-To cite other work (important everywhere, but likely happens first in introduction), make sure your references are in the bibtex file specified in the YAML header above (here `dataanalysis_template_references.bib`) and have the right bibtex key. Then you can include like this:
+| Data                         | Description                                                                                                                                           | Source                                |
+|------------------|-------------------------------|-----------------------|
+| Mosquito Surveillance Data   | Records of mosquito species counts, locations, and dates of collection. Data on the presence of EEE in mosquito populations is particularly valuable. | XXX County Mosquito Control           |
+| Weather Data                 | Temperature, humidity, rainfall, and wind speed influence mosquito activity, population dynamics, and virus transmission.                             | NOAA                                  |
+| Bird Population Data         | Since birds are a natural reservoir for EEE, information on bird populations and migration patterns could be relevant.                                | Crowd-sourced bird data               |
+| Human Case Reports           | Data on confirmed human cases of EEE, including location, date of onset, and clinical outcomes.                                                       | MA Dept of Public Health publications |
+| Veterinary Surveillance Data | Since horses and other mammals can also be affected by EEE, veterinary records could provide early warning signs of virus activity in an area.        | MA Dept of Public Health              |
 
-Examples of reproducible research projects can for instance be found in [@mckay2020; @mckay2020a].
+### Currently, I have collected 2 datasets that are described below:
 
-
-
-{{< pagebreak >}}
-
-
-# Methods 
-
-_Describe your methods. That should describe the data, the cleaning processes, and the analysis approaches. You might want to provide a shorter description here and all the details in the supplement._
-
-
-## Schematic of workflow
-
-Sometimes you might want to show a schematic diagram/figure that was not created with code (if you can do it with code, do it). @fig-schematic is an example of some - completely random/unrelated - schematic that was generated with Biorender.
-We store those figures in the `assets` folder.
+#### The first dataset is the mosquito collection dataset
 
 ```{r}
-#| label: fig-schematic
-#| fig-cap: "A figure that is manually generated and shows some overview/schematic. This has nothing to do with the data, it's just a random one from one of our projects I found and placed here."
-#| echo: FALSE
-knitr::include_graphics(here("products","assets","antigen-recognition.png"))
+dp1 = here("data", "raw-data", "MOSQ_MADA.xlsx")
+
+mos_data = read_excel(dp1)
+
+head(mos_data)
+summary(mos_data)
+
 ```
 
+#### The second dataset is the weather data spanning the same time period as the mosquito collection data
 
+```{r}
+dp2 = here("data", "raw-data", "weather_airport.csv")
+weather = read.csv(dp2, fileEncoding = "UTF-8")
+head(weather)
+summary(weather)
+```
 
+## Questions/Hypotheses to be addressed
 
-## Data aquisition
-_As applicable, explain where and how you got the data. If you directly import the data from an online source, you can combine this section with the next._
+\*This project will lay the foundation for my dissertation research.
+**The goal for this phase of the project is to answer which
+environmental, ecological, and temporal factors influence the
+transmission cycles for EEE in southeastern Massachusetts.** While the
+following questions will not be addressed in this phase, this project
+will hopefully inform research that will answer the following questions:
 
+1\. Can an AI-driven model that leverages historic mosquito
+surveillance, ecological, and environmental data accurately quantify the
+risk of human EEEv infection in southeastern Massachusetts?
 
-## Data import and cleaning
-_Write code that reads in the file and cleans it so it's ready for analysis. Since this will be fairly long code for most datasets, it might be a good idea to have it in one or several R scripts. If that is the case, explain here briefly what kind of cleaning/processing you do, and provide more details and well documented code somewhere (e.g. as supplement in a paper). All materials, including files that contain code, should be commented well so everyone can follow along._
+2\. What is the potential of machine learning algorithms to identify
+early warning signals for EEE outbreaks, enabling timely public health
+interventions in Massachusetts to prevent human infections?
 
+3\. How can machine learning models use real-time data on mosquito
+activity, environmental factors, and weather to accurately predict when
+the risk of EEE transmission to humans is low enough to lift evening
+outdoor activity restrictions? \*
 
-## Statistical analysis
-_Explain anything related to your statistical analyses._
+To cite other work (important everywhere, but likely happens first in
+introduction), make sure your references are in the bibtex file
+specified in the YAML header above (here
+`dataanalysis_template_references.bib`) and have the right bibtex key.
+Then you can include like this:
 
+Examples of reproducible research projects can for instance be found in
+[@mckay2020; @mckay2020a].
 
 {{< pagebreak >}}
 
+# Methods
+
+*Specific methods will be determined when all data sources are
+confirmed.*
+
+## The process will involve creating a relational database in which all datasets are joined using spatial or temporal attributes. This will lead to a thorough examination of the datasets to understand the distributions, identify missing data and outliers, and uncover potential correlations between variables. The EDA will involve using visualizations, geographic information systems, and statistical tests to understand how biological, ecological, environmental, and demographic forces influence the EEE transmission cycles. The EDA will inform the preprocessing steps, feature engineering, and selection of appropriate AI models.
+
+### Schematic of workflow
+
+*This section will be updated when all data sources are confirmed*
+
+## Data aquisition
+
+With the exception of the mosquito collection data, all other datasets
+are publicly available for use without restrictions.
+
+## Data import and cleaning
+
+*This step will be completed once all data sources are confirmed*
+
+## Statistical analysis
+
+This exercise will serve as the beginning of the exploratory data
+analysis phase. One of the main objectives for of this phase is describe
+the data, understand its structure, clean data, and identify
+associations within the datasets.
+
+{{< pagebreak >}}
 
 # Results
 
 ## Exploratory/Descriptive analysis
 
-_Use a combination of text/tables/figures to explore and describe your data. Show the most important descriptive results here. Additional ones should go in the supplement. Even more can be in the R and Quarto files that are part of your project._
-
-
-@tbl-summarytable shows a summary of the data.
-
-Note the loading of the data providing a **relative** path using the `../../` notation. (Two dots means a folder up). You never want to specify an **absolute** path like `C:\ahandel\myproject\results\` because if you share this with someone, it won't work for them since they don't have that path. You can also use the `here` R package to create paths. See examples of that below.
-
-```{r}
-#| label: tbl-summarytable
-#| tbl-cap: "Data summary table."
-#| echo: FALSE
-resulttable=readRDS("../../results/summarytable.rds")
-knitr::kable(resulttable)
-```
-
-
+*These will be generated in later phases of the exercise*
 
 ## Basic statistical analysis
 
-_To get some further insight into your data, if reasonable you could compute simple statistics (e.g. simple models with 1 predictor) to look for associations between your outcome(s) and each individual predictor variable. Though note that unless you pre-specified the outcome and main exposure, any "p<0.05 means statistical significance" interpretation is not valid._
-
-
-@fig-result shows a scatterplot figure produced by one of the R scripts.
-
-```{r}
-#| label: fig-result
-#| fig-cap: "Height and weight stratified by gender."
-#| echo: FALSE
-knitr::include_graphics(here("results","height-weight-stratified.png"))
-```
-
-
 ## Full analysis
-
-_Use one or several suitable statistical/machine learning methods to analyze your data and to produce meaningful figures, tables, etc. This might again be code that is best placed in one or several separate R scripts that need to be well documented. You want the code to produce figures and data ready for display as tables, and save those. Then you load them here._
-
-Example @tbl-resulttable2 shows a summary of a linear model fit.
-
-```{r}
-#| label: tbl-resulttable2
-#| tbl-cap: "Linear model fit table."
-#| echo: FALSE
-resulttable2 = readRDS(here("results","tables-files","resulttable2.rds"))
-knitr::kable(resulttable2)
-```
-
 
 {{< pagebreak >}}
 
-
 # Discussion
 
-## Summary and Interpretation
-_Summarize what you did, what you found and what it means._
-
 ## Strengths and Limitations
-_Discuss what you perceive as strengths and limitations of your analysis._
 
 ## Conclusions
-_What are the main take-home messages?_
 
-_Include citations in your Rmd file using bibtex, the list of references will automatically be placed at the end_
+*Include citations in your Rmd file using bibtex, the list of references
+will automatically be placed at the end*
 
-This paper [@leek2015] discusses types of analyses. 
+This paper [@leek2015] discusses types of analyses.
 
-These papers [@mckay2020; @mckay2020a] are good examples of papers published using a fully reproducible setup similar to the one shown in this template. 
+These papers [@mckay2020; @mckay2020a] are good examples of papers
+published using a fully reproducible setup similar to the one shown in
+this template.
 
-Note that this cited reference will show up at the end of the document, the reference formatting is determined by the CSL file specified in the YAML header. Many more style files for almost any journal [are available](https://www.zotero.org/styles). You also specify the location of your bibtex reference file in the YAML. You can call your reference file anything you like, I just used the generic word `references.bib` but giving it a more descriptive name is probably better.
-
+Note that this cited reference will show up at the end of the document,
+the reference formatting is determined by the CSL file specified in the
+YAML header. Many more style files for almost any journal [are
+available](https://www.zotero.org/styles). You also specify the location
+of your bibtex reference file in the YAML. You can call your reference
+file anything you like, I just used the generic word `references.bib`
+but giving it a more descriptive name is probably better.
 
 {{< pagebreak >}}
 
 # References
-
-
-
