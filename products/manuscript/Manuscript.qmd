@@ -8,8 +8,6 @@ format:
     toc: false
     number-sections: true
     highlight-style: github
-bibliography: ../assets/dataanalysis-references.bib
-csl: ../assets/apa.csl
 editor: 
   markdown: 
     wrap: 72
@@ -188,7 +186,6 @@ analysis phase. One of the main objectives for of this phase is describe
 the data, understand its structure, clean data, and identify
 associations within the datasets.
 
-{{< pagebreak >}}
 
 # Results
 
@@ -200,7 +197,6 @@ associations within the datasets.
 
 ## Full analysis
 
-{{< pagebreak >}}
 
 # Discussion
 
