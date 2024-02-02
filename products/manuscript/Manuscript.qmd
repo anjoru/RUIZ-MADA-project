@@ -113,7 +113,6 @@ dp1 = here("data", "raw-data", "MOSQ_MADA.xlsx")
 mos_data = read_excel(dp1)
 
 head(mos_data)
-summary(mos_data)
 
 ```
 
@@ -123,7 +122,6 @@ summary(mos_data)
 dp2 = here("data", "raw-data", "weather_airport.csv")
 weather = read.csv(dp2, fileEncoding = "UTF-8")
 head(weather)
-summary(weather)
 ```
 
 ## Questions/Hypotheses to be addressed
@@ -186,7 +184,6 @@ analysis phase. One of the main objectives for of this phase is describe
 the data, understand its structure, clean data, and identify
 associations within the datasets.
 
-
 # Results
 
 ## Exploratory/Descriptive analysis
@@ -196,7 +193,6 @@ associations within the datasets.
 ## Basic statistical analysis
 
 ## Full analysis
-
 
 # Discussion
 
