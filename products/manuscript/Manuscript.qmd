@@ -1,5 +1,5 @@
 ---
-title: "Class Exercise: Factors Influencing Abundance & Virus Isolation in Mosquitoes"
+title: "DRAFT: Factors Influencing Abundance & Virus Isolation in Mosquitoes"
 subtitle: "Which environmental, ecological, and temporal factors impact mosquito populations  "
 author: Andrew Ruiz
 date: "`r Sys.Date()`"
@@ -73,11 +73,10 @@ are available within 24 hours of submission. When rates of EEE mosquito
 infections are above a defined threshold, MDPH notifies the local boards
 of health and recommends preventive measures. Recommended measures
 include outreach and education to increase personal protective practices
-(Heymann, 2015). Additionally, MDPH may recommend that cities and towns
-in the affected areas cancel evening outdoor events and discourage
-outdoor activities when mosquito vectors are most active (dawn and dusk)
-(Massachusetts Department of Public Health, n.d.). When infection rates
-are high enough to indicate imminent human transmission, the
+. Additionally, MDPH may recommend that cities and towns in the affected
+areas cancel evening outdoor events and discourage outdoor activities
+when mosquito vectors are most active (dawn and dusk). When infection
+rates are high enough to indicate imminent human transmission, the
 Commonwealth of Massachusetts will recommend and fund aerial pesticide
 applications over the affected areas.
 
@@ -99,30 +98,9 @@ be included based on availability and need.*
 |------------------|-------------------------------|-----------------------|
 | Mosquito Surveillance Data   | Records of mosquito species counts, locations, and dates of collection. Data on the presence of EEE in mosquito populations is particularly valuable. | XXX County Mosquito Control           |
 | Weather Data                 | Temperature, humidity, rainfall, and wind speed influence mosquito activity, population dynamics, and virus transmission.                             | NOAA                                  |
-| Bird Population Data         | Since birds are a natural reservoir for EEE, information on bird populations and migration patterns could be relevant.                                | Crowd-sourced bird data               |
+| Bird Population Data         | Since birds are a natural reservoir for EEE, information on bird populations and migration patterns could be relevant.                                | eBird                                 |
 | Human Case Reports           | Data on confirmed human cases of EEE, including location, date of onset, and clinical outcomes.                                                       | MA Dept of Public Health publications |
 | Veterinary Surveillance Data | Since horses and other mammals can also be affected by EEE, veterinary records could provide early warning signs of virus activity in an area.        | MA Dept of Public Health              |
-
-### Currently, I have collected 2 datasets that are described below:
-
-#### The first dataset is the mosquito collection dataset
-
-```{r}
-dp1 = here("data", "raw-data", "MOSQ_MADA.xlsx")
-
-mos_data = read_excel(dp1)
-
-head(mos_data)
-
-```
-
-#### The second dataset is the weather data spanning the same time period as the mosquito collection data
-
-```{r}
-dp2 = here("data", "raw-data", "weather_airport.csv")
-weather = read.csv(dp2, fileEncoding = "UTF-8")
-head(weather)
-```
 
 ## Questions/Hypotheses to be addressed
 
@@ -146,15 +124,6 @@ activity, environmental factors, and weather to accurately predict when
 the risk of EEE transmission to humans is low enough to lift evening
 outdoor activity restrictions? \*
 
-To cite other work (important everywhere, but likely happens first in
-introduction), make sure your references are in the bibtex file
-specified in the YAML header above (here
-`dataanalysis_template_references.bib`) and have the right bibtex key.
-Then you can include like this:
-
-Examples of reproducible research projects can for instance be found in
-[@mckay2020; @mckay2020a].
-
 {{< pagebreak >}}
 
 # Methods
@@ -166,7 +135,7 @@ confirmed.*
 
 ### Schematic of workflow
 
-*This section will be updated when all data sources are confirmed*
+*This section will be updated before analysis begins*
 
 ## Data aquisition
 
@@ -175,7 +144,42 @@ are publicly available for use without restrictions.
 
 ## Data import and cleaning
 
-*This step will be completed once all data sources are confirmed*
+Datasets will be loaded into R in a Quarto document to document and
+describe cleaning methods. There are two datasets that will require more
+extensive cleaning: the mosquito trap data and the crowd-sourced bird
+data. The process is outlined in detail in the MADAproject_pt2.qmd file.
+Less significant cleaning and data management steps not included in this
+manuscript are also outlined in that file.
+
+The mosquito dataset spans 2007 to 2023. However, the virus and case
+data only covers the years 2014 to 2020. Because mosquito populations
+can be influences by processes of the previous year. We will set the
+analytical horizon will span 2013 to 2021.
+
+Additionally, the Massachusetts Department of Public Health requires
+that all mosquito control district submit their colelction data in a
+specific format. This format divides each trap event into separate rows
+based on mosquito species. However, this format is not useful for
+certain calculations where a zero count for a species is not explicitly
+recorded. For example, even when sorted by species to calculate the
+average count per trap, the average could be inflated since the records
+will not include trap events with a zero count of that species. In order
+to correct this, the data was pivoted to create a column for every
+unique "species code" then the "pool size" for each species code is
+summed for each trap event. A trap event is when "town", "date of
+collection", "trap type" are all the same.. For species codes not
+included in the orginal table for a trap event, the field will be
+assigned a zero value. The resulting table will have one row for every
+trap event.
+
+The bird observation dataset was obtained from Cornell University's
+eBird program. The original dataset included all reported bird
+observations for Southeast Massachusetts and was over 600 MB of data.
+While all birds are potential amplifying hosts for EEE and West Nile
+Virus (WNV), birds from the Genus *Corvus* are of particular concern.
+The bird dataset processed to include records of *Corvus spp* sightings
+after 2014. The final dataset included 8 of the 50 variables, including
+location data.
 
 ## Statistical analysis
 
@@ -188,35 +192,73 @@ associations within the datasets.
 
 ## Exploratory/Descriptive analysis
 
-*These will be generated in later phases of the exercise*
+The first phase of the exploration is complete. The next phase will
+include statistical tests to determine if there are possible
+associations between the environmental variables and the mosquito
+abundance as measured by trap counts or EEE virus activity.
+
+One factor to consider is if early virus isolations are associated with
+cases in humans and other mammals. The table below shows the date of the
+first EEE virus isolation in mosquitoes and the number of human of other
+animal cases by year.
+
+![](images/eee_isolation_cases-01.png){fig-align="center" width="320"}
+
+Unfortunately, the time horizon is limited by data availability.
+Additionally, EEE human infections are rare, so traditional statistical
+methods may be inadequate to suggest any relationships. What is clear is
+that 2019 was an exceptional year for EEE.
+
+*Culiseta melanura* (MEL) plays an important role in EEE virus
+amplification in the enzootic cycle. Understanding the population
+dynamics might provide more insight into what is driving the 2019 spike.
+
+The table below shows the proportion of MEL among all mosquito vector
+species trapped in Bristol County, MA.
+
+![](images/mel_proportion.png){fig-align="center"}
+
+From this we see a large proportion of MEL in the traps for 2019. In
+fact, they comprise more than half of all vector species for that year.
+Another interesting aspect is the high proportion in 2018. MEL
+overwinters as larvae and as long as there is sufficient standing water
+to last the winter, MEL hatched in the previous fall would survive to
+emerge the next year. This suggests it might be important to look at
+conditions in the previous year or season for a better understanding.
+
+Since water plays a significant role in the mosquito life cycle, let's
+look at the annual precipitation.
+
+![](images/annual_precip-02.png){fig-align="center"}
+
+The graph indicates that the annual precipitation total for 2018 is
+higher than the other years. This suggest that there was enough water to
+support large MEL larval populations though out the winter.
 
 ## Basic statistical analysis
+*These will be generated in later phases of the exercise* 
 
-## Full analysis
+## Fullanalysis
 
-# Discussion
+*These will be generated in later phases of the exercise* 
+# Discussion *this section will be completed when analysis is done* 
 
-## Strengths and Limitations
+## Strengths and Limitations 
+*this section will be updated after analysis is complete*
 
-## Conclusions
+While the reliability of the mosquito trap data is high, the trap data
+cannot be directly associated with the virus isolation data. The
+information this scale is not released by the State. Spatial scale is
+also an issue with the human and veterinary cases data. Human case data
+is released only on a county scale to ensure patient privacy. Some
+veterinary case data is available on the town-level, but most remains
+only on the county-level.
 
-*Include citations in your Rmd file using bibtex, the list of references
-will automatically be placed at the end*
+These limitations are barriers to accurate spatial analysis. 
 
-This paper [@leek2015] discusses types of analyses.
-
-These papers [@mckay2020; @mckay2020a] are good examples of papers
-published using a fully reproducible setup similar to the one shown in
-this template.
-
-Note that this cited reference will show up at the end of the document,
-the reference formatting is determined by the CSL file specified in the
-YAML header. Many more style files for almost any journal [are
-available](https://www.zotero.org/styles). You also specify the location
-of your bibtex reference file in the YAML. You can call your reference
-file anything you like, I just used the generic word `references.bib`
-but giving it a more descriptive name is probably better.
-
+## Conclusions *this section will be completed when analysis is done*
 {{< pagebreak >}}
 
 # References
+
+References will be added in part 3 of the project

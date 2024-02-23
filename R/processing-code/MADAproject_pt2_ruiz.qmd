@@ -1,0 +1,511 @@
+---
+title: "MADA Project Part 2"
+subtitle: "loading, cleaning, exploring the data"
+author: "Andrew Ruiz"
+date: 2024-02-23
+format: html
+editor: visual
+---
+
+# Introduction
+## This file contains the process for loading, cleaning and exploring the datasets.
+
+# Loading libraries
+```{r, message=FALSE, warning=FALSE}
+library(readxl) #for loading Excel files
+library(httr)   #for getting data from the web
+library(dplyr)  #for data processing/cleaning
+library(tidyr)  #for data processing/cleaning
+library(skimr)  #for visualizing data 
+library(here)   #allows relative pathways for data
+library(readr)
+library(naniar) 
+library(ggplot2)
+library(sf)
+library(topicmodels)
+library(openxlsx)
+library(lubridate)
+library(knitr)
+library(kableExtra)
+library(webshot2)
+library(magick)
+library(leaflet)
+library(htmlwidgets)
+```
+# Loading data
+
+## Mosquito trap data
+### This dataset contains trap counts by species for all mosquito traps set in the Bristol County from 2007-2023
+```{r trap-data-import}
+# Construct the path to the Excel file
+file_path_mos <- here("data", "processed-data", "MOSQ_MADA.xlsx")
+
+# import the data to R and store it in a dataframe named "mosquito"
+mosquito_raw <- read_excel(file_path_mos)
+
+#load the first few rows of data to verify the data loaded as expected
+head(mosquito_raw)
+```
+## Mosquito trap sites 
+### Location for the mosquito trap sites
+```{r}
+# Construct the path to the file
+file_path_trap = here("data", "processed-data", "BCMCP_trap_sites_2021.xlsx")
+
+# import the data to R and store it in a dataframe named "trap_location"
+trap_location = read_excel(file_path_trap)
+
+#load the first few rows of data to verify the data loaded as expected
+head(trap_location)
+str(trap_location)
+
+#The last 3 columns have missing data. However, they are not important for the purposes of this project
+# there is not a need to delete the records
+```
+## Mosquito virus data
+### The virus isolation data is stored in separate spreadsheets by year from 2014 to 2020
+### This code will load all the files, combine them, and then save the combined file in the "raw data" folder
+```{r}
+#Define the path to the folder with Excel files
+folder_path <- here("data", "processed-data", "virus_data")
+
+#List all Excel files (.xls and .xlsx)
+file_paths <- list.files(path = folder_path, pattern = "\\.xls[x]*$", full.names = TRUE)
+
+#Read each file into a list of data frames
+data_list <- lapply(file_paths, read_excel)
+
+#Check the names of the files read
+print(basename(file_paths))
+
+#Combine the datasets
+combined_data <- bind_rows(data_list)
+
+# Define the path for the combined dataset
+combined_path <- here("data", "processed-data", "combined_virus_data.csv")
+
+# Save the combined data frame as a CSV file
+write.csv(combined_data, combined_path, row.names = FALSE)
+
+
+# View the first few rows to confirm it's loaded correctly
+head(virus_data)
+```
+## Bird data
+### The complete bird dataset is over 600 MB. Because it is too large for GitHub, it is stored locally. It contain variables and records that are not needed for this analysis. Eight of 50 varibles will be kept and the records will be filtered to show only birds from the Genus Corvus observed in Massachusetts after 2014-01-01
+```{r}
+# Load complete bird data
+bird <- read.table("/Users/andrewruiz/0011508-240216155721649.csv", sep = "\t", header = TRUE, fill = TRUE)
+
+# Select variables to keep and then filter records based on order, stateProvince, and eventDate
+bird_select <- bird %>%
+  select(genus, 
+         species,
+         stateProvince, 
+         decimalLatitude, 
+         decimalLongitude, 
+         eventDate) %>%
+  mutate(eventDate = as.Date(eventDate, format = "%Y-%m-%d")) %>%
+  filter(eventDate > as.Date("2014-01-01"), genus == "Corvus", stateProvince == "Massachusetts")
+
+# Inspect the structure of the filtered dataset
+str(bird_select)
+
+# Define the file path using here()
+output_file_path <- here("data", "processed-data", "filtered_bird_data.csv")
+
+# Save the bird_select dataframe to the specified folder
+write.csv(bird_select, output_file_path, row.names = FALSE)
+
+# Load the filtered bird data to R
+filtered_bird = read_csv(output_file_path, show_col_types = FALSE)
+
+# ensure the csv loaded properly
+str(filtered_bird)
+head(filtered_bird)
+```
+
+## Weather data
+### This dataset contains daily weather summaries from the Taunton, MA Airport from 2007-2023
+```{r}
+# Construct the path to the file
+file_path_wx = here("data", "processed-data", "weather_airport.csv")
+
+# import the data to R and store it in a dataframe named "wx"
+wx = read.csv(file_path_wx)
+
+#load the first few rows of data to verify the data loaded as expected
+head(wx)
+```
+## Human and veterinary cases of eastern equine encephalitis and West Nile virus
+```{r}
+# Construct the path to the human case data file
+file_path_human <- here("data", "processed-data", "human_cases.xlsx")
+
+# import the data to R and store it in a dataframe named "cases_human"
+cases_human <- read_excel(file_path_human)
+
+#load the first few rows of data to verify the data loaded as expected
+head(cases_human)
+
+# Construct the path to the veterinary case data file
+file_path_vet <- here("data", "processed-data", "animal_cases.xlsx")
+
+# import the data to R and store it in a dataframe named "cases_human"
+cases_vet <- read_excel(file_path_vet)
+
+#load the first few rows of data to verify the data loaded as expected
+head(cases_vet)
+```
+
+# Processing and cleaning the Mosquito trap data
+### Examine the variables and change all column names to lower case
+```{r}
+str(mosquito_raw)
+
+# Set column names to lowercase
+names(mosquito_raw) <- tolower(names(mosquito_raw))
+
+# Check the first few rows to confirm changes
+head(mosquito_raw)
+
+```
+
+### Identify the time period the dataset covers
+```{r}
+earliest_date <- min(mosquito_raw$`Collection Date`, na.rm = TRUE)
+latest_date <- max(mosquito_raw$`Collection Date`, na.rm = TRUE)
+print(paste("Date range:", earliest_date," to ", latest_date))
+```
+#### The mosquito dataset spans 2007 to 2023. However, the virus and case data only covers the years 2014 to 2020. Because mosquito populations can be influences by processes of the previous year. We will set the analytical horizon will span 2013 to 2021.*Collection data before 2013 and after 2021 will be removed* along with records with important missing variables identified below.
+
+### Identify missing data
+```{r}
+sapply(mosquito_raw, function(x) sum(is.na(x)))
+```
+#### The majority of the missing data is in the "Submitted for Testing" variable. This is not a crucial variable, so we can keep those records.The other variable are important and so we will remove those records with the other missing data.
+
+### The Massachussetts Department of Public Health adpoted a taxonomy change before it was fully vetted. The change divided the genus *Aedes* into a new genus: *Ochlerotatus*. To align with accepted standards, I will change them back to *Aedes*.
+```{r}
+# Get unique values using dplyr
+unique_genus_values <- mosquito_raw %>%
+  distinct(genus) %>%
+  pull(genus)
+
+# Print the unique genus values
+print(unique_genus_values)
+
+# Change records where genus is "Ochlerotatus" to "Aedes"
+mosquito_raw$genus[mosquito_raw$genus == "Ochlerotatus"] <- "Aedes"
+
+# Check the first few rows to confirm changes, or use unique() to see the change in genus values
+unique(mosquito_raw$genus)
+
+```
+
+### Execute proposed changes.
+```{r}
+# Create a copy of the dataframe to avoid modifying the original
+mosquito_modified <- mosquito_raw
+
+# Change records where genus is "Ochlerotatus" to "Aedes"
+#mosquito_modified$genus[mosquito_modified$genus == "Ochlerotatus"] <- "Aedes"
+
+# Filter out records where Collection Date is before 2013 or after 2021
+# Ensure Collection Date is in Date format if it's not already
+mosquito_modified$`collection date` <- as.Date(mosquito_modified$`collection date`)
+
+# Convert all species code values to uppercase
+mosquito_modified <- mosquito_modified %>%
+  mutate(`species code` = toupper(`species code`))
+
+# Now apply the date filter
+mosquito_modified <- mosquito_modified[mosquito_modified$`collection date` >= as.Date("2013-01-01") & 
+                                       mosquito_modified$`collection date` <= as.Date("2021-12-31"), ]
+
+# Remove rows with NA values in the remaining columns of the modified dataframe, 
+# except for "Submitted for Testing" which we'll handle separately
+temp_columns <- names(mosquito_modified)
+temp_columns <- temp_columns[temp_columns != "submitted for testing"]
+
+# Applying NA omit on selected columns only
+mosquito_clean_except_submitted <- na.omit(mosquito_modified[temp_columns])
+
+# Since na.omit on selected columns messes with row alignment, let's filter the original dataset based on the cleaned IDs
+clean_ids <- row.names(mosquito_clean_except_submitted)
+mosquito_final <- mosquito_modified[clean_ids, ]
+
+# Add back "Submitted for Testing" from the original dataframe if needed
+# Note: This step might be redundant if "Submitted for Testing" was not actually removed or if it's included in the cleaning process
+mosquito_final$`submitted for testing` <- mosquito_raw$`submitted for testing`[clean_ids]
+
+# Check the structure of the final cleaned dataframe
+str(mosquito_final)
+```
+
+## Reformat the collection data
+### The Massachusetts Department of Public Health requires that all mosquito control district submit their colelction data in a specific format. This format divides each trap event into separate rows based on mosquito species. However, this format is not useful for certain calculations where a zero count for a species in not explicitly recorded. Even if you sort by species and calculate average count per trap, the average could be inflated since the records will not include trap events with a zero count of that species. 
+### In order to correct this, I will pivot the data and create a column for every unique "species code" and sum the "pool size" for each species code. The resulting table will have one row for every trap event -a trap event is when "town", "date of collection", "trap type" are all the same. 
+
+```{r}
+library(dplyr)
+library(tidyr)
+
+# Group and summarize the mosquito data to prepare for wide format transformation.
+# This step aggregates the total 'pool size' for each unique combination of 
+# 'collection date', 'town', 'trap type', 'species code', and 'mcd' (Mosquito Control District),
+# while excluding 'submitted for testing' from the grouping to avoid potential inconsistencies.
+mosquito_summarized <- mosquito_final %>%
+  group_by(`collection date`, town, `trap type`, `species code`, mcd, `submitted for testing`) %>%
+  summarise(pool_size_sum = sum(`pool size`, na.rm = TRUE), .groups = 'drop')
+   # Ensure that the summarization does not drop any groups by setting .groups = 'drop'.
+
+
+# Transform the summarized mosquito data to a wide format where each 'species code' becomes a separate column.
+# This pivot operation facilitates easier analysis of mosquito counts by species across different events.
+# 'values_fill' is used to fill in zeroes for any 'species code' not caught in a specific trapping event,
+# ensuring that the dataset has a consistent shape and making it more analyzable.
+wide_data <- mosquito_summarized %>%
+  pivot_wider(
+    names_from = `species code`,
+    values_from = pool_size_sum,
+    values_fill = list(pool_size_sum = 0),
+    id_cols = c(`collection date`, town, `trap type`, mcd)
+  )
+
+# Output the transformed wide-format data to inspect its structure and content.
+# This step is crucial for verifying that the pivot operation produced the expected wide-format dataset,
+# with each row representing a unique trapping event and columns for each mosquito species.
+head(wide_data)
+
+# Save the new file
+# Specify the file path using here()
+file_path_wide <- here("data", "processed-data", "mosquito_wide.csv")
+
+# Save the wide-format data to the specified path
+write_csv(wide_data, file_path_wide)
+
+# Print the file path to confirm where the file has been saved
+print(paste("File saved to:", file_path_wide))
+```
+
+# Exploring the Data
+##Study location
+Below is a map of the mosquito trap sites. This is an interactive map and will only work on web or other html-friendly platforms. 
+```{r}
+# Create the map
+map_study <- leaflet(trap_location) %>%
+  addTiles() %>%  # This adds the default OpenStreetMap tiles
+  addMarkers(lng = ~DecLong, lat = ~DecLat, popup = ~Location)  # Customize the popup content as needed
+
+# Display the map
+map_study
+
+# Specify the path and name of your HTML file
+file_path_map <- here("results", "figures", "map_study.html")
+
+# Save the map
+saveWidget(map_study, file_path_map, selfcontained = TRUE)
+```
+
+## EEE in mosquitoes and mammals
+### To give an idea of when EEE virus silled over from mosquitoes and birds and into mammal populations, lets take a look at the data. Let's see when the first EEE isolations were found in mosquitoes each year. Let's also look at the years that human and veterinary cases occured.
+### From the table, we see that human or othe mammal cases were recorded in 2014, 2018, 2019, and 2020. 2019 had the highest case counts for both humans and other mammals. **Because of this, we will pay close attention to 2019 through out the exploration.**
+
+```{r}
+library(dplyr)
+library(lubridate)
+
+# virus_data, cases_human, and cases_vet data frames 
+
+# Prepare virus_data: Find the first positive EEE test date by year
+first_positive_eee_test_by_year <- virus_data %>%
+  filter(Virus == "EEE") %>%
+  mutate(Year = year(as.Date(Collection.Date))) %>%
+  group_by(Year) %>%
+  summarise(First_Positive_Test_Date = min(Collection.Date)) %>%
+  ungroup() %>%
+  arrange(Year)
+
+# Prepare cases_human: Summarize human EEE cases by year
+human_cases_by_year <- cases_human %>%
+  filter(`Virus Result` == "EEE") %>%
+  mutate(Year = year(`Onset Date`)) %>%
+  group_by(Year) %>%
+  summarise(Human_Cases = n()) %>%
+  ungroup() %>%
+  arrange(Year)
+
+# Prepare cases_vet: Summarize animal EEE cases by year
+animal_cases_by_year <- cases_vet %>%
+  filter(virus == "eee") %>%
+  group_by(year) %>%
+  summarise(Animal_Cases = n()) %>%
+  ungroup() %>%
+  arrange(year)
+
+# Ensure 'Year' column is numeric across all data frames for compatibility
+# Note: This step might already be covered by the mutations above but included here for clarity
+first_positive_eee_test_by_year$Year <- as.numeric(first_positive_eee_test_by_year$Year)
+animal_cases_by_year$year <- as.numeric(animal_cases_by_year$year) # Make sure year is numeric and named consistently
+
+# Merge the summaries into one combined data frame
+combined_eee_data <- first_positive_eee_test_by_year %>%
+  left_join(human_cases_by_year, by = "Year") %>%
+  left_join(animal_cases_by_year, by = c("Year" = "year")) # Ensure correct column names are used for joining
+
+# Replace NA values with 0 for Human_Cases and Animal_Cases
+combined_eee_data$Human_Cases[is.na(combined_eee_data$Human_Cases)] <- 0
+combined_eee_data$Animal_Cases[is.na(combined_eee_data$Animal_Cases)] <- 0
+
+# Use kable() to create a basic table
+library(knitr)
+library(kableExtra)
+
+# Creating the table with centered headings and data
+kable_table_isolation_case <- kable(combined_eee_data, "html", 
+                     col.names = c("Year", "First Positive EEE Test Date", "Human EEE Cases", "Animal EEE Cases"),
+                     caption = "Annual Summary of EEE Virus Activity",
+                     align = c('c','c','c','c')) %>% # This aligns all columns' data to center
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+                full_width = F, position = "center") %>%
+  add_header_above(c(" " = 1, "EEE Virus Detection and Cases" = 3)) %>%
+  column_spec(1, bold = TRUE) %>%
+  column_spec(2, width = "8em") %>% # Adjusted width without altering alignment
+  column_spec(3, width = "5em", bold = TRUE, color = "red") %>%
+  column_spec(4, width = "5em", bold = TRUE, color = "blue")
+
+# Displaying the table
+kable_table_isolation_case
+
+# Define the path where you want to save the HTML file
+#output_path_quarto <- here("results", "tables", "eee_isolation_cases")
+output_path_png <- here("results", "tables", "eee_isolation_cases.png")
+
+# Save the kableExtra table as an HTML file
+#save_kable(kable_table_isolation_case, file = output_path_quarto)
+save_kable(kable_table_isolation_case, file = output_path_png)
+```
+## Which county has the most EEE positive mosquitoes of those tested? 
+```{r}
+eee_positive_by_county <- virus_data %>%
+  filter(Virus == "EEE") %>%  # Filter for rows where Virus is EEE
+  group_by(County) %>%
+  summarise(EEE_Positive_Tests = n()) %>%  # Count the number of EEE positive tests in each group
+  arrange(desc(EEE_Positive_Tests))  # Order the results by EEE_Positive_Tests in descending order
+
+# Create the table with kable and style it with kableExtra
+eee_positive_table <- kable(eee_positive_by_county, "html", 
+                            col.names = c("County", "EEE Positive Tests"),
+                            caption = "EEE Positive Tests by County",
+                            align = c('c','c')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+                full_width = FALSE, position = "center") %>%
+  column_spec(1, bold = TRUE) %>%
+  column_spec(2, bold = TRUE, color = "red")
+
+# Display the table
+eee_positive_table
+
+# Define the path where you want to save the HTML file
+#output_path_qmd <- here("results", "tables", "eee_isolation_county.html")
+output_path_county <- here("results", "tables", "eee_isolation_county.png")
+
+# Save the kableExtra table as an HTML file
+#save_kable(eee_positive_table, file = output_path_qmd)
+save_kable(eee_positive_table, file = output_path_county)
+```
+## *Culiseta melanura* (MEL) is the main enzootic vector of EEE. Some entomologist believe that high levels of MEL traps indicate higher risk for EEE transmission. Using the new mosquito collection table created from the pivot, let's calculate the proportion of MEL captured compared to all other mosquito vector species and create a plot to visualize it. 
+### 
+```{r}
+# Define path to the data file
+trap_wide_path = here("data", "processed-data", "mosquito_wide.csv")
+
+# Read the data
+trap_proportion = read.csv(trap_wide_path)
+
+# Convert 'collection.date' to Date type using the correct format and extract the year
+trap_proportion$Year <- year(ymd(trap_proportion$collection.date))
+
+# Sum all specified species by the calculated year, including any additional species codes you have
+yearly_sums <- trap_proportion %>%
+  group_by(Year) %>%
+  summarise(across(c("MEL", "PER", "PIP", "RES", "SAL", "TRI", "SAP"), sum, na.rm = TRUE)) %>%
+  # After summarising, calculate the total counts for all species per year
+  mutate(Total = rowSums(across(c("MEL", "PER", "PIP", "RES", "SAL", "TRI", "SAP"))),
+         # Calculate the proportion of MEL out of the total for all species
+         MEL_Prop = MEL / Total)
+
+# View the result with the proportion of MEL
+print(yearly_sums)
+
+library(ggplot2)
+
+mel_plot = ggplot(yearly_sums, aes(x = factor(Year), y = MEL_Prop, fill = "MEL")) +
+  geom_bar(stat = "identity", color = "black") +
+  labs(title = expression(Proportion ~ of ~ italic("Culiseta melanura") ~ (MEL) ~ Mosquitoes ~ by ~ Year),
+       x = NULL,
+       y = "Proportion of MEL") +
+  scale_fill_discrete(name = "Species") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
+mel_plot
+# Specify the file path where you want to save the plot
+#file_path_mel = here("results", "figures", "mel_proportion.png")
+# Use ggsave to save the plot
+#ggsave(file_path_mel, plot = mel_plot, width = 8, height = 6, dpi = 300)
+
+
+
+```
+## Mosquito abundance is affected by weather. Mosquitoes depend on standing water to complete their larval development. Let's take a look at the annual precipitation using the wx data frame. 
+```{r annual precip}
+
+
+# Convert DATE from character to Date type using as.Date and specifying the format
+wx$DATE <- as.Date(wx$DATE, format="%m/%d/%y")
+
+# The as.Date function treats years in the format "yy" as follows:
+# Years 00-68 are treated as 2000-2068, and years 69-99 are treated as 1969-1999.
+# Adjust this according to your data's actual year range if needed.
+
+# Extract the year from each DATE
+wx$Year <- format(wx$DATE, "%Y") %>% as.numeric()
+
+# Now that we have the years as numeric values, let's filter for 2013 to 2020
+filtered_wx <- wx %>%
+  filter(Year >= 2013 & Year <= 2020)
+
+# Sum PRCP by Year for the filtered data
+summed_prcp_by_year_filtered <- filtered_wx %>%
+  group_by(Year) %>%
+  summarise(Total_PRCP = sum(PRCP, na.rm = TRUE))
+
+# View the result
+print(summed_prcp_by_year_filtered)
+
+# Create the ggplot object and assign it to a variable
+precip_plot <- ggplot(summed_prcp_by_year_filtered, aes(x = as.factor(Year), y = Total_PRCP)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  labs(title = "Total Precipitation by Year (2013-2020)",
+       x = "Year",
+       y = "Total Precipitation (inches)") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Specify the file path where you want to save the plot
+file_path_precip <- here("results", "figures", "annual_precip.png")
+
+# Use ggsave to save the plot, make sure to use the plot object
+ggsave(file_path_precip, plot = precip_plot, width = 8, height = 6, dpi = 300)
+```
+
+
+
+
+
+
+
+
+
+
