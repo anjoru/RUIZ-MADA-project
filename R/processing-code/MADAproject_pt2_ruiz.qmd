@@ -8,9 +8,11 @@ editor: visual
 ---
 
 # Introduction
+
 ## This file contains the process for loading, cleaning and exploring the datasets.
 
 # Loading libraries
+
 ```{r, message=FALSE, warning=FALSE}
 library(readxl) #for loading Excel files
 library(httr)   #for getting data from the web
@@ -32,11 +34,15 @@ library(magick) #advanced image processing in R
 library(leaflet) #Enables the creation of interactive maps
 library(htmlwidgets) #Facilitates the creation of R bindings to JavaScript libraries
 ```
+
 # Loading data
 
 ## Mosquito trap data
+
 ### This dataset contains trap counts by species for all mosquito traps set in the Bristol County from 2007-2023
-### this dataset will undergo extensive processing below. 
+
+### this dataset will undergo extensive processing below.
+
 ```{r trap-data-import}
 # Construct the path to the Excel file
 file_path_mos <- here("data", "processed-data", "MOSQ_MADA.xlsx")
@@ -47,8 +53,11 @@ mosquito_raw <- read_excel(file_path_mos)
 #load the first few rows of data to verify the data loaded as expected
 head(mosquito_raw)
 ```
-## Mosquito trap sites 
+
+## Mosquito trap sites
+
 ### Location for the mosquito trap sites
+
 ```{r}
 # Construct the path to the file
 file_path_trap = here("data", "processed-data", "BCMCP_trap_sites_2021.xlsx")
@@ -62,10 +71,19 @@ str(trap_location)
 
 #The last 3 columns have missing data. However, they are not important for the purposes of this project
 # there is not a need to delete the records
+#However, we will delete the columns
+
+trap_location_selected <- trap_location %>%
+  select(`Trap Site Address`, MCD, Location, DecLat, DecLong)
+trap_location_selected
 ```
+
 ## Mosquito virus data
+
 ### The virus isolation data is stored in separate spreadsheets by year from 2014 to 2020
+
 ### This code will load all the files, combine them, and then save the combined file in the "raw data" folder
+
 ```{r}
 #Define the path to the folder with Excel files
 folder_path <- here("data", "processed-data", "virus_data")
@@ -92,8 +110,11 @@ write.csv(combined_data, combined_path, row.names = FALSE)
 # View the first few rows to confirm it's loaded correctly
 head(virus_data)
 ```
+
 ## Bird data
+
 ### The complete bird dataset is over 600 MB. Because it is too large for GitHub, it is stored locally. It contain variables and records that are not needed for this analysis. Eight of 50 varibles will be kept and the records will be filtered to show only birds from the Genus Corvus observed in Massachusetts after 2014-01-01
+
 ```{r}
 # Load complete bird data
 bird <- read.table("/Users/andrewruiz/0011508-240216155721649.csv", sep = "\t", header = TRUE, fill = TRUE)
@@ -127,7 +148,9 @@ head(filtered_bird)
 ```
 
 ## Weather data
+
 ### This dataset contains daily weather summaries from the Taunton, MA Airport from 2007-2023
+
 ```{r}
 # Construct the path to the file
 file_path_wx = here("data", "processed-data", "weather_airport.csv")
@@ -144,7 +167,9 @@ wx_selected <- wx %>%
 
 head(wx_selected)
 ```
+
 ## Human and veterinary cases of eastern equine encephalitis and West Nile virus
+
 ```{r}
 # Construct the path to the human case data file
 file_path_human <- here("data", "processed-data", "human_cases.xlsx")
@@ -168,7 +193,9 @@ head(cases_vet)
 ```
 
 # Processing and cleaning the Mosquito trap data
+
 ### Examine the variables and change all column names to lower case
+
 ```{r}
 str(mosquito_raw)
 
@@ -181,20 +208,25 @@ head(mosquito_raw)
 ```
 
 ### Identify the time period the dataset covers
+
 ```{r}
 earliest_date <- min(mosquito_raw$`Collection Date`, na.rm = TRUE)
 latest_date <- max(mosquito_raw$`Collection Date`, na.rm = TRUE)
 print(paste("Date range:", earliest_date," to ", latest_date))
 ```
+
 #### The mosquito dataset spans 2007 to 2023. However, the virus and case data only covers the years 2014 to 2020. Because mosquito populations can be influences by processes of the previous year. We will set the analytical horizon will span 2013 to 2021.*Collection data before 2013 and after 2021 will be removed* along with records with important missing variables identified below.
 
 ### Identify missing data
+
 ```{r}
 sapply(mosquito_raw, function(x) sum(is.na(x)))
 ```
+
 #### The majority of the missing data is in the "Submitted for Testing" variable. This is not a crucial variable, so we can keep those records.The other variable are important and so we will remove those records with the other missing data.
 
 ### The Massachussetts Department of Public Health adpoted a taxonomy change before it was fully vetted. The change divided the genus *Aedes* into a new genus: *Ochlerotatus*. To align with accepted standards, I will change them back to *Aedes*.
+
 ```{r}
 # Get unique values using dplyr
 unique_genus_values <- mosquito_raw %>%
@@ -213,6 +245,7 @@ unique(mosquito_raw$genus)
 ```
 
 ### Execute proposed changes.
+
 ```{r}
 # Create a copy of the dataframe to avoid modifying the original
 mosquito_modified <- mosquito_raw
@@ -253,8 +286,10 @@ str(mosquito_final)
 ```
 
 ## Reformat the collection data
-### The Massachusetts Department of Public Health requires that all mosquito control district submit their colelction data in a specific format. This format divides each trap event into separate rows based on mosquito species. However, this format is not useful for certain calculations where a zero count for a species in not explicitly recorded. Even if you sort by species and calculate average count per trap, the average could be inflated since the records will not include trap events with a zero count of that species. 
-### In order to correct this, I will pivot the data and create a column for every unique "species code" and sum the "pool size" for each species code. The resulting table will have one row for every trap event -a trap event is when "town", "date of collection", "trap type" are all the same. 
+
+### The Massachusetts Department of Public Health requires that all mosquito control district submit their colelction data in a specific format. This format divides each trap event into separate rows based on mosquito species. However, this format is not useful for certain calculations where a zero count for a species in not explicitly recorded. Even if you sort by species and calculate average count per trap, the average could be inflated since the records will not include trap events with a zero count of that species.
+
+### In order to correct this, I will pivot the data and create a column for every unique "species code" and sum the "pool size" for each species code. The resulting table will have one row for every trap event -a trap event is when "town", "date of collection", "trap type" are all the same.
 
 ```{r}
 library(dplyr)
@@ -299,8 +334,9 @@ print(paste("File saved to:", file_path_wide))
 ```
 
 # Exploring the Data
-##Study location
-Below is a map of the mosquito trap sites. This is an interactive map and will only work on web or other html-friendly platforms. 
+
+##Study location Below is a map of the mosquito trap sites. This is an interactive map and will only work on web or other html-friendly platforms.
+
 ```{r}
 # Create the map
 map_study <- leaflet(trap_location) %>%
@@ -318,7 +354,9 @@ saveWidget(map_study, file_path_map, selfcontained = TRUE)
 ```
 
 ## EEE in mosquitoes and mammals
+
 ### To give an idea of when EEE virus silled over from mosquitoes and birds and into mammal populations, lets take a look at the data. Let's see when the first EEE isolations were found in mosquitoes each year. Let's also look at the years that human and veterinary cases occured.
+
 ### From the table, we see that human or othe mammal cases were recorded in 2014, 2018, 2019, and 2020. 2019 had the highest case counts for both humans and other mammals. **Because of this, we will pay close attention to 2019 through out the exploration.**
 
 ```{r}
@@ -395,7 +433,9 @@ output_path_png <- here("results", "tables", "eee_isolation_cases.png")
 #save_kable(kable_table_isolation_case, file = output_path_quarto)
 save_kable(kable_table_isolation_case, file = output_path_png)
 ```
-## Which county has the most EEE positive mosquitoes of those tested? 
+
+## Which county has the most EEE positive mosquitoes of those tested?
+
 ```{r}
 eee_positive_by_county <- virus_data %>%
   filter(Virus == "EEE") %>%  # Filter for rows where Virus is EEE
@@ -424,8 +464,11 @@ output_path_county <- here("results", "tables", "eee_isolation_county.png")
 #save_kable(eee_positive_table, file = output_path_qmd)
 save_kable(eee_positive_table, file = output_path_county)
 ```
-## *Culiseta melanura* (MEL) is the main enzootic vector of EEE. Some entomologist believe that high levels of MEL traps indicate higher risk for EEE transmission. Using the new mosquito collection table created from the pivot, let's calculate the proportion of MEL captured compared to all other mosquito vector species and create a plot to visualize it. 
+
+## *Culiseta melanura* (MEL) is the main enzootic vector of EEE. Some entomologist believe that high levels of MEL traps indicate higher risk for EEE transmission. Using the new mosquito collection table created from the pivot, let's calculate the proportion of MEL captured compared to all other mosquito vector species and create a plot to visualize it.
+
 ### 
+
 ```{r}
 # Define path to the data file
 trap_wide_path = here("data", "processed-data", "mosquito_wide.csv")
@@ -467,7 +510,9 @@ mel_plot
 
 
 ```
-## Mosquito abundance is affected by weather. Mosquitoes depend on standing water to complete their larval development. Let's take a look at the annual precipitation using the wx data frame. 
+
+## Mosquito abundance is affected by weather. Mosquitoes depend on standing water to complete their larval development. Let's take a look at the annual precipitation using the wx data frame.
+
 ```{r annual precip}
 
 
@@ -508,11 +553,3 @@ file_path_precip <- here("results", "figures", "annual_precip.png")
 # Use ggsave to save the plot, make sure to use the plot object
 ggsave(file_path_precip, plot = precip_plot, width = 8, height = 6, dpi = 300)
 ```
-
-
-
-
-
-
-
-

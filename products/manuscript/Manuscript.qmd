@@ -197,12 +197,47 @@ include statistical tests to determine if there are possible
 associations between the environmental variables and the mosquito
 abundance as measured by trap counts or EEE virus activity.
 
+It is important to know where the mosquitoes infected with EEE are captured. Below is a table showing the virus isolations for EEE in trapped mosquitoes by county between 2014 and 2020. 
+```{r}
+# Create the table with kable and style it with kableExtra
+eee_positive_table <- kable(eee_positive_by_county, "html", 
+                            col.names = c("County", "EEE Positive Tests"),
+                            caption = "EEE Positive Tests by County",
+                            align = c('c','c')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+                full_width = FALSE, position = "center") %>%
+  column_spec(1, bold = TRUE) %>%
+  column_spec(2, bold = TRUE, color = "red")
+
+# Display the table
+eee_positive_table
+```
+The geographic focus for this study is Bristol County.
 One factor to consider is if early virus isolations are associated with
 cases in humans and other mammals. The table below shows the date of the
 first EEE virus isolation in mosquitoes and the number of human of other
 animal cases by year.
+```{r}
+# Use kable() to create a basic table
+library(knitr)
+library(kableExtra)
 
-![](images/eee_isolation_cases-01.png){fig-align="center" width="320"}
+# Creating the table with centered headings and data
+kable_table_isolation_case <- kable(combined_eee_data, "html", 
+                     col.names = c("Year", "First Positive EEE Test Date", "Human EEE Cases", "Animal EEE Cases"),
+                     caption = "Annual Summary of EEE Virus Activity",
+                     align = c('c','c','c','c')) %>% # This aligns all columns' data to center
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+                full_width = F, position = "center") %>%
+  add_header_above(c(" " = 1, "EEE Virus Detection and Cases" = 3)) %>%
+  column_spec(1, bold = TRUE) %>%
+  column_spec(2, width = "8em") %>% # Adjusted width without altering alignment
+  column_spec(3, width = "5em", bold = TRUE, color = "red") %>%
+  column_spec(4, width = "5em", bold = TRUE, color = "blue")
+
+# Displaying the table
+kable_table_isolation_case
+```
 
 Unfortunately, the time horizon is limited by data availability.
 Additionally, EEE human infections are rare, so traditional statistical
@@ -213,7 +248,7 @@ that 2019 was an exceptional year for EEE.
 amplification in the enzootic cycle. Understanding the population
 dynamics might provide more insight into what is driving the 2019 spike.
 
-The table below shows the proportion of MEL among all mosquito vector
+The graph below shows the proportion of MEL among all mosquito vector
 species trapped in Bristol County, MA.
 
 ![](images/mel_proportion.png){fig-align="center"}
@@ -262,3 +297,4 @@ These limitations are barriers to accurate spatial analysis.
 # References
 
 References will be added in part 3 of the project
+
