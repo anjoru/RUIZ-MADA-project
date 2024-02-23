@@ -18,24 +18,25 @@ library(dplyr)  #for data processing/cleaning
 library(tidyr)  #for data processing/cleaning
 library(skimr)  #for visualizing data 
 library(here)   #allows relative pathways for data
-library(readr)
-library(naniar) 
-library(ggplot2)
-library(sf)
-library(topicmodels)
-library(openxlsx)
-library(lubridate)
-library(knitr)
-library(kableExtra)
-library(webshot2)
-library(magick)
-library(leaflet)
-library(htmlwidgets)
+library(readr) #reading and writing data to and from CSV, TSV, and fixed-width files
+library(naniar) #tools to work with missing data
+library(ggplot2) #plot creation
+library(sf) #standardized way to encode spatial data
+library(topicmodels) #tools for topic modeling on text data
+library(openxlsx) #Facilitates reading from and writing to .xlsx files
+library(lubridate) #Simplifies the work with dates and times
+library(knitr) #Allows for dynamic report generation in R
+library(kableExtra) #generates simple HTML or LaTeX tables
+library(webshot2) #tools to take screenshots of web pages 
+library(magick) #advanced image processing in R
+library(leaflet) #Enables the creation of interactive maps
+library(htmlwidgets) #Facilitates the creation of R bindings to JavaScript libraries
 ```
 # Loading data
 
 ## Mosquito trap data
 ### This dataset contains trap counts by species for all mosquito traps set in the Bristol County from 2007-2023
+### this dataset will undergo extensive processing below. 
 ```{r trap-data-import}
 # Construct the path to the Excel file
 file_path_mos <- here("data", "processed-data", "MOSQ_MADA.xlsx")
@@ -136,6 +137,12 @@ wx = read.csv(file_path_wx)
 
 #load the first few rows of data to verify the data loaded as expected
 head(wx)
+
+#the columns below are the only ones needed for this project. 
+wx_selected <- wx %>%
+  select(STATION, NAME, DATE, PRCP)
+
+head(wx_selected)
 ```
 ## Human and veterinary cases of eastern equine encephalitis and West Nile virus
 ```{r}
@@ -156,6 +163,8 @@ cases_vet <- read_excel(file_path_vet)
 
 #load the first few rows of data to verify the data loaded as expected
 head(cases_vet)
+#date of onset is missing for some records, however, they are not needed for this project. 
+
 ```
 
 # Processing and cleaning the Mosquito trap data
@@ -499,8 +508,6 @@ file_path_precip <- here("results", "figures", "annual_precip.png")
 # Use ggsave to save the plot, make sure to use the plot object
 ggsave(file_path_precip, plot = precip_plot, width = 8, height = 6, dpi = 300)
 ```
-
-
 
 
 
