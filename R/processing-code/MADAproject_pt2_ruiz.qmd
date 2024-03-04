@@ -98,17 +98,17 @@ data_list <- lapply(file_paths, read_excel)
 print(basename(file_paths))
 
 #Combine the datasets
-combined_data <- bind_rows(data_list)
+combined_virus_data <- bind_rows(data_list)
 
 # Define the path for the combined dataset
 combined_path <- here("data", "processed-data", "combined_virus_data.csv")
 
 # Save the combined data frame as a CSV file
-write.csv(combined_data, combined_path, row.names = FALSE)
+write.csv(combined_virus_data, combined_path, row.names = FALSE)
 
 
 # View the first few rows to confirm it's loaded correctly
-head(virus_data)
+head(combined_virus_data)
 ```
 
 ## Bird data
@@ -189,7 +189,6 @@ cases_vet <- read_excel(file_path_vet)
 #load the first few rows of data to verify the data loaded as expected
 head(cases_vet)
 #date of onset is missing for some records, however, they are not needed for this project. 
-
 ```
 
 # Processing and cleaning the Mosquito trap data
@@ -210,8 +209,8 @@ head(mosquito_raw)
 ### Identify the time period the dataset covers
 
 ```{r}
-earliest_date <- min(mosquito_raw$`Collection Date`, na.rm = TRUE)
-latest_date <- max(mosquito_raw$`Collection Date`, na.rm = TRUE)
+earliest_date <- min(mosquito_raw$`collection date`, na.rm = TRUE)
+latest_date <- max(mosquito_raw$`collection date`, na.rm = TRUE)
 print(paste("Date range:", earliest_date," to ", latest_date))
 ```
 
@@ -366,11 +365,11 @@ library(lubridate)
 # virus_data, cases_human, and cases_vet data frames 
 
 # Prepare virus_data: Find the first positive EEE test date by year
-first_positive_eee_test_by_year <- virus_data %>%
+first_positive_eee_test_by_year <- combined_virus_data %>%
   filter(Virus == "EEE") %>%
-  mutate(Year = year(as.Date(Collection.Date))) %>%
+  mutate(Year = year(as.Date(`Collection Date`))) %>%
   group_by(Year) %>%
-  summarise(First_Positive_Test_Date = min(Collection.Date)) %>%
+  summarise(First_Positive_Test_Date = min(`Collection Date`)) %>%
   ungroup() %>%
   arrange(Year)
 
@@ -437,7 +436,7 @@ save_kable(kable_table_isolation_case, file = output_path_png)
 ## Which county has the most EEE positive mosquitoes of those tested?
 
 ```{r}
-eee_positive_by_county <- virus_data %>%
+eee_positive_by_county <- combined_virus_data %>%
   filter(Virus == "EEE") %>%  # Filter for rows where Virus is EEE
   group_by(County) %>%
   summarise(EEE_Positive_Tests = n()) %>%  # Count the number of EEE positive tests in each group

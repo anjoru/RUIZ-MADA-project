@@ -137,18 +137,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)  <span class="co">#for data processing/cleaning</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)  <span class="co">#for visualizing data </span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)   <span class="co">#allows relative pathways for data</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(naniar) </span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(topicmodels)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(openxlsx)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(webshot2)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magick)</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaflet)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr) <span class="co">#reading and writing data to and from CSV, TSV, and fixed-width files</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(naniar) <span class="co">#tools to work with missing data</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2) <span class="co">#plot creation</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf) <span class="co">#standardized way to encode spatial data</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(topicmodels) <span class="co">#tools for topic modeling on text data</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(openxlsx) <span class="co">#Facilitates reading from and writing to .xlsx files</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate) <span class="co">#Simplifies the work with dates and times</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr) <span class="co">#Allows for dynamic report generation in R</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra) <span class="co">#generates simple HTML or LaTeX tables</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(webshot2) <span class="co">#tools to take screenshots of web pages </span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magick) <span class="co">#advanced image processing in R</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaflet) <span class="co">#Enables the creation of interactive maps</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(htmlwidgets) <span class="co">#Facilitates the creation of R bindings to JavaScript libraries</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="loading-data" class="level1">
@@ -157,9 +158,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="mosquito-trap-data">Mosquito trap data</h2>
 <section id="this-dataset-contains-trap-counts-by-species-for-all-mosquito-traps-set-in-the-bristol-county-from-2007-2023" class="level3">
 <h3 class="anchored" data-anchor-id="this-dataset-contains-trap-counts-by-species-for-all-mosquito-traps-set-in-the-bristol-county-from-2007-2023">This dataset contains trap counts by species for all mosquito traps set in the Bristol County from 2007-2023</h3>
+</section>
+<section id="this-dataset-will-undergo-extensive-processing-below." class="level3">
+<h3 class="anchored" data-anchor-id="this-dataset-will-undergo-extensive-processing-below.">this dataset will undergo extensive processing below.</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct the path to the Excel file</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>file_path_mos <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"raw-data"</span>, <span class="st">"MOSQ_MADA.xlsx"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>file_path_mos <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"processed-data"</span>, <span class="st">"MOSQ_MADA.xlsx"</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># import the data to R and store it in a dataframe named "mosquito"</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>mosquito_raw <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(file_path_mos)</span>
@@ -189,7 +193,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="location-for-the-mosquito-trap-sites">Location for the mosquito trap sites</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct the path to the file</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>file_path_trap <span class="ot">=</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"raw-data"</span>, <span class="st">"BCMCP_trap_sites_2021.xlsx"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>file_path_trap <span class="ot">=</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"processed-data"</span>, <span class="st">"BCMCP_trap_sites_2021.xlsx"</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># import the data to R and store it in a dataframe named "trap_location"</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>trap_location <span class="ot">=</span> <span class="fu">read_excel</span>(file_path_trap)</span>
@@ -219,6 +223,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  $ Inact            : logi [1:152] NA NA NA NA NA NA ...
  $ Edit             : logi [1:152] NA NA NA NA NA NA ...</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#The last 3 columns have missing data. However, they are not important for the purposes of this project</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># there is not a need to delete the records</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#However, we will delete the columns</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>trap_location_selected <span class="ot">&lt;-</span> trap_location <span class="sc">%&gt;%</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Trap Site Address</span><span class="st">`</span>, MCD, Location, DecLat, DecLong)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>trap_location_selected</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 152 × 5
+   `Trap Site Address`               MCD     Location             DecLat DecLong
+   &lt;chr&gt;                             &lt;chr&gt;   &lt;chr&gt;                 &lt;dbl&gt;   &lt;dbl&gt;
+ 1 Crown Street, BR                  Bristol Attleboro: Attlebor…   41.9   -71.4
+ 2 Rutledge st., BR                  Bristol Attleboro: Attlebor…   41.9   -71.4
+ 3 Adamsdale Road &amp; Siesta Drive, BR Bristol North Attleborough:…   41.9   -71.4
+ 4 Lee's Playground                  Bristol Attleboro: Attlebor…   41.9   -71.4
+ 5 Newport Avenue #960, BR           Bristol Attleboro: Attlebor…   41.9   -71.4
+ 6 66 Hillside Road, BR              Bristol North Attleborough:…   42.0   -71.3
+ 7 Ray Hodde st., BR                 Bristol Seekonk: Seekonk 02…   41.8   -71.3
+ 8 County Street #290, BR            Bristol Seekonk: Seekonk 02…   41.8   -71.3
+ 9 JL Dietsch Blvd, BR               Bristol North Attleborough:…   42.0   -71.3
+10 Barneyville Road, BR              Bristol Swansea: Swansea 02…   41.8   -71.3
+# ℹ 142 more rows</code></pre>
+</div>
 </div>
 </section>
 </section>
@@ -230,71 +257,68 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="this-code-will-load-all-the-files-combine-them-and-then-save-the-combined-file-in-the-raw-data-folder" class="level3">
 <h3 class="anchored" data-anchor-id="this-code-will-load-all-the-files-combine-them-and-then-save-the-combined-file-in-the-raw-data-folder">This code will load all the files, combine them, and then save the combined file in the “raw data” folder</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Define the path to the folder with Excel files</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>folder_path <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"raw-data"</span>, <span class="st">"virus_data"</span>)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">#List all Excel files (.xls and .xlsx)</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>file_paths <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="at">path =</span> folder_path, <span class="at">pattern =</span> <span class="st">"</span><span class="sc">\\</span><span class="st">.xls[x]*$"</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Read each file into a list of data frames</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>data_list <span class="ot">&lt;-</span> <span class="fu">lapply</span>(file_paths, read_excel)</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Check the names of the files read</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">basename</span>(file_paths))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Define the path to the folder with Excel files</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>folder_path <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"processed-data"</span>, <span class="st">"virus_data"</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#List all Excel files (.xls and .xlsx)</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>file_paths <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="at">path =</span> folder_path, <span class="at">pattern =</span> <span class="st">"</span><span class="sc">\\</span><span class="st">.xls[x]*$"</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Read each file into a list of data frames</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>data_list <span class="ot">&lt;-</span> <span class="fu">lapply</span>(file_paths, read_excel)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Check the names of the files read</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">basename</span>(file_paths))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2014virus.xls"  "2015virus.xls"  "2016virus.xls"  "2017virus.xls" 
 [5] "2018virus.xlsx" "2019virus.xlsx" "2020virus.xlsx"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Combine the datasets</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>combined_data <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(data_list)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the path for the combined dataset</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>combined_path <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"raw-data"</span>, <span class="st">"combined_virus_data.csv"</span>)</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the combined data frame as a CSV file</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(combined_data, combined_path, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the path to the combined dataset using the here() function</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>combined_path <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"raw-data"</span>, <span class="st">"combined_virus_data.csv"</span>)</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset into R as a dataframe named virus_data</span></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>virus_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(combined_path)</span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="co"># View the first few rows to confirm it's loaded correctly</span></span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(virus_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Combine the datasets</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>combined_virus_data <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(data_list)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the path for the combined dataset</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>combined_path <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"processed-data"</span>, <span class="st">"combined_virus_data.csv"</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the combined data frame as a CSV file</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(combined_virus_data, combined_path, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co"># View the first few rows to confirm it's loaded correctly</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(combined_virus_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   County        Town Collection.Date           Species Virus
-1 Bristol    Freetown      2014-07-31 Culiseta melanura   EEE
-2 Bristol    Freetown      2014-07-31 Culiseta melanura   EEE
-3 Bristol New Bedford      2014-08-04 Culiseta melanura   EEE
-4 Bristol    Freetown      2014-08-08 Culiseta melanura   EEE
-5 Bristol    Westport      2014-08-11 Culiseta melanura   EEE
-6 Bristol    Freetown      2014-08-15 Culiseta melanura   EEE</code></pre>
+<pre><code># A tibble: 6 × 5
+  County  Town        `Collection Date`   Species           Virus
+  &lt;chr&gt;   &lt;chr&gt;       &lt;dttm&gt;              &lt;chr&gt;             &lt;chr&gt;
+1 Bristol Freetown    2014-07-31 00:00:00 Culiseta melanura EEE  
+2 Bristol Freetown    2014-07-31 00:00:00 Culiseta melanura EEE  
+3 Bristol New Bedford 2014-08-04 00:00:00 Culiseta melanura EEE  
+4 Bristol Freetown    2014-08-08 00:00:00 Culiseta melanura EEE  
+5 Bristol Westport    2014-08-11 00:00:00 Culiseta melanura EEE  
+6 Bristol Freetown    2014-08-15 00:00:00 Culiseta melanura EEE  </code></pre>
 </div>
 </div>
 </section>
 </section>
 <section id="bird-data" class="level2">
 <h2 class="anchored" data-anchor-id="bird-data">Bird data</h2>
-<section id="the-complete-bird-dataset-is-over-600-mb.-because-it-is-too-large-for-github-it-is-stored-locally.-it-contain-variables-and-records-that-are-not-needed-for-this-analysis.-eight-of-50-varibles-will-be-kept-and-the-records-will-be-filtered-to-show-only-birds-from-the-order-passeriformes-observed-in-massachusetts-after-2014-01-01" class="level3">
-<h3 class="anchored" data-anchor-id="the-complete-bird-dataset-is-over-600-mb.-because-it-is-too-large-for-github-it-is-stored-locally.-it-contain-variables-and-records-that-are-not-needed-for-this-analysis.-eight-of-50-varibles-will-be-kept-and-the-records-will-be-filtered-to-show-only-birds-from-the-order-passeriformes-observed-in-massachusetts-after-2014-01-01">The complete bird dataset is over 600 MB. Because it is too large for GitHub, it is stored locally. It contain variables and records that are not needed for this analysis. Eight of 50 varibles will be kept and the records will be filtered to show only birds from the Order Passeriformes observed in Massachusetts after 2014-01-01</h3>
+<section id="the-complete-bird-dataset-is-over-600-mb.-because-it-is-too-large-for-github-it-is-stored-locally.-it-contain-variables-and-records-that-are-not-needed-for-this-analysis.-eight-of-50-varibles-will-be-kept-and-the-records-will-be-filtered-to-show-only-birds-from-the-genus-corvus-observed-in-massachusetts-after-2014-01-01" class="level3">
+<h3 class="anchored" data-anchor-id="the-complete-bird-dataset-is-over-600-mb.-because-it-is-too-large-for-github-it-is-stored-locally.-it-contain-variables-and-records-that-are-not-needed-for-this-analysis.-eight-of-50-varibles-will-be-kept-and-the-records-will-be-filtered-to-show-only-birds-from-the-genus-corvus-observed-in-massachusetts-after-2014-01-01">The complete bird dataset is over 600 MB. Because it is too large for GitHub, it is stored locally. It contain variables and records that are not needed for this analysis. Eight of 50 varibles will be kept and the records will be filtered to show only birds from the Genus Corvus observed in Massachusetts after 2014-01-01</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load complete bird data</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>bird <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"/Users/andrewruiz/0011508-240216155721649.csv"</span>, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">fill =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Select variables to keep and then filter records based on order, stateProvince, and eventDate</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>bird_select <span class="ot">&lt;-</span> bird <span class="sc">%&gt;%</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(genus, </span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>         species,</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>         stateProvince, </span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>         decimalLatitude, </span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>         decimalLongitude, </span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>         eventDate) <span class="sc">%&gt;%</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">eventDate =</span> <span class="fu">as.Date</span>(eventDate, <span class="at">format =</span> <span class="st">"%Y-%m-%d"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(eventDate <span class="sc">&gt;</span> <span class="fu">as.Date</span>(<span class="st">"2014-01-01"</span>), genus <span class="sc">==</span> <span class="st">"Corvus"</span>, stateProvince <span class="sc">==</span> <span class="st">"Massachusetts"</span>)</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect the structure of the filtered dataset</span></span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(bird_select)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load complete bird data</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>bird <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"/Users/andrewruiz/0011508-240216155721649.csv"</span>, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">fill =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Select variables to keep and then filter records based on order, stateProvince, and eventDate</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>bird_select <span class="ot">&lt;-</span> bird <span class="sc">%&gt;%</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(genus, </span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>         species,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>         stateProvince, </span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>         decimalLatitude, </span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>         decimalLongitude, </span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>         eventDate) <span class="sc">%&gt;%</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">eventDate =</span> <span class="fu">as.Date</span>(eventDate, <span class="at">format =</span> <span class="st">"%Y-%m-%d"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(eventDate <span class="sc">&gt;</span> <span class="fu">as.Date</span>(<span class="st">"2014-01-01"</span>), genus <span class="sc">==</span> <span class="st">"Corvus"</span>, stateProvince <span class="sc">==</span> <span class="st">"Massachusetts"</span>)</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect the structure of the filtered dataset</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(bird_select)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   12293 obs. of  6 variables:
  $ genus           : chr  "Corvus" "Corvus" "Corvus" "Corvus" ...
@@ -304,17 +328,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  $ decimalLongitude: chr  "-70.75801" "-71.02362" "-70.879" "-70.84186" ...
  $ eventDate       : Date, format: "2021-09-18" "2020-07-10" ...</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the file path using here()</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>output_file_path <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"raw-data"</span>, <span class="st">"filtered_bird_data.csv"</span>)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the bird_select dataframe to the specified folder</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(bird_select, output_file_path, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the filtered bird data to R</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>filtered_bird <span class="ot">=</span> <span class="fu">read_csv</span>(output_file_path, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ensure the csv loaded properly</span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(filtered_bird)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the file path using here()</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>output_file_path <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"processed-data"</span>, <span class="st">"filtered_bird_data.csv"</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the bird_select dataframe to the specified folder</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(bird_select, output_file_path, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the filtered bird data to R</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>filtered_bird <span class="ot">=</span> <span class="fu">read_csv</span>(output_file_path, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ensure the csv loaded properly</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(filtered_bird)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>spc_tbl_ [12,293 × 6] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
  $ genus           : chr [1:12293] "Corvus" "Corvus" "Corvus" "Corvus" ...
@@ -334,7 +358,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   .. )
  - attr(*, "problems")=&lt;externalptr&gt; </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(filtered_bird)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(filtered_bird)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 6
   genus  species       stateProvince decimalLatitude decimalLongitude eventDate 
@@ -354,14 +378,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="this-dataset-contains-daily-weather-summaries-from-the-taunton-ma-airport-from-2007-2023" class="level3">
 <h3 class="anchored" data-anchor-id="this-dataset-contains-daily-weather-summaries-from-the-taunton-ma-airport-from-2007-2023">This dataset contains daily weather summaries from the Taunton, MA Airport from 2007-2023</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct the path to the file</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>file_path_wx <span class="ot">=</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"raw-data"</span>, <span class="st">"weather_airport.csv"</span>)</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># import the data to R and store it in a dataframe named "wx"</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>wx <span class="ot">=</span> <span class="fu">read.csv</span>(file_path_wx)</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co">#load the first few rows of data to verify the data loaded as expected</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(wx)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct the path to the file</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>file_path_wx <span class="ot">=</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"processed-data"</span>, <span class="st">"weather_airport.csv"</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># import the data to R and store it in a dataframe named "wx"</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>wx <span class="ot">=</span> <span class="fu">read.csv</span>(file_path_wx)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co">#load the first few rows of data to verify the data loaded as expected</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(wx)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      STATION                             NAME   DATE  AWND AWND_ATTRIBUTES
 1 USW00054777 TAUNTON MUNICIPAL AIRPORT, MA US 1/1/07  6.49             ,,W
@@ -392,28 +416,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 5                
 6                </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(wx)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#the columns below are the only ones needed for this project. </span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>wx_selected <span class="ot">&lt;-</span> wx <span class="sc">%&gt;%</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(STATION, NAME, DATE, PRCP)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(wx_selected)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>'data.frame':   5977 obs. of  19 variables:
- $ STATION        : chr  "USW00054777" "USW00054777" "USW00054777" "USW00054777" ...
- $ NAME           : chr  "TAUNTON MUNICIPAL AIRPORT, MA US" "TAUNTON MUNICIPAL AIRPORT, MA US" "TAUNTON MUNICIPAL AIRPORT, MA US" "TAUNTON MUNICIPAL AIRPORT, MA US" ...
- $ DATE           : chr  "1/1/07" "1/2/07" "1/3/07" "1/4/07" ...
- $ AWND           : num  6.49 8.95 7.61 6.71 8.28 ...
- $ AWND_ATTRIBUTES: chr  ",,W" ",,W" ",,W" ",,W" ...
- $ PRCP           : num  1.17 0.01 0 0 0.04 0.05 0.83 0 0 0 ...
- $ PRCP_ATTRIBUTES: chr  ",,W" ",,W" ",,W" ",,W" ...
- $ TMAX           : int  57 48 50 54 60 63 58 45 37 38 ...
- $ TMAX_ATTRIBUTES: chr  ",,W" ",,W" ",,W" ",,W" ...
- $ TMIN           : int  26 34 25 37 48 54 41 25 23 21 ...
- $ TMIN_ATTRIBUTES: chr  ",,W" ",,W" ",,W" ",,W" ...
- $ WT01           : int  1 NA NA NA 1 1 1 NA 1 NA ...
- $ WT01_ATTRIBUTES: chr  ",,W" "" "" "" ...
- $ WT02           : int  NA NA NA NA NA NA NA NA NA NA ...
- $ WT02_ATTRIBUTES: chr  "" "" "" "" ...
- $ WT03           : int  NA NA NA NA NA NA NA NA NA NA ...
- $ WT03_ATTRIBUTES: chr  "" "" "" "" ...
- $ WT08           : int  NA NA NA NA NA NA NA NA NA NA ...
- $ WT08_ATTRIBUTES: chr  "" "" "" "" ...</code></pre>
+<pre><code>      STATION                             NAME   DATE PRCP
+1 USW00054777 TAUNTON MUNICIPAL AIRPORT, MA US 1/1/07 1.17
+2 USW00054777 TAUNTON MUNICIPAL AIRPORT, MA US 1/2/07 0.01
+3 USW00054777 TAUNTON MUNICIPAL AIRPORT, MA US 1/3/07 0.00
+4 USW00054777 TAUNTON MUNICIPAL AIRPORT, MA US 1/4/07 0.00
+5 USW00054777 TAUNTON MUNICIPAL AIRPORT, MA US 1/5/07 0.04
+6 USW00054777 TAUNTON MUNICIPAL AIRPORT, MA US 1/6/07 0.05</code></pre>
 </div>
 </div>
 </section>
@@ -421,14 +436,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="human-and-veterinary-cases-of-eastern-equine-encephalitis-and-west-nile-virus" class="level2">
 <h2 class="anchored" data-anchor-id="human-and-veterinary-cases-of-eastern-equine-encephalitis-and-west-nile-virus">Human and veterinary cases of eastern equine encephalitis and West Nile virus</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct the path to the human case data file</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>file_path_human <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"raw-data"</span>, <span class="st">"human_cases.xlsx"</span>)</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># import the data to R and store it in a dataframe named "cases_human"</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>cases_human <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(file_path_human)</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co">#load the first few rows of data to verify the data loaded as expected</span></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cases_human)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct the path to the human case data file</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>file_path_human <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"processed-data"</span>, <span class="st">"human_cases.xlsx"</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># import the data to R and store it in a dataframe named "cases_human"</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>cases_human <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(file_path_human)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co">#load the first few rows of data to verify the data loaded as expected</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cases_human)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 5
   County   `Age Range` `Onset Date`        `Virus Result` Clinical Presentatio…¹
@@ -441,14 +456,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 6 Middles… 41-50       2014-09-28 00:00:00 WNV            meningoencephalitis   
 # ℹ abbreviated name: ¹​`Clinical Presentation`</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct the path to the veterinary case data file</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>file_path_vet <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"raw-data"</span>, <span class="st">"animal_cases.xlsx"</span>)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># import the data to R and store it in a dataframe named "cases_human"</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>cases_vet <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(file_path_vet)</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co">#load the first few rows of data to verify the data loaded as expected</span></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cases_vet)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct the path to the veterinary case data file</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>file_path_vet <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"processed-data"</span>, <span class="st">"animal_cases.xlsx"</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># import the data to R and store it in a dataframe named "cases_human"</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>cases_vet <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(file_path_vet)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co">#load the first few rows of data to verify the data loaded as expected</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cases_vet)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 6
   date_onset           year animal city            county    virus
@@ -460,6 +475,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 5 NA                   2018 horse  Bernardston     Franklin  wnv  
 6 NA                   2018 horse  Granby          Hampshire wnv  </code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#date of onset is missing for some records, however, they are not needed for this project. </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -468,7 +484,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="examine-the-variables-and-change-all-column-names-to-lower-case" class="level3">
 <h3 class="anchored" data-anchor-id="examine-the-variables-and-change-all-column-names-to-lower-case">Examine the variables and change all column names to lower case</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(mosquito_raw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(mosquito_raw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>tibble [45,389 × 12] (S3: tbl_df/tbl/data.frame)
  $ MCD                  : chr [1:45389] "Bristol" "State Lab Institute" "Bristol" "Bristol" ...
@@ -484,11 +500,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  $ Genus                : chr [1:45389] "Ochlerotatus" "Ochlerotatus" "Anopheles" "Ochlerotatus" ...
  $ Species              : chr [1:45389] "provocans" "trivittatus" "walkeri" "abserratus" ...</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set column names to lowercase</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(mosquito_raw) <span class="ot">&lt;-</span> <span class="fu">tolower</span>(<span class="fu">names</span>(mosquito_raw))</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the first few rows to confirm changes</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mosquito_raw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set column names to lowercase</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(mosquito_raw) <span class="ot">&lt;-</span> <span class="fu">tolower</span>(<span class="fu">names</span>(mosquito_raw))</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the first few rows to confirm changes</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mosquito_raw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 12
   mcd     `pool id` `species code` `trap set date`     `collection date`   town 
@@ -508,25 +524,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="identify-the-time-period-the-dataset-covers" class="level3">
 <h3 class="anchored" data-anchor-id="identify-the-time-period-the-dataset-covers">Identify the time period the dataset covers</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>earliest_date <span class="ot">&lt;-</span> <span class="fu">min</span>(mosquito_raw<span class="sc">$</span><span class="st">`</span><span class="at">Collection Date</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Unknown or uninitialised column: `Collection Date`.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in min(mosquito_raw$`Collection Date`, na.rm = TRUE): no non-missing
-arguments to min; returning Inf</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>latest_date <span class="ot">&lt;-</span> <span class="fu">max</span>(mosquito_raw<span class="sc">$</span><span class="st">`</span><span class="at">Collection Date</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Unknown or uninitialised column: `Collection Date`.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in max(mosquito_raw$`Collection Date`, na.rm = TRUE): no non-missing
-arguments to max; returning -Inf</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Date range:"</span>, earliest_date,<span class="st">" to "</span>, latest_date))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>earliest_date <span class="ot">&lt;-</span> <span class="fu">min</span>(mosquito_raw<span class="sc">$</span><span class="st">`</span><span class="at">collection date</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>latest_date <span class="ot">&lt;-</span> <span class="fu">max</span>(mosquito_raw<span class="sc">$</span><span class="st">`</span><span class="at">collection date</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Date range:"</span>, earliest_date,<span class="st">" to "</span>, latest_date))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Date range: Inf  to  -Inf"</code></pre>
+<pre><code>[1] "Date range: 2007-05-10  to  2023-11-01"</code></pre>
 </div>
 </div>
 <section id="the-mosquito-dataset-spans-2007-to-2023.-however-the-virus-and-case-data-only-covers-the-years-2014-to-2020.-because-mosquito-populations-can-be-influences-by-processes-of-the-previous-year.-we-will-set-the-analytical-horizon-will-span-2013-to-2021.collection-data-before-2013-and-after-2021-will-be-removed-along-with-records-with-important-missing-variables-identified-below." class="level4">
@@ -536,7 +538,7 @@ arguments to max; returning -Inf</code></pre>
 <section id="identify-missing-data" class="level3">
 <h3 class="anchored" data-anchor-id="identify-missing-data">Identify missing data</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(mosquito_raw, <span class="cf">function</span>(x) <span class="fu">sum</span>(<span class="fu">is.na</span>(x)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(mosquito_raw, <span class="cf">function</span>(x) <span class="fu">sum</span>(<span class="fu">is.na</span>(x)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                  mcd               pool id          species code 
                     0                     0                     6 
@@ -555,24 +557,24 @@ submitted for testing                 genus               species
 <section id="the-massachussetts-department-of-public-health-adpoted-a-taxonomy-change-before-it-was-fully-vetted.-the-change-divided-the-genus-aedes-into-a-new-genus-ochlerotatus.-to-align-with-accepted-standards-i-will-change-them-back-to-aedes." class="level3">
 <h3 class="anchored" data-anchor-id="the-massachussetts-department-of-public-health-adpoted-a-taxonomy-change-before-it-was-fully-vetted.-the-change-divided-the-genus-aedes-into-a-new-genus-ochlerotatus.-to-align-with-accepted-standards-i-will-change-them-back-to-aedes.">The Massachussetts Department of Public Health adpoted a taxonomy change before it was fully vetted. The change divided the genus <em>Aedes</em> into a new genus: <em>Ochlerotatus</em>. To align with accepted standards, I will change them back to <em>Aedes</em>.</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get unique values using dplyr</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>unique_genus_values <span class="ot">&lt;-</span> mosquito_raw <span class="sc">%&gt;%</span></span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(genus) <span class="sc">%&gt;%</span></span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(genus)</span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the unique genus values</span></span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(unique_genus_values)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get unique values using dplyr</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>unique_genus_values <span class="ot">&lt;-</span> mosquito_raw <span class="sc">%&gt;%</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(genus) <span class="sc">%&gt;%</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(genus)</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the unique genus values</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(unique_genus_values)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "Ochlerotatus"   "Anopheles"      "Aedes"          "Psorophora"    
  [5] "Culex"          "Culiseta"       "Coquillettidia" "Uranotaenia"   
  [9] "No Collections" NA               "no collections" "No collections"
 [13] "Toxorhynchites" "Orthopodomyia"  "Wyeomia"        "Unknown"       </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change records where genus is "Ochlerotatus" to "Aedes"</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>mosquito_raw<span class="sc">$</span>genus[mosquito_raw<span class="sc">$</span>genus <span class="sc">==</span> <span class="st">"Ochlerotatus"</span>] <span class="ot">&lt;-</span> <span class="st">"Aedes"</span></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the first few rows to confirm changes, or use unique() to see the change in genus values</span></span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(mosquito_raw<span class="sc">$</span>genus)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change records where genus is "Ochlerotatus" to "Aedes"</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>mosquito_raw<span class="sc">$</span>genus[mosquito_raw<span class="sc">$</span>genus <span class="sc">==</span> <span class="st">"Ochlerotatus"</span>] <span class="ot">&lt;-</span> <span class="st">"Aedes"</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the first few rows to confirm changes, or use unique() to see the change in genus values</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(mosquito_raw<span class="sc">$</span>genus)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "Aedes"          "Anopheles"      "Psorophora"     "Culex"         
  [5] "Culiseta"       "Coquillettidia" "Uranotaenia"    "No Collections"
@@ -584,42 +586,42 @@ submitted for testing                 genus               species
 <section id="execute-proposed-changes." class="level3">
 <h3 class="anchored" data-anchor-id="execute-proposed-changes.">Execute proposed changes.</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a copy of the dataframe to avoid modifying the original</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>mosquito_modified <span class="ot">&lt;-</span> mosquito_raw</span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Change records where genus is "Ochlerotatus" to "Aedes"</span></span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="co">#mosquito_modified$genus[mosquito_modified$genus == "Ochlerotatus"] &lt;- "Aedes"</span></span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter out records where Collection Date is before 2013 or after 2021</span></span>
-<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure Collection Date is in Date format if it's not already</span></span>
-<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>mosquito_modified<span class="sc">$</span><span class="st">`</span><span class="at">collection date</span><span class="st">`</span> <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(mosquito_modified<span class="sc">$</span><span class="st">`</span><span class="at">collection date</span><span class="st">`</span>)</span>
-<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert all species code values to uppercase</span></span>
-<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a>mosquito_modified <span class="ot">&lt;-</span> mosquito_modified <span class="sc">%&gt;%</span></span>
-<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">species code</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">toupper</span>(<span class="st">`</span><span class="at">species code</span><span class="st">`</span>))</span>
-<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Now apply the date filter</span></span>
-<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a>mosquito_modified <span class="ot">&lt;-</span> mosquito_modified[mosquito_modified<span class="sc">$</span><span class="st">`</span><span class="at">collection date</span><span class="st">`</span> <span class="sc">&gt;=</span> <span class="fu">as.Date</span>(<span class="st">"2013-01-01"</span>) <span class="sc">&amp;</span> </span>
-<span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a>                                       mosquito_modified<span class="sc">$</span><span class="st">`</span><span class="at">collection date</span><span class="st">`</span> <span class="sc">&lt;=</span> <span class="fu">as.Date</span>(<span class="st">"2021-12-31"</span>), ]</span>
-<span id="cb44-18"><a href="#cb44-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-19"><a href="#cb44-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove rows with NA values in the remaining columns of the modified dataframe, </span></span>
-<span id="cb44-20"><a href="#cb44-20" aria-hidden="true" tabindex="-1"></a><span class="co"># except for "Submitted for Testing" which we'll handle separately</span></span>
-<span id="cb44-21"><a href="#cb44-21" aria-hidden="true" tabindex="-1"></a>temp_columns <span class="ot">&lt;-</span> <span class="fu">names</span>(mosquito_modified)</span>
-<span id="cb44-22"><a href="#cb44-22" aria-hidden="true" tabindex="-1"></a>temp_columns <span class="ot">&lt;-</span> temp_columns[temp_columns <span class="sc">!=</span> <span class="st">"submitted for testing"</span>]</span>
-<span id="cb44-23"><a href="#cb44-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-24"><a href="#cb44-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Applying NA omit on selected columns only</span></span>
-<span id="cb44-25"><a href="#cb44-25" aria-hidden="true" tabindex="-1"></a>mosquito_clean_except_submitted <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(mosquito_modified[temp_columns])</span>
-<span id="cb44-26"><a href="#cb44-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-27"><a href="#cb44-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Since na.omit on selected columns messes with row alignment, let's filter the original dataset based on the cleaned IDs</span></span>
-<span id="cb44-28"><a href="#cb44-28" aria-hidden="true" tabindex="-1"></a>clean_ids <span class="ot">&lt;-</span> <span class="fu">row.names</span>(mosquito_clean_except_submitted)</span>
-<span id="cb44-29"><a href="#cb44-29" aria-hidden="true" tabindex="-1"></a>mosquito_final <span class="ot">&lt;-</span> mosquito_modified[clean_ids, ]</span>
-<span id="cb44-30"><a href="#cb44-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-31"><a href="#cb44-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Add back "Submitted for Testing" from the original dataframe if needed</span></span>
-<span id="cb44-32"><a href="#cb44-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: This step might be redundant if "Submitted for Testing" was not actually removed or if it's included in the cleaning process</span></span>
-<span id="cb44-33"><a href="#cb44-33" aria-hidden="true" tabindex="-1"></a>mosquito_final<span class="sc">$</span><span class="st">`</span><span class="at">submitted for testing</span><span class="st">`</span> <span class="ot">&lt;-</span> mosquito_raw<span class="sc">$</span><span class="st">`</span><span class="at">submitted for testing</span><span class="st">`</span>[clean_ids]</span>
-<span id="cb44-34"><a href="#cb44-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-35"><a href="#cb44-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the structure of the final cleaned dataframe</span></span>
-<span id="cb44-36"><a href="#cb44-36" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(mosquito_final)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a copy of the dataframe to avoid modifying the original</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>mosquito_modified <span class="ot">&lt;-</span> mosquito_raw</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Change records where genus is "Ochlerotatus" to "Aedes"</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="co">#mosquito_modified$genus[mosquito_modified$genus == "Ochlerotatus"] &lt;- "Aedes"</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter out records where Collection Date is before 2013 or after 2021</span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure Collection Date is in Date format if it's not already</span></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>mosquito_modified<span class="sc">$</span><span class="st">`</span><span class="at">collection date</span><span class="st">`</span> <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(mosquito_modified<span class="sc">$</span><span class="st">`</span><span class="at">collection date</span><span class="st">`</span>)</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert all species code values to uppercase</span></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>mosquito_modified <span class="ot">&lt;-</span> mosquito_modified <span class="sc">%&gt;%</span></span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">species code</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">toupper</span>(<span class="st">`</span><span class="at">species code</span><span class="st">`</span>))</span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Now apply the date filter</span></span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>mosquito_modified <span class="ot">&lt;-</span> mosquito_modified[mosquito_modified<span class="sc">$</span><span class="st">`</span><span class="at">collection date</span><span class="st">`</span> <span class="sc">&gt;=</span> <span class="fu">as.Date</span>(<span class="st">"2013-01-01"</span>) <span class="sc">&amp;</span> </span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>                                       mosquito_modified<span class="sc">$</span><span class="st">`</span><span class="at">collection date</span><span class="st">`</span> <span class="sc">&lt;=</span> <span class="fu">as.Date</span>(<span class="st">"2021-12-31"</span>), ]</span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove rows with NA values in the remaining columns of the modified dataframe, </span></span>
+<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a><span class="co"># except for "Submitted for Testing" which we'll handle separately</span></span>
+<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a>temp_columns <span class="ot">&lt;-</span> <span class="fu">names</span>(mosquito_modified)</span>
+<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a>temp_columns <span class="ot">&lt;-</span> temp_columns[temp_columns <span class="sc">!=</span> <span class="st">"submitted for testing"</span>]</span>
+<span id="cb41-23"><a href="#cb41-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-24"><a href="#cb41-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Applying NA omit on selected columns only</span></span>
+<span id="cb41-25"><a href="#cb41-25" aria-hidden="true" tabindex="-1"></a>mosquito_clean_except_submitted <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(mosquito_modified[temp_columns])</span>
+<span id="cb41-26"><a href="#cb41-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-27"><a href="#cb41-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Since na.omit on selected columns messes with row alignment, let's filter the original dataset based on the cleaned IDs</span></span>
+<span id="cb41-28"><a href="#cb41-28" aria-hidden="true" tabindex="-1"></a>clean_ids <span class="ot">&lt;-</span> <span class="fu">row.names</span>(mosquito_clean_except_submitted)</span>
+<span id="cb41-29"><a href="#cb41-29" aria-hidden="true" tabindex="-1"></a>mosquito_final <span class="ot">&lt;-</span> mosquito_modified[clean_ids, ]</span>
+<span id="cb41-30"><a href="#cb41-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-31"><a href="#cb41-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Add back "Submitted for Testing" from the original dataframe if needed</span></span>
+<span id="cb41-32"><a href="#cb41-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: This step might be redundant if "Submitted for Testing" was not actually removed or if it's included in the cleaning process</span></span>
+<span id="cb41-33"><a href="#cb41-33" aria-hidden="true" tabindex="-1"></a>mosquito_final<span class="sc">$</span><span class="st">`</span><span class="at">submitted for testing</span><span class="st">`</span> <span class="ot">&lt;-</span> mosquito_raw<span class="sc">$</span><span class="st">`</span><span class="at">submitted for testing</span><span class="st">`</span>[clean_ids]</span>
+<span id="cb41-34"><a href="#cb41-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-35"><a href="#cb41-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the structure of the final cleaned dataframe</span></span>
+<span id="cb41-36"><a href="#cb41-36" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(mosquito_final)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>tibble [23,995 × 12] (S3: tbl_df/tbl/data.frame)
  $ mcd                  : chr [1:23995] "Bristol" "State Lab Institute" "Bristol" "Bristol" ...
@@ -637,41 +639,43 @@ submitted for testing                 genus               species
 </div>
 </div>
 </section>
+<section id="reformat-the-collection-data" class="level2">
+<h2 class="anchored" data-anchor-id="reformat-the-collection-data">Reformat the collection data</h2>
 <section id="the-massachusetts-department-of-public-health-requires-that-all-mosquito-control-district-submit-their-colelction-data-in-a-specific-format.-this-format-divides-each-trap-event-into-separate-rows-based-on-mosquito-species.-however-this-format-is-not-useful-for-certain-calculations-where-a-zero-count-for-a-species-in-not-explicitly-recorded.-even-if-you-sort-by-species-and-calculate-average-count-per-trap-the-average-could-be-inflated-since-the-records-will-not-include-trap-events-with-a-zero-count-of-that-species." class="level3">
 <h3 class="anchored" data-anchor-id="the-massachusetts-department-of-public-health-requires-that-all-mosquito-control-district-submit-their-colelction-data-in-a-specific-format.-this-format-divides-each-trap-event-into-separate-rows-based-on-mosquito-species.-however-this-format-is-not-useful-for-certain-calculations-where-a-zero-count-for-a-species-in-not-explicitly-recorded.-even-if-you-sort-by-species-and-calculate-average-count-per-trap-the-average-could-be-inflated-since-the-records-will-not-include-trap-events-with-a-zero-count-of-that-species.">The Massachusetts Department of Public Health requires that all mosquito control district submit their colelction data in a specific format. This format divides each trap event into separate rows based on mosquito species. However, this format is not useful for certain calculations where a zero count for a species in not explicitly recorded. Even if you sort by species and calculate average count per trap, the average could be inflated since the records will not include trap events with a zero count of that species.</h3>
 </section>
 <section id="in-order-to-correct-this-i-will-pivot-the-data-and-create-a-column-for-every-unique-species-code-and-sum-the-pool-size-for-each-species-code.-the-resulting-table-will-have-one-row-for-every-trap-event--a-trap-event-is-when-town-date-of-collection-trap-type-are-all-the-same." class="level3">
 <h3 class="anchored" data-anchor-id="in-order-to-correct-this-i-will-pivot-the-data-and-create-a-column-for-every-unique-species-code-and-sum-the-pool-size-for-each-species-code.-the-resulting-table-will-have-one-row-for-every-trap-event--a-trap-event-is-when-town-date-of-collection-trap-type-are-all-the-same.">In order to correct this, I will pivot the data and create a column for every unique “species code” and sum the “pool size” for each species code. The resulting table will have one row for every trap event -a trap event is when “town”, “date of collection”, “trap type” are all the same.</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Group and summarize the mosquito data to prepare for wide format transformation.</span></span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="co"># This step aggregates the total 'pool size' for each unique combination of </span></span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 'collection date', 'town', 'trap type', 'species code', and 'mcd' (Mosquito Control District),</span></span>
-<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="co"># while excluding 'submitted for testing' from the grouping to avoid potential inconsistencies.</span></span>
-<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>mosquito_summarized <span class="ot">&lt;-</span> mosquito_final <span class="sc">%&gt;%</span></span>
-<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">collection date</span><span class="st">`</span>, town, <span class="st">`</span><span class="at">trap type</span><span class="st">`</span>, <span class="st">`</span><span class="at">species code</span><span class="st">`</span>, mcd, <span class="st">`</span><span class="at">submitted for testing</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">pool_size_sum =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">pool size</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">'drop'</span>)</span>
-<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>   <span class="co"># Ensure that the summarization does not drop any groups by setting .groups = 'drop'.</span></span>
-<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Transform the summarized mosquito data to a wide format where each 'species code' becomes a separate column.</span></span>
-<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a><span class="co"># This pivot operation facilitates easier analysis of mosquito counts by species across different events.</span></span>
-<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 'values_fill' is used to fill in zeroes for any 'species code' not caught in a specific trapping event,</span></span>
-<span id="cb46-17"><a href="#cb46-17" aria-hidden="true" tabindex="-1"></a><span class="co"># ensuring that the dataset has a consistent shape and making it more analyzable.</span></span>
-<span id="cb46-18"><a href="#cb46-18" aria-hidden="true" tabindex="-1"></a>wide_data <span class="ot">&lt;-</span> mosquito_summarized <span class="sc">%&gt;%</span></span>
-<span id="cb46-19"><a href="#cb46-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
-<span id="cb46-20"><a href="#cb46-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> <span class="st">`</span><span class="at">species code</span><span class="st">`</span>,</span>
-<span id="cb46-21"><a href="#cb46-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> pool_size_sum,</span>
-<span id="cb46-22"><a href="#cb46-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_fill =</span> <span class="fu">list</span>(<span class="at">pool_size_sum =</span> <span class="dv">0</span>),</span>
-<span id="cb46-23"><a href="#cb46-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">id_cols =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">collection date</span><span class="st">`</span>, town, <span class="st">`</span><span class="at">trap type</span><span class="st">`</span>, mcd)</span>
-<span id="cb46-24"><a href="#cb46-24" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb46-25"><a href="#cb46-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-26"><a href="#cb46-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Output the transformed wide-format data to inspect its structure and content.</span></span>
-<span id="cb46-27"><a href="#cb46-27" aria-hidden="true" tabindex="-1"></a><span class="co"># This step is crucial for verifying that the pivot operation produced the expected wide-format dataset,</span></span>
-<span id="cb46-28"><a href="#cb46-28" aria-hidden="true" tabindex="-1"></a><span class="co"># with each row representing a unique trapping event and columns for each mosquito species.</span></span>
-<span id="cb46-29"><a href="#cb46-29" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(wide_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Group and summarize the mosquito data to prepare for wide format transformation.</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="co"># This step aggregates the total 'pool size' for each unique combination of </span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 'collection date', 'town', 'trap type', 'species code', and 'mcd' (Mosquito Control District),</span></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="co"># while excluding 'submitted for testing' from the grouping to avoid potential inconsistencies.</span></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>mosquito_summarized <span class="ot">&lt;-</span> mosquito_final <span class="sc">%&gt;%</span></span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">collection date</span><span class="st">`</span>, town, <span class="st">`</span><span class="at">trap type</span><span class="st">`</span>, <span class="st">`</span><span class="at">species code</span><span class="st">`</span>, mcd, <span class="st">`</span><span class="at">submitted for testing</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">pool_size_sum =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">pool size</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">'drop'</span>)</span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>   <span class="co"># Ensure that the summarization does not drop any groups by setting .groups = 'drop'.</span></span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Transform the summarized mosquito data to a wide format where each 'species code' becomes a separate column.</span></span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a><span class="co"># This pivot operation facilitates easier analysis of mosquito counts by species across different events.</span></span>
+<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 'values_fill' is used to fill in zeroes for any 'species code' not caught in a specific trapping event,</span></span>
+<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a><span class="co"># ensuring that the dataset has a consistent shape and making it more analyzable.</span></span>
+<span id="cb43-18"><a href="#cb43-18" aria-hidden="true" tabindex="-1"></a>wide_data <span class="ot">&lt;-</span> mosquito_summarized <span class="sc">%&gt;%</span></span>
+<span id="cb43-19"><a href="#cb43-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb43-20"><a href="#cb43-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> <span class="st">`</span><span class="at">species code</span><span class="st">`</span>,</span>
+<span id="cb43-21"><a href="#cb43-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> pool_size_sum,</span>
+<span id="cb43-22"><a href="#cb43-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_fill =</span> <span class="fu">list</span>(<span class="at">pool_size_sum =</span> <span class="dv">0</span>),</span>
+<span id="cb43-23"><a href="#cb43-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">id_cols =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">collection date</span><span class="st">`</span>, town, <span class="st">`</span><span class="at">trap type</span><span class="st">`</span>, mcd)</span>
+<span id="cb43-24"><a href="#cb43-24" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb43-25"><a href="#cb43-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-26"><a href="#cb43-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Output the transformed wide-format data to inspect its structure and content.</span></span>
+<span id="cb43-27"><a href="#cb43-27" aria-hidden="true" tabindex="-1"></a><span class="co"># This step is crucial for verifying that the pivot operation produced the expected wide-format dataset,</span></span>
+<span id="cb43-28"><a href="#cb43-28" aria-hidden="true" tabindex="-1"></a><span class="co"># with each row representing a unique trapping event and columns for each mosquito species.</span></span>
+<span id="cb43-29"><a href="#cb43-29" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(wide_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 55
   `collection date` town   `trap type` mcd     ABS   CAN   GRO   MEL   PUN   EXC
@@ -690,36 +694,42 @@ submitted for testing                 genus               species
 #   HEN &lt;dbl&gt;, RUT &lt;dbl&gt;, IMP &lt;dbl&gt;, INO &lt;dbl&gt;, PRO &lt;dbl&gt;, PCT &lt;dbl&gt;,
 #   INT &lt;dbl&gt;, THI &lt;dbl&gt;, SMI &lt;dbl&gt;, STM &lt;dbl&gt;, COM &lt;dbl&gt;, BAR &lt;dbl&gt;, …</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the new file</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify the file path using here()</span></span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>file_path_wide <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"processed-data"</span>, <span class="st">"mosquito_wide.csv"</span>)</span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the wide-format data to the specified path</span></span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(wide_data, file_path_wide)</span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the file path to confirm where the file has been saved</span></span>
-<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"File saved to:"</span>, file_path_wide))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the new file</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify the file path using here()</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>file_path_wide <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"processed-data"</span>, <span class="st">"mosquito_wide.csv"</span>)</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the wide-format data to the specified path</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(wide_data, file_path_wide)</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the file path to confirm where the file has been saved</span></span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"File saved to:"</span>, file_path_wide))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "File saved to: /Users/andrewruiz/MADA_course/RUIZ-MADA-project/data/processed-data/mosquito_wide.csv"</code></pre>
 </div>
 </div>
 </section>
 </section>
+</section>
 <section id="exploring-the-data" class="level1">
 <h1>Exploring the Data</h1>
 <p>##Study location Below is a map of the mosquito trap sites. This is an interactive map and will only work on web or other html-friendly platforms.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the map</span></span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>map_study <span class="ot">&lt;-</span> <span class="fu">leaflet</span>(trap_location) <span class="sc">%&gt;%</span></span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addTiles</span>() <span class="sc">%&gt;%</span>  <span class="co"># This adds the default OpenStreetMap tiles</span></span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addMarkers</span>(<span class="at">lng =</span> <span class="sc">~</span>DecLong, <span class="at">lat =</span> <span class="sc">~</span>DecLat, <span class="at">popup =</span> <span class="sc">~</span>Location)  <span class="co"># Customize the popup content as needed</span></span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the map</span></span>
-<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>map_study</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the map</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>map_study <span class="ot">&lt;-</span> <span class="fu">leaflet</span>(trap_location) <span class="sc">%&gt;%</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addTiles</span>() <span class="sc">%&gt;%</span>  <span class="co"># This adds the default OpenStreetMap tiles</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addMarkers</span>(<span class="at">lng =</span> <span class="sc">~</span>DecLong, <span class="at">lat =</span> <span class="sc">~</span>DecLat, <span class="at">popup =</span> <span class="sc">~</span>Location)  <span class="co"># Customize the popup content as needed</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the map</span></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>map_study</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="leaflet html-widget html-fill-item" id="htmlwidget-e0dc4c98aef4666983e4" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-e0dc4c98aef4666983e4">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addMarkers","args":[[41.896164,41.898502,41.924639,41.906213,41.908257,41.974309,41.817419,41.812811,41.972889,41.769075,41.953882,41.771917,41.946186,41.931798,41.894792,41.765119,42.010735,41.775889,42.032111,41.72462,42.036905,41.748659,41.7501,41.748162,41.687035,41.715636,41.69198,41.822514,41.83628056,41.694168,41.859603,41.730076,41.681575,41.788811,41.669031,41.668875,42.047086,41.86055,42.004461,41.681631,42.009956,41.727154,41.677453,42.007319,41.676545,41.705864,41.67217778,41.701492,41.668303,41.908464,41.763947,41.693345,41.759094,41.728575,41.925353,41.708056,41.966909,41.685772,42.024544,41.714331,41.905447,41.72807,41.643229,41.956753,41.675197,41.9581,41.64,42.055692,41.923492,42.058381,42.05815,42.003387,41.956567,41.663933,41.66376667,41.993355,42.009242,41.933664,41.66115,41.921945,41.922767,41.98087,41.948314,41.958667,42.010128,41.980639,41.795258,41.506794,41.486575,41.828475,41.570414,41.700256,41.879161,41.866698,41.526589,41.74,41.72165,41.617931,41.63426667,41.718703,41.649858,41.631292,41.628336,41.63202778,41.761081,41.621366,41.623791,41.758331,41.735219,41.753872,41.755356,41.537222,41.66206667,41.648908,41.645669,41.665519,41.641094,41.754964,41.723778,41.65945278,41.622062,41.60659,41.649527,41.723723,41.649805,41.690266,41.62562,41.682931,41.66411667,41.64095556,41.66735,41.64633611,41.65196111,41.65749722,41.657523,41.658065,41.65372778,41.654033,41.639312,41.680218,41.68502222,41.654656,41.653862,41.606881,41.6526,41.652483,41.680659,41.648288,41.74439,41.708067,41.6443,41.678709],[-71.38026000000001,-71.37483,-71.371889,-71.367965,-71.35664800000001,-71.340733,-71.339095,-71.327223,-71.30035599999999,-71.292019,-71.28040799999999,-71.274642,-71.27351299999999,-71.26526699999999,-71.26482799999999,-71.261008,-71.234171,-71.218895,-71.21015800000001,-71.207083,-71.20413600000001,-71.198499,-71.19776400000001,-71.189562,-71.18390599999999,-71.18358000000001,-71.180587,-71.17936,-71.17890278,-71.178856,-71.17862,-71.17790599999999,-71.17277300000001,-71.171142,-71.169639,-71.16949443999999,-71.168167,-71.16801100000001,-71.167748,-71.167693,-71.16713799999999,-71.16467799999999,-71.16082400000001,-71.160608,-71.15971399999999,-71.158219,-71.1574,-71.155044,-71.15411400000001,-71.153569,-71.14966099999999,-71.146355,-71.145872,-71.13968056,-71.13963,-71.135586,-71.132773,-71.13186399999999,-71.128659,-71.12757499999999,-71.124931,-71.122292,-71.118719,-71.11579399999999,-71.109162,-71.109011,-71.10899999999999,-71.107653,-71.106669,-71.10037199999999,-71.096541,-71.096048,-71.090658,-71.08631800000001,-71.08630556,-71.07966999999999,-71.078828,-71.078689,-71.078075,-71.07708700000001,-71.076598,-71.075811,-71.070053,-71.069024,-71.063855,-71.059783,-71.057686,-71.044658,-71.037739,-71.029256,-71.018598,-71.01204199999999,-71.005942,-71.002211,-70.990861,-70.98305000000001,-70.980799,-70.98071400000001,-70.96536111,-70.962278,-70.959394,-70.958169,-70.95598099999999,-70.95593332999999,-70.95418600000001,-70.95325200000001,-70.951885,-70.95187300000001,-70.95142800000001,-70.950356,-70.948697,-70.947005,-70.94470833,-70.944294,-70.943355,-70.943077,-70.942362,-70.94234400000001,-70.941597,-70.94125556,-70.941166,-70.93980500000001,-70.93767200000001,-70.937619,-70.936814,-70.934691,-70.93275,-70.931511,-70.927725,-70.92728611,-70.926277,-70.92618889000001,-70.92576667,-70.92554167,-70.925372,-70.92219799999999,-70.92089167,-70.920461,-70.919399,-70.916591,-70.91410833,-70.914052,-70.91367200000001,-70.912325,-70.912325,-70.908992,-70.90781699999999,-70.903806,-70.89263,-70.87741699999999,-70.867653,-70.861769],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["Attleboro: Attleboro 02703(Bristol)","Attleboro: Attleboro 02703(Bristol)","North Attleborough: North Attleborough unknown(Bristol)","Attleboro: Attleboro 02703(Bristol)","Attleboro: Attleboro 02703(Bristol)","North Attleborough: North Attleborough 02760(Bristol)","Seekonk: Seekonk 02771(Bristol)","Seekonk: Seekonk 02771(Bristol)","North Attleborough: North Attleborough 02760(Bristol)","Swansea: Swansea 02777(Bristol)","Attleboro: Attleboro 02703(Bristol)","Swansea: Swansea 02777(Bristol)","Attleboro: Attleboro 02703(Bristol)","Attleboro: Attleboro 02703(Bristol)","Rehoboth: Rehoboth 02769(Bristol)","Swansea: Swansea 02777(Bristol)","Mansfield: Mansfield 02048(Bristol)","Swansea: Swansea 02777(Bristol)","Mansfield: Mansfield 02048(Bristol)","Swansea: Swansea 02777(Bristol)","Mansfield: Mansfield 02048(Bristol)","Swansea: Swansea 02777(Bristol)","Swansea: Swansea 02777(Bristol)","Swansea: Swansea 02777(Bristol)","Fall River: Fall River 02720(Bristol)","Somerset: Somerset 02726(Bristol)","Fall River: Fall River 02724(Bristol)","Dighton: Dighton 02715(Bristol)","Dighton: Dighton 02764(Bristol)","Fall River: Fall River 02724(Bristol)","Dighton: Dighton 02715(Bristol)","Somerset: Somerset 02725(Bristol)","Fall River: Fall River 02724(Bristol)","Swansea: Swansea 02777(Bristol)","Fall River: Fall River 02720(Bristol)","Fall River: Fall River 02721(Bristol)","Mansfield: Mansfield 02048(Bristol)","Dighton: Dighton 02715(Bristol)","Norton: Norton 02766(Bristol)","Fall River: Fall River 02720(Bristol)","Mansfield: Mansfield 02048(Bristol)","Somerset: Somerset 02725(Bristol)","Fall River: Fall River unknown(Bristol)","Norton: Norton 02766(Bristol)","Fall River: Fall River unknown(Bristol)","Fall River: Fall River unknown(Bristol)","Fall River: Fall River 02721(Bristol)","Fall River: Fall River 02720(Bristol)","Fall River: Fall River 02721(Bristol)","Taunton: Taunton 02780(Bristol)","Somerset: Somerset unknown(Bristol)","Fall River: Fall River 02720(Bristol)","Somerset: Somerset 02726(Bristol)","Fall River: Fall River 02720(Bristol)","Taunton: Taunton 02780(Bristol)","Fall River: Fall River 02720(Bristol)","Norton: Norton 02766(Bristol)","Fall River: Fall River unknown(Bristol)","Easton: Easton unknown(Bristol)","Fall River: Fall River unknown(Bristol)","Taunton: Taunton 02780(Bristol)","Fall River: Fall River 02720(Bristol)","Westport: Westport 02790(Bristol)","Taunton: Taunton 02780(Bristol)","Westport: Westport 02790(Bristol)","Taunton: Taunton 02780(Bristol)","Westport: Westport 02790(Bristol)","Easton: Easton 02356(Bristol)","Taunton: Taunton 02780(Bristol)","Easton: Easton 02356(Bristol)","Easton: Easton unknown(Bristol)","Easton: Easton 02356(Bristol)","Taunton: Taunton 02780(Bristol)","Westport: Westport 02790(Bristol)","Westport: Westport 02790(Bristol)","Easton: Easton 02375(Bristol)","Easton: Easton unknown(Bristol)","Raynham: Raynham 02767(Bristol)","Westport: Westport 02790(Bristol)","Taunton: Taunton 02780(Bristol)","Raynham: Raynham 02767(Bristol)","Raynham: Raynham unknown(Bristol)","Raynham: Raynham 02767(Bristol)","Raynham: Raynham 02767(Bristol)","Easton: Easton 02375(Bristol)","Raynham: Raynham 02767(Bristol)","Freetown: Freetown 02702(Bristol)","Westport: Westport 02790(Bristol)","Westport: Westport 02790(Bristol)","Berkley: Berkley 02779(Bristol)","Dartmouth: Dartmouth 02748(Bristol)","Dartmouth: Dartmouth 02747(Bristol)","Taunton: Taunton 02780(Bristol)","Taunton: Taunton 02780(Bristol)","Dartmouth: Dartmouth 02748(Bristol)","Freetown: Freetown unknown(Bristol)","New Bedford: New Bedford unknown(Bristol)","Dartmouth: Dartmouth 02747(Bristol)","Dartmouth: Dartmouth 02747(Bristol)","New Bedford: New Bedford 02740(Bristol)","New Bedford: New Bedford unknown(Bristol)","Dartmouth: Dartmouth 02747(Bristol)","Dartmouth: Dartmouth 02747(Bristol)","Dartmouth: Dartmouth 02747(Bristol)","Freetown: Freetown 02717(Bristol)","Dartmouth: Dartmouth 02747(Bristol)","Dartmouth: Dartmouth 02748(Bristol)","Freetown: Freetown unknown(Bristol)","New Bedford: New Bedford 02745(Bristol)","Freetown: Freetown 02717(Bristol)","Freetown: Freetown 02717(Bristol)","Dartmouth: Dartmouth 02747(Bristol)","New Bedford: New Bedford 02746(Bristol)","New Bedford: New Bedford 02740(Bristol)","New Bedford: New Bedford 02740(Bristol)","New Bedford: New Bedford 02745(Bristol)","New Bedford: New Bedford 02740(Bristol)","Freetown: Freetown unknown(Bristol)","New Bedford: New Bedford 02745(Bristol)","New Bedford: New Bedford 02746(Bristol)","New Bedford: New Bedford 02740(Bristol)","Dartmouth: Dartmouth 02748(Bristol)","New Bedford: New Bedford unknown(Bristol)","New Bedford: New Bedford 02745(Bristol)","New Bedford: New Bedford 02740(Bristol)","New Bedford: New Bedford 02745(Bristol)","New Bedford: New Bedford 02740(Bristol)","New Bedford: New Bedford 02745(Bristol)","New Bedford: New Bedford 02746(Bristol)","New Bedford: New Bedford 02740(Bristol)","New Bedford: New Bedford 02745(Bristol)","New Bedford: New Bedford 02740(Bristol)","New Bedford: New Bedford 02740(Bristol)","New Bedford: New Bedford 02746(Bristol)","New Bedford: New Bedford 02746(Bristol)","New Bedford: New Bedford 02746(Bristol)","New Bedford: New Bedford 02740(Bristol)","New Bedford: New Bedford 02740(Bristol)","New Bedford: New Bedford 02740(Bristol)","Acushnet: Acushnet 02743 (Bristol)","Acushnet: Acushnet 02743 (Bristol)","Fairhaven: Fairhaven 02719(Bristol)","Fairhaven: Fairhaven 02719(Bristol)","New Bedford: New Bedford unknown(Bristol)","Fairhaven: Fairhaven 02719(Bristol)","Fairhaven: Fairhaven 02719(Bristol)","Acushnet: Acushnet 02743 (Bristol)","Fairhaven: Fairhaven 02719(Bristol)","Acushnet: Acushnet 02743 (Bristol)","Acushnet: Acushnet 02743 (Bristol)","Fairhaven: Fairhaven 02719(Bristol)","Fairhaven: Fairhaven 02719(Bristol)"],null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[41.486575,42.058381],"lng":[-71.38026000000001,-70.861769]}},"evals":[],"jsHooks":[]}</script>
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-9c2451fc99810790242b" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-9c2451fc99810790242b">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addMarkers","args":[[41.896164,41.898502,41.924639,41.906213,41.908257,41.974309,41.817419,41.812811,41.972889,41.769075,41.953882,41.771917,41.946186,41.931798,41.894792,41.765119,42.010735,41.775889,42.032111,41.72462,42.036905,41.748659,41.7501,41.748162,41.687035,41.715636,41.69198,41.822514,41.83628056,41.694168,41.859603,41.730076,41.681575,41.788811,41.669031,41.668875,42.047086,41.86055,42.004461,41.681631,42.009956,41.727154,41.677453,42.007319,41.676545,41.705864,41.67217778,41.701492,41.668303,41.908464,41.763947,41.693345,41.759094,41.728575,41.925353,41.708056,41.966909,41.685772,42.024544,41.714331,41.905447,41.72807,41.643229,41.956753,41.675197,41.9581,41.64,42.055692,41.923492,42.058381,42.05815,42.003387,41.956567,41.663933,41.66376667,41.993355,42.009242,41.933664,41.66115,41.921945,41.922767,41.98087,41.948314,41.958667,42.010128,41.980639,41.795258,41.506794,41.486575,41.828475,41.570414,41.700256,41.879161,41.866698,41.526589,41.74,41.72165,41.617931,41.63426667,41.718703,41.649858,41.631292,41.628336,41.63202778,41.761081,41.621366,41.623791,41.758331,41.735219,41.753872,41.755356,41.537222,41.66206667,41.648908,41.645669,41.665519,41.641094,41.754964,41.723778,41.65945278,41.622062,41.60659,41.649527,41.723723,41.649805,41.690266,41.62562,41.682931,41.66411667,41.64095556,41.66735,41.64633611,41.65196111,41.65749722,41.657523,41.658065,41.65372778,41.654033,41.639312,41.680218,41.68502222,41.654656,41.653862,41.606881,41.6526,41.652483,41.680659,41.648288,41.74439,41.708067,41.6443,41.678709],[-71.38026000000001,-71.37483,-71.371889,-71.367965,-71.35664800000001,-71.340733,-71.339095,-71.327223,-71.30035599999999,-71.292019,-71.28040799999999,-71.274642,-71.27351299999999,-71.26526699999999,-71.26482799999999,-71.261008,-71.234171,-71.218895,-71.21015800000001,-71.207083,-71.20413600000001,-71.198499,-71.19776400000001,-71.189562,-71.18390599999999,-71.18358000000001,-71.180587,-71.17936,-71.17890278,-71.178856,-71.17862,-71.17790599999999,-71.17277300000001,-71.171142,-71.169639,-71.16949443999999,-71.168167,-71.16801100000001,-71.167748,-71.167693,-71.16713799999999,-71.16467799999999,-71.16082400000001,-71.160608,-71.15971399999999,-71.158219,-71.1574,-71.155044,-71.15411400000001,-71.153569,-71.14966099999999,-71.146355,-71.145872,-71.13968056,-71.13963,-71.135586,-71.132773,-71.13186399999999,-71.128659,-71.12757499999999,-71.124931,-71.122292,-71.118719,-71.11579399999999,-71.109162,-71.109011,-71.10899999999999,-71.107653,-71.106669,-71.10037199999999,-71.096541,-71.096048,-71.090658,-71.08631800000001,-71.08630556,-71.07966999999999,-71.078828,-71.078689,-71.078075,-71.07708700000001,-71.076598,-71.075811,-71.070053,-71.069024,-71.063855,-71.059783,-71.057686,-71.044658,-71.037739,-71.029256,-71.018598,-71.01204199999999,-71.005942,-71.002211,-70.990861,-70.98305000000001,-70.980799,-70.98071400000001,-70.96536111,-70.962278,-70.959394,-70.958169,-70.95598099999999,-70.95593332999999,-70.95418600000001,-70.95325200000001,-70.951885,-70.95187300000001,-70.95142800000001,-70.950356,-70.948697,-70.947005,-70.94470833,-70.944294,-70.943355,-70.943077,-70.942362,-70.94234400000001,-70.941597,-70.94125556,-70.941166,-70.93980500000001,-70.93767200000001,-70.937619,-70.936814,-70.934691,-70.93275,-70.931511,-70.927725,-70.92728611,-70.926277,-70.92618889000001,-70.92576667,-70.92554167,-70.925372,-70.92219799999999,-70.92089167,-70.920461,-70.919399,-70.916591,-70.91410833,-70.914052,-70.91367200000001,-70.912325,-70.912325,-70.908992,-70.90781699999999,-70.903806,-70.89263,-70.87741699999999,-70.867653,-70.861769],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["Attleboro: Attleboro 02703(Bristol)","Attleboro: Attleboro 02703(Bristol)","North Attleborough: North Attleborough unknown(Bristol)","Attleboro: Attleboro 02703(Bristol)","Attleboro: Attleboro 02703(Bristol)","North Attleborough: North Attleborough 02760(Bristol)","Seekonk: Seekonk 02771(Bristol)","Seekonk: Seekonk 02771(Bristol)","North Attleborough: North Attleborough 02760(Bristol)","Swansea: Swansea 02777(Bristol)","Attleboro: Attleboro 02703(Bristol)","Swansea: Swansea 02777(Bristol)","Attleboro: Attleboro 02703(Bristol)","Attleboro: Attleboro 02703(Bristol)","Rehoboth: Rehoboth 02769(Bristol)","Swansea: Swansea 02777(Bristol)","Mansfield: Mansfield 02048(Bristol)","Swansea: Swansea 02777(Bristol)","Mansfield: Mansfield 02048(Bristol)","Swansea: Swansea 02777(Bristol)","Mansfield: Mansfield 02048(Bristol)","Swansea: Swansea 02777(Bristol)","Swansea: Swansea 02777(Bristol)","Swansea: Swansea 02777(Bristol)","Fall River: Fall River 02720(Bristol)","Somerset: Somerset 02726(Bristol)","Fall River: Fall River 02724(Bristol)","Dighton: Dighton 02715(Bristol)","Dighton: Dighton 02764(Bristol)","Fall River: Fall River 02724(Bristol)","Dighton: Dighton 02715(Bristol)","Somerset: Somerset 02725(Bristol)","Fall River: Fall River 02724(Bristol)","Swansea: Swansea 02777(Bristol)","Fall River: Fall River 02720(Bristol)","Fall River: Fall River 02721(Bristol)","Mansfield: Mansfield 02048(Bristol)","Dighton: Dighton 02715(Bristol)","Norton: Norton 02766(Bristol)","Fall River: Fall River 02720(Bristol)","Mansfield: Mansfield 02048(Bristol)","Somerset: Somerset 02725(Bristol)","Fall River: Fall River unknown(Bristol)","Norton: Norton 02766(Bristol)","Fall River: Fall River unknown(Bristol)","Fall River: Fall River unknown(Bristol)","Fall River: Fall River 02721(Bristol)","Fall River: Fall River 02720(Bristol)","Fall River: Fall River 02721(Bristol)","Taunton: Taunton 02780(Bristol)","Somerset: Somerset unknown(Bristol)","Fall River: Fall River 02720(Bristol)","Somerset: Somerset 02726(Bristol)","Fall River: Fall River 02720(Bristol)","Taunton: Taunton 02780(Bristol)","Fall River: Fall River 02720(Bristol)","Norton: Norton 02766(Bristol)","Fall River: Fall River unknown(Bristol)","Easton: Easton unknown(Bristol)","Fall River: Fall River unknown(Bristol)","Taunton: Taunton 02780(Bristol)","Fall River: Fall River 02720(Bristol)","Westport: Westport 02790(Bristol)","Taunton: Taunton 02780(Bristol)","Westport: Westport 02790(Bristol)","Taunton: Taunton 02780(Bristol)","Westport: Westport 02790(Bristol)","Easton: Easton 02356(Bristol)","Taunton: Taunton 02780(Bristol)","Easton: Easton 02356(Bristol)","Easton: Easton unknown(Bristol)","Easton: Easton 02356(Bristol)","Taunton: Taunton 02780(Bristol)","Westport: Westport 02790(Bristol)","Westport: Westport 02790(Bristol)","Easton: Easton 02375(Bristol)","Easton: Easton unknown(Bristol)","Raynham: Raynham 02767(Bristol)","Westport: Westport 02790(Bristol)","Taunton: Taunton 02780(Bristol)","Raynham: Raynham 02767(Bristol)","Raynham: Raynham unknown(Bristol)","Raynham: Raynham 02767(Bristol)","Raynham: Raynham 02767(Bristol)","Easton: Easton 02375(Bristol)","Raynham: Raynham 02767(Bristol)","Freetown: Freetown 02702(Bristol)","Westport: Westport 02790(Bristol)","Westport: Westport 02790(Bristol)","Berkley: Berkley 02779(Bristol)","Dartmouth: Dartmouth 02748(Bristol)","Dartmouth: Dartmouth 02747(Bristol)","Taunton: Taunton 02780(Bristol)","Taunton: Taunton 02780(Bristol)","Dartmouth: Dartmouth 02748(Bristol)","Freetown: Freetown unknown(Bristol)","New Bedford: New Bedford unknown(Bristol)","Dartmouth: Dartmouth 02747(Bristol)","Dartmouth: Dartmouth 02747(Bristol)","New Bedford: New Bedford 02740(Bristol)","New Bedford: New Bedford unknown(Bristol)","Dartmouth: Dartmouth 02747(Bristol)","Dartmouth: Dartmouth 02747(Bristol)","Dartmouth: Dartmouth 02747(Bristol)","Freetown: Freetown 02717(Bristol)","Dartmouth: Dartmouth 02747(Bristol)","Dartmouth: Dartmouth 02748(Bristol)","Freetown: Freetown unknown(Bristol)","New Bedford: New Bedford 02745(Bristol)","Freetown: Freetown 02717(Bristol)","Freetown: Freetown 02717(Bristol)","Dartmouth: Dartmouth 02747(Bristol)","New Bedford: New Bedford 02746(Bristol)","New Bedford: New Bedford 02740(Bristol)","New Bedford: New Bedford 02740(Bristol)","New Bedford: New Bedford 02745(Bristol)","New Bedford: New Bedford 02740(Bristol)","Freetown: Freetown unknown(Bristol)","New Bedford: New Bedford 02745(Bristol)","New Bedford: New Bedford 02746(Bristol)","New Bedford: New Bedford 02740(Bristol)","Dartmouth: Dartmouth 02748(Bristol)","New Bedford: New Bedford unknown(Bristol)","New Bedford: New Bedford 02745(Bristol)","New Bedford: New Bedford 02740(Bristol)","New Bedford: New Bedford 02745(Bristol)","New Bedford: New Bedford 02740(Bristol)","New Bedford: New Bedford 02745(Bristol)","New Bedford: New Bedford 02746(Bristol)","New Bedford: New Bedford 02740(Bristol)","New Bedford: New Bedford 02745(Bristol)","New Bedford: New Bedford 02740(Bristol)","New Bedford: New Bedford 02740(Bristol)","New Bedford: New Bedford 02746(Bristol)","New Bedford: New Bedford 02746(Bristol)","New Bedford: New Bedford 02746(Bristol)","New Bedford: New Bedford 02740(Bristol)","New Bedford: New Bedford 02740(Bristol)","New Bedford: New Bedford 02740(Bristol)","Acushnet: Acushnet 02743 (Bristol)","Acushnet: Acushnet 02743 (Bristol)","Fairhaven: Fairhaven 02719(Bristol)","Fairhaven: Fairhaven 02719(Bristol)","New Bedford: New Bedford unknown(Bristol)","Fairhaven: Fairhaven 02719(Bristol)","Fairhaven: Fairhaven 02719(Bristol)","Acushnet: Acushnet 02743 (Bristol)","Fairhaven: Fairhaven 02719(Bristol)","Acushnet: Acushnet 02743 (Bristol)","Acushnet: Acushnet 02743 (Bristol)","Fairhaven: Fairhaven 02719(Bristol)","Fairhaven: Fairhaven 02719(Bristol)"],null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[41.486575,42.058381],"lng":[-71.38026000000001,-70.861769]}},"evals":[],"jsHooks":[]}</script>
 </div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify the path and name of your HTML file</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>file_path_map <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"results"</span>, <span class="st">"figures"</span>, <span class="st">"map_study.html"</span>)</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the map</span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="fu">saveWidget</span>(map_study, file_path_map, <span class="at">selfcontained =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="eee-in-mosquitoes-and-mammals" class="level2">
 <h2 class="anchored" data-anchor-id="eee-in-mosquitoes-and-mammals">EEE in mosquitoes and mammals</h2>
@@ -729,70 +739,70 @@ submitted for testing                 genus               species
 <section id="from-the-table-we-see-that-human-or-othe-mammal-cases-were-recorded-in-2014-2018-2019-and-2020.-2019-had-the-highest-case-counts-for-both-humans-and-other-mammals.-because-of-this-we-will-pay-close-attention-to-2019-through-out-the-exploration." class="level3">
 <h3 class="anchored" data-anchor-id="from-the-table-we-see-that-human-or-othe-mammal-cases-were-recorded-in-2014-2018-2019-and-2020.-2019-had-the-highest-case-counts-for-both-humans-and-other-mammals.-because-of-this-we-will-pay-close-attention-to-2019-through-out-the-exploration.">From the table, we see that human or othe mammal cases were recorded in 2014, 2018, 2019, and 2020. 2019 had the highest case counts for both humans and other mammals. <strong>Because of this, we will pay close attention to 2019 through out the exploration.</strong></h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="co"># virus_data, cases_human, and cases_vet data frames </span></span>
-<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare virus_data: Find the first positive EEE test date by year</span></span>
-<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>first_positive_eee_test_by_year <span class="ot">&lt;-</span> virus_data <span class="sc">%&gt;%</span></span>
-<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Virus <span class="sc">==</span> <span class="st">"EEE"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year =</span> <span class="fu">year</span>(<span class="fu">as.Date</span>(Collection.Date))) <span class="sc">%&gt;%</span></span>
-<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Year) <span class="sc">%&gt;%</span></span>
-<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">First_Positive_Test_Date =</span> <span class="fu">min</span>(Collection.Date)) <span class="sc">%&gt;%</span></span>
-<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb51-13"><a href="#cb51-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Year)</span>
-<span id="cb51-14"><a href="#cb51-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-15"><a href="#cb51-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare cases_human: Summarize human EEE cases by year</span></span>
-<span id="cb51-16"><a href="#cb51-16" aria-hidden="true" tabindex="-1"></a>human_cases_by_year <span class="ot">&lt;-</span> cases_human <span class="sc">%&gt;%</span></span>
-<span id="cb51-17"><a href="#cb51-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">Virus Result</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"EEE"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb51-18"><a href="#cb51-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year =</span> <span class="fu">year</span>(<span class="st">`</span><span class="at">Onset Date</span><span class="st">`</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb51-19"><a href="#cb51-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Year) <span class="sc">%&gt;%</span></span>
-<span id="cb51-20"><a href="#cb51-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Human_Cases =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb51-21"><a href="#cb51-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb51-22"><a href="#cb51-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Year)</span>
-<span id="cb51-23"><a href="#cb51-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-24"><a href="#cb51-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare cases_vet: Summarize animal EEE cases by year</span></span>
-<span id="cb51-25"><a href="#cb51-25" aria-hidden="true" tabindex="-1"></a>animal_cases_by_year <span class="ot">&lt;-</span> cases_vet <span class="sc">%&gt;%</span></span>
-<span id="cb51-26"><a href="#cb51-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(virus <span class="sc">==</span> <span class="st">"eee"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb51-27"><a href="#cb51-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
-<span id="cb51-28"><a href="#cb51-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Animal_Cases =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb51-29"><a href="#cb51-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb51-30"><a href="#cb51-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(year)</span>
-<span id="cb51-31"><a href="#cb51-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-32"><a href="#cb51-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure 'Year' column is numeric across all data frames for compatibility</span></span>
-<span id="cb51-33"><a href="#cb51-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: This step might already be covered by the mutations above but included here for clarity</span></span>
-<span id="cb51-34"><a href="#cb51-34" aria-hidden="true" tabindex="-1"></a>first_positive_eee_test_by_year<span class="sc">$</span>Year <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(first_positive_eee_test_by_year<span class="sc">$</span>Year)</span>
-<span id="cb51-35"><a href="#cb51-35" aria-hidden="true" tabindex="-1"></a>animal_cases_by_year<span class="sc">$</span>year <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(animal_cases_by_year<span class="sc">$</span>year) <span class="co"># Make sure year is numeric and named consistently</span></span>
-<span id="cb51-36"><a href="#cb51-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-37"><a href="#cb51-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge the summaries into one combined data frame</span></span>
-<span id="cb51-38"><a href="#cb51-38" aria-hidden="true" tabindex="-1"></a>combined_eee_data <span class="ot">&lt;-</span> first_positive_eee_test_by_year <span class="sc">%&gt;%</span></span>
-<span id="cb51-39"><a href="#cb51-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(human_cases_by_year, <span class="at">by =</span> <span class="st">"Year"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb51-40"><a href="#cb51-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(animal_cases_by_year, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Year"</span> <span class="ot">=</span> <span class="st">"year"</span>)) <span class="co"># Ensure correct column names are used for joining</span></span>
-<span id="cb51-41"><a href="#cb51-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-42"><a href="#cb51-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace NA values with 0 for Human_Cases and Animal_Cases</span></span>
-<span id="cb51-43"><a href="#cb51-43" aria-hidden="true" tabindex="-1"></a>combined_eee_data<span class="sc">$</span>Human_Cases[<span class="fu">is.na</span>(combined_eee_data<span class="sc">$</span>Human_Cases)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb51-44"><a href="#cb51-44" aria-hidden="true" tabindex="-1"></a>combined_eee_data<span class="sc">$</span>Animal_Cases[<span class="fu">is.na</span>(combined_eee_data<span class="sc">$</span>Animal_Cases)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb51-45"><a href="#cb51-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-46"><a href="#cb51-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Use kable() to create a basic table</span></span>
-<span id="cb51-47"><a href="#cb51-47" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb51-48"><a href="#cb51-48" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
-<span id="cb51-49"><a href="#cb51-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-50"><a href="#cb51-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating the table with centered headings and data</span></span>
-<span id="cb51-51"><a href="#cb51-51" aria-hidden="true" tabindex="-1"></a>kable_table_isolation_case <span class="ot">&lt;-</span> <span class="fu">kable</span>(combined_eee_data, <span class="st">"html"</span>, </span>
-<span id="cb51-52"><a href="#cb51-52" aria-hidden="true" tabindex="-1"></a>                     <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Year"</span>, <span class="st">"First Positive EEE Test Date"</span>, <span class="st">"Human EEE Cases"</span>, <span class="st">"Animal EEE Cases"</span>),</span>
-<span id="cb51-53"><a href="#cb51-53" aria-hidden="true" tabindex="-1"></a>                     <span class="at">caption =</span> <span class="st">"Annual Summary of EEE Virus Activity"</span>,</span>
-<span id="cb51-54"><a href="#cb51-54" aria-hidden="true" tabindex="-1"></a>                     <span class="at">align =</span> <span class="fu">c</span>(<span class="st">'c'</span>,<span class="st">'c'</span>,<span class="st">'c'</span>,<span class="st">'c'</span>)) <span class="sc">%&gt;%</span> <span class="co"># This aligns all columns' data to center</span></span>
-<span id="cb51-55"><a href="#cb51-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span>),</span>
-<span id="cb51-56"><a href="#cb51-56" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> F, <span class="at">position =</span> <span class="st">"center"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb51-57"><a href="#cb51-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_header_above</span>(<span class="fu">c</span>(<span class="st">" "</span> <span class="ot">=</span> <span class="dv">1</span>, <span class="st">"EEE Virus Detection and Cases"</span> <span class="ot">=</span> <span class="dv">3</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb51-58"><a href="#cb51-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb51-59"><a href="#cb51-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">2</span>, <span class="at">width =</span> <span class="st">"8em"</span>) <span class="sc">%&gt;%</span> <span class="co"># Adjusted width without altering alignment</span></span>
-<span id="cb51-60"><a href="#cb51-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">3</span>, <span class="at">width =</span> <span class="st">"5em"</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb51-61"><a href="#cb51-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">4</span>, <span class="at">width =</span> <span class="st">"5em"</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">"blue"</span>)</span>
-<span id="cb51-62"><a href="#cb51-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-63"><a href="#cb51-63" aria-hidden="true" tabindex="-1"></a><span class="co"># Displaying the table</span></span>
-<span id="cb51-64"><a href="#cb51-64" aria-hidden="true" tabindex="-1"></a>kable_table_isolation_case</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="co"># virus_data, cases_human, and cases_vet data frames </span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare virus_data: Find the first positive EEE test date by year</span></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>first_positive_eee_test_by_year <span class="ot">&lt;-</span> combined_virus_data <span class="sc">%&gt;%</span></span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Virus <span class="sc">==</span> <span class="st">"EEE"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year =</span> <span class="fu">year</span>(<span class="fu">as.Date</span>(<span class="st">`</span><span class="at">Collection Date</span><span class="st">`</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Year) <span class="sc">%&gt;%</span></span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">First_Positive_Test_Date =</span> <span class="fu">min</span>(<span class="st">`</span><span class="at">Collection Date</span><span class="st">`</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Year)</span>
+<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare cases_human: Summarize human EEE cases by year</span></span>
+<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a>human_cases_by_year <span class="ot">&lt;-</span> cases_human <span class="sc">%&gt;%</span></span>
+<span id="cb49-17"><a href="#cb49-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">Virus Result</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"EEE"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb49-18"><a href="#cb49-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year =</span> <span class="fu">year</span>(<span class="st">`</span><span class="at">Onset Date</span><span class="st">`</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb49-19"><a href="#cb49-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Year) <span class="sc">%&gt;%</span></span>
+<span id="cb49-20"><a href="#cb49-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Human_Cases =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb49-21"><a href="#cb49-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb49-22"><a href="#cb49-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Year)</span>
+<span id="cb49-23"><a href="#cb49-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-24"><a href="#cb49-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare cases_vet: Summarize animal EEE cases by year</span></span>
+<span id="cb49-25"><a href="#cb49-25" aria-hidden="true" tabindex="-1"></a>animal_cases_by_year <span class="ot">&lt;-</span> cases_vet <span class="sc">%&gt;%</span></span>
+<span id="cb49-26"><a href="#cb49-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(virus <span class="sc">==</span> <span class="st">"eee"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb49-27"><a href="#cb49-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb49-28"><a href="#cb49-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Animal_Cases =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb49-29"><a href="#cb49-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb49-30"><a href="#cb49-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(year)</span>
+<span id="cb49-31"><a href="#cb49-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-32"><a href="#cb49-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure 'Year' column is numeric across all data frames for compatibility</span></span>
+<span id="cb49-33"><a href="#cb49-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: This step might already be covered by the mutations above but included here for clarity</span></span>
+<span id="cb49-34"><a href="#cb49-34" aria-hidden="true" tabindex="-1"></a>first_positive_eee_test_by_year<span class="sc">$</span>Year <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(first_positive_eee_test_by_year<span class="sc">$</span>Year)</span>
+<span id="cb49-35"><a href="#cb49-35" aria-hidden="true" tabindex="-1"></a>animal_cases_by_year<span class="sc">$</span>year <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(animal_cases_by_year<span class="sc">$</span>year) <span class="co"># Make sure year is numeric and named consistently</span></span>
+<span id="cb49-36"><a href="#cb49-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-37"><a href="#cb49-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge the summaries into one combined data frame</span></span>
+<span id="cb49-38"><a href="#cb49-38" aria-hidden="true" tabindex="-1"></a>combined_eee_data <span class="ot">&lt;-</span> first_positive_eee_test_by_year <span class="sc">%&gt;%</span></span>
+<span id="cb49-39"><a href="#cb49-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(human_cases_by_year, <span class="at">by =</span> <span class="st">"Year"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb49-40"><a href="#cb49-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(animal_cases_by_year, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Year"</span> <span class="ot">=</span> <span class="st">"year"</span>)) <span class="co"># Ensure correct column names are used for joining</span></span>
+<span id="cb49-41"><a href="#cb49-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-42"><a href="#cb49-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace NA values with 0 for Human_Cases and Animal_Cases</span></span>
+<span id="cb49-43"><a href="#cb49-43" aria-hidden="true" tabindex="-1"></a>combined_eee_data<span class="sc">$</span>Human_Cases[<span class="fu">is.na</span>(combined_eee_data<span class="sc">$</span>Human_Cases)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb49-44"><a href="#cb49-44" aria-hidden="true" tabindex="-1"></a>combined_eee_data<span class="sc">$</span>Animal_Cases[<span class="fu">is.na</span>(combined_eee_data<span class="sc">$</span>Animal_Cases)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb49-45"><a href="#cb49-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-46"><a href="#cb49-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Use kable() to create a basic table</span></span>
+<span id="cb49-47"><a href="#cb49-47" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb49-48"><a href="#cb49-48" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb49-49"><a href="#cb49-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-50"><a href="#cb49-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating the table with centered headings and data</span></span>
+<span id="cb49-51"><a href="#cb49-51" aria-hidden="true" tabindex="-1"></a>kable_table_isolation_case <span class="ot">&lt;-</span> <span class="fu">kable</span>(combined_eee_data, <span class="st">"html"</span>, </span>
+<span id="cb49-52"><a href="#cb49-52" aria-hidden="true" tabindex="-1"></a>                     <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Year"</span>, <span class="st">"First Positive EEE Test Date"</span>, <span class="st">"Human EEE Cases"</span>, <span class="st">"Animal EEE Cases"</span>),</span>
+<span id="cb49-53"><a href="#cb49-53" aria-hidden="true" tabindex="-1"></a>                     <span class="at">caption =</span> <span class="st">"Annual Summary of EEE Virus Activity"</span>,</span>
+<span id="cb49-54"><a href="#cb49-54" aria-hidden="true" tabindex="-1"></a>                     <span class="at">align =</span> <span class="fu">c</span>(<span class="st">'c'</span>,<span class="st">'c'</span>,<span class="st">'c'</span>,<span class="st">'c'</span>)) <span class="sc">%&gt;%</span> <span class="co"># This aligns all columns' data to center</span></span>
+<span id="cb49-55"><a href="#cb49-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span>),</span>
+<span id="cb49-56"><a href="#cb49-56" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> F, <span class="at">position =</span> <span class="st">"center"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb49-57"><a href="#cb49-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_header_above</span>(<span class="fu">c</span>(<span class="st">" "</span> <span class="ot">=</span> <span class="dv">1</span>, <span class="st">"EEE Virus Detection and Cases"</span> <span class="ot">=</span> <span class="dv">3</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb49-58"><a href="#cb49-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb49-59"><a href="#cb49-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">2</span>, <span class="at">width =</span> <span class="st">"8em"</span>) <span class="sc">%&gt;%</span> <span class="co"># Adjusted width without altering alignment</span></span>
+<span id="cb49-60"><a href="#cb49-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">3</span>, <span class="at">width =</span> <span class="st">"5em"</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb49-61"><a href="#cb49-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">4</span>, <span class="at">width =</span> <span class="st">"5em"</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">"blue"</span>)</span>
+<span id="cb49-62"><a href="#cb49-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-63"><a href="#cb49-63" aria-hidden="true" tabindex="-1"></a><span class="co"># Displaying the table</span></span>
+<span id="cb49-64"><a href="#cb49-64" aria-hidden="true" tabindex="-1"></a>kable_table_isolation_case</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="table-responsive">
 <table class="table table-striped table-hover table-condensed table-sm small" data-quarto-postprocess="true">
@@ -866,37 +876,37 @@ EEE Virus Detection and Cases
 
 
 </div>
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the path where you want to save the HTML file</span></span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="co">#output_path_quarto &lt;- here("results", "figures", "eee_isolation_cases")</span></span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="co">#output_path_png &lt;- here("results", "figures", "eee_isolation_cases.png")</span></span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the kableExtra table as an HTML file</span></span>
-<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a><span class="co">#save_kable(kable_table_isolation_case, file = output_path_quarto)</span></span>
-<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a><span class="co">#save_kable(kable_table_isolation_case, file = output_path_png)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the path where you want to save the HTML file</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="co">#output_path_quarto &lt;- here("results", "tables", "eee_isolation_cases")</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>output_path_png <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"results"</span>, <span class="st">"tables"</span>, <span class="st">"eee_isolation_cases.png"</span>)</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the kableExtra table as an HTML file</span></span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="co">#save_kable(kable_table_isolation_case, file = output_path_quarto)</span></span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a><span class="fu">save_kable</span>(kable_table_isolation_case, <span class="at">file =</span> output_path_png)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
 <section id="which-county-has-the-most-eee-positive-mosquitoes-of-those-tested" class="level2">
 <h2 class="anchored" data-anchor-id="which-county-has-the-most-eee-positive-mosquitoes-of-those-tested">Which county has the most EEE positive mosquitoes of those tested?</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>eee_positive_by_county <span class="ot">&lt;-</span> virus_data <span class="sc">%&gt;%</span></span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Virus <span class="sc">==</span> <span class="st">"EEE"</span>) <span class="sc">%&gt;%</span>  <span class="co"># Filter for rows where Virus is EEE</span></span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(County) <span class="sc">%&gt;%</span></span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">EEE_Positive_Tests =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span>  <span class="co"># Count the number of EEE positive tests in each group</span></span>
-<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(EEE_Positive_Tests))  <span class="co"># Order the results by EEE_Positive_Tests in descending order</span></span>
-<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the table with kable and style it with kableExtra</span></span>
-<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>eee_positive_table <span class="ot">&lt;-</span> <span class="fu">kable</span>(eee_positive_by_county, <span class="st">"html"</span>, </span>
-<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>                            <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"County"</span>, <span class="st">"EEE Positive Tests"</span>),</span>
-<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>                            <span class="at">caption =</span> <span class="st">"EEE Positive Tests by County"</span>,</span>
-<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>                            <span class="at">align =</span> <span class="fu">c</span>(<span class="st">'c'</span>,<span class="st">'c'</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span>),</span>
-<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">position =</span> <span class="st">"center"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">2</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">"red"</span>)</span>
-<span id="cb53-16"><a href="#cb53-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-17"><a href="#cb53-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the table</span></span>
-<span id="cb53-18"><a href="#cb53-18" aria-hidden="true" tabindex="-1"></a>eee_positive_table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>eee_positive_by_county <span class="ot">&lt;-</span> combined_virus_data <span class="sc">%&gt;%</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Virus <span class="sc">==</span> <span class="st">"EEE"</span>) <span class="sc">%&gt;%</span>  <span class="co"># Filter for rows where Virus is EEE</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(County) <span class="sc">%&gt;%</span></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">EEE_Positive_Tests =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span>  <span class="co"># Count the number of EEE positive tests in each group</span></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(EEE_Positive_Tests))  <span class="co"># Order the results by EEE_Positive_Tests in descending order</span></span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the table with kable and style it with kableExtra</span></span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>eee_positive_table <span class="ot">&lt;-</span> <span class="fu">kable</span>(eee_positive_by_county, <span class="st">"html"</span>, </span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>                            <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"County"</span>, <span class="st">"EEE Positive Tests"</span>),</span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a>                            <span class="at">caption =</span> <span class="st">"EEE Positive Tests by County"</span>,</span>
+<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a>                            <span class="at">align =</span> <span class="fu">c</span>(<span class="st">'c'</span>,<span class="st">'c'</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span>),</span>
+<span id="cb51-13"><a href="#cb51-13" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">position =</span> <span class="st">"center"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb51-14"><a href="#cb51-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb51-15"><a href="#cb51-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">2</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">"red"</span>)</span>
+<span id="cb51-16"><a href="#cb51-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-17"><a href="#cb51-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the table</span></span>
+<span id="cb51-18"><a href="#cb51-18" aria-hidden="true" tabindex="-1"></a>eee_positive_table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="table-responsive">
 <table class="table table-striped table-hover table-condensed table-sm small" data-quarto-postprocess="true">
@@ -950,13 +960,13 @@ EEE Virus Detection and Cases
 
 
 </div>
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the path where you want to save the HTML file</span></span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>output_path_qmd <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"results"</span>, <span class="st">"figures"</span>, <span class="st">"eee_isolation_county.html"</span>)</span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>output_path_county <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"results"</span>, <span class="st">"figures"</span>, <span class="st">"eee_isolation_county.png"</span>)</span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the kableExtra table as an HTML file</span></span>
-<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a><span class="fu">save_kable</span>(eee_positive_table, <span class="at">file =</span> output_path_qmd)</span>
-<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a><span class="fu">save_kable</span>(eee_positive_table, <span class="at">file =</span> output_path_county)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the path where you want to save the HTML file</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="co">#output_path_qmd &lt;- here("results", "tables", "eee_isolation_county.html")</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>output_path_county <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"results"</span>, <span class="st">"tables"</span>, <span class="st">"eee_isolation_county.png"</span>)</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the kableExtra table as an HTML file</span></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a><span class="co">#save_kable(eee_positive_table, file = output_path_qmd)</span></span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a><span class="fu">save_kable</span>(eee_positive_table, <span class="at">file =</span> output_path_county)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="culiseta-melanura-mel-is-the-main-enzootic-vector-of-eee.-some-entomologist-believe-that-high-levels-of-mel-traps-indicate-higher-risk-for-eee-transmission.-using-the-new-mosquito-collection-table-created-from-the-pivot-lets-calculate-the-proportion-of-mel-captured-compared-to-all-other-mosquito-vector-species-and-create-a-plot-to-visualize-it." class="level2">
@@ -964,23 +974,23 @@ EEE Virus Detection and Cases
 <section id="section" class="level3">
 <h3 class="anchored" data-anchor-id="section"></h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define path to the data file</span></span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>trap_wide_path <span class="ot">=</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"processed-data"</span>, <span class="st">"mosquito_wide.csv"</span>)</span>
-<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the data</span></span>
-<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>trap_proportion <span class="ot">=</span> <span class="fu">read.csv</span>(trap_wide_path)</span>
-<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert 'collection.date' to Date type using the correct format and extract the year</span></span>
-<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>trap_proportion<span class="sc">$</span>Year <span class="ot">&lt;-</span> <span class="fu">year</span>(<span class="fu">ymd</span>(trap_proportion<span class="sc">$</span>collection.date))</span>
-<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Sum all specified species by the calculated year, including any additional species codes you have</span></span>
-<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a>yearly_sums <span class="ot">&lt;-</span> trap_proportion <span class="sc">%&gt;%</span></span>
-<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Year) <span class="sc">%&gt;%</span></span>
-<span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">c</span>(<span class="st">"MEL"</span>, <span class="st">"PER"</span>, <span class="st">"PIP"</span>, <span class="st">"RES"</span>, <span class="st">"SAL"</span>, <span class="st">"TRI"</span>, <span class="st">"SAP"</span>), sum, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># After summarising, calculate the total counts for all species per year</span></span>
-<span id="cb55-15"><a href="#cb55-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Total =</span> <span class="fu">rowSums</span>(<span class="fu">across</span>(<span class="fu">c</span>(<span class="st">"MEL"</span>, <span class="st">"PER"</span>, <span class="st">"PIP"</span>, <span class="st">"RES"</span>, <span class="st">"SAL"</span>, <span class="st">"TRI"</span>, <span class="st">"SAP"</span>))),</span>
-<span id="cb55-16"><a href="#cb55-16" aria-hidden="true" tabindex="-1"></a>         <span class="co"># Calculate the proportion of MEL out of the total for all species</span></span>
-<span id="cb55-17"><a href="#cb55-17" aria-hidden="true" tabindex="-1"></a>         <span class="at">MEL_Prop =</span> MEL <span class="sc">/</span> Total)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define path to the data file</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>trap_wide_path <span class="ot">=</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"processed-data"</span>, <span class="st">"mosquito_wide.csv"</span>)</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the data</span></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>trap_proportion <span class="ot">=</span> <span class="fu">read.csv</span>(trap_wide_path)</span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert 'collection.date' to Date type using the correct format and extract the year</span></span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>trap_proportion<span class="sc">$</span>Year <span class="ot">&lt;-</span> <span class="fu">year</span>(<span class="fu">ymd</span>(trap_proportion<span class="sc">$</span>collection.date))</span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Sum all specified species by the calculated year, including any additional species codes you have</span></span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>yearly_sums <span class="ot">&lt;-</span> trap_proportion <span class="sc">%&gt;%</span></span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Year) <span class="sc">%&gt;%</span></span>
+<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">c</span>(<span class="st">"MEL"</span>, <span class="st">"PER"</span>, <span class="st">"PIP"</span>, <span class="st">"RES"</span>, <span class="st">"SAL"</span>, <span class="st">"TRI"</span>, <span class="st">"SAP"</span>), sum, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># After summarising, calculate the total counts for all species per year</span></span>
+<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Total =</span> <span class="fu">rowSums</span>(<span class="fu">across</span>(<span class="fu">c</span>(<span class="st">"MEL"</span>, <span class="st">"PER"</span>, <span class="st">"PIP"</span>, <span class="st">"RES"</span>, <span class="st">"SAL"</span>, <span class="st">"TRI"</span>, <span class="st">"SAP"</span>))),</span>
+<span id="cb53-16"><a href="#cb53-16" aria-hidden="true" tabindex="-1"></a>         <span class="co"># Calculate the proportion of MEL out of the total for all species</span></span>
+<span id="cb53-17"><a href="#cb53-17" aria-hidden="true" tabindex="-1"></a>         <span class="at">MEL_Prop =</span> MEL <span class="sc">/</span> Total)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There was 1 warning in `summarise()`.
 ℹ In argument: `across(...)`.
@@ -995,8 +1005,8 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   # Now
   across(a:b, \(x) mean(x, na.rm = TRUE))</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View the result with the proportion of MEL</span></span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(yearly_sums)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View the result with the proportion of MEL</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(yearly_sums)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 9 × 10
    Year   MEL   PER   PIP   RES   SAL   TRI   SAP Total MEL_Prop
@@ -1011,17 +1021,17 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 8  2020  8780 17783    10     4  7345   116   136 34174    0.257
 9  2021 11810  9605    25     0 30061   394   142 52037    0.227</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>mel_plot <span class="ot">=</span> <span class="fu">ggplot</span>(yearly_sums, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(Year), <span class="at">y =</span> MEL_Prop, <span class="at">fill =</span> <span class="st">"MEL"</span>)) <span class="sc">+</span></span>
-<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">expression</span>(Proportion <span class="sc">~</span> of <span class="sc">~</span> <span class="fu">italic</span>(<span class="st">"Culiseta melanura"</span>) <span class="sc">~</span> (MEL) <span class="sc">~</span> Mosquitoes <span class="sc">~</span> by <span class="sc">~</span> Year),</span>
-<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>,</span>
-<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Proportion of MEL"</span>) <span class="sc">+</span></span>
-<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">name =</span> <span class="st">"Species"</span>) <span class="sc">+</span></span>
-<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>)) </span>
-<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a>mel_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>mel_plot <span class="ot">=</span> <span class="fu">ggplot</span>(yearly_sums, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(Year), <span class="at">y =</span> MEL_Prop, <span class="at">fill =</span> <span class="st">"MEL"</span>)) <span class="sc">+</span></span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">expression</span>(Proportion <span class="sc">~</span> of <span class="sc">~</span> <span class="fu">italic</span>(<span class="st">"Culiseta melanura"</span>) <span class="sc">~</span> (MEL) <span class="sc">~</span> Mosquitoes <span class="sc">~</span> by <span class="sc">~</span> Year),</span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Proportion of MEL"</span>) <span class="sc">+</span></span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">name =</span> <span class="st">"Species"</span>) <span class="sc">+</span></span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>)) </span>
+<span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a>mel_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1029,37 +1039,37 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify the file path where you want to save the plot</span></span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="co">#file_path_mel = here("results", "figures", "mel_proportion.png")</span></span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Use ggsave to save the plot</span></span>
-<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a><span class="co">#ggsave(file_path_mel, plot = mel_plot, width = 8, height = 6, dpi = 300)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify the file path where you want to save the plot</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="co">#file_path_mel = here("results", "figures", "mel_proportion.png")</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Use ggsave to save the plot</span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="co">#ggsave(file_path_mel, plot = mel_plot, width = 8, height = 6, dpi = 300)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
 <section id="mosquito-abundance-is-affected-by-weather.-mosquitoes-depend-on-standing-water-to-complete-their-larval-development.-lets-take-a-look-at-the-annual-precipitation-using-the-wx-data-frame." class="level2">
 <h2 class="anchored" data-anchor-id="mosquito-abundance-is-affected-by-weather.-mosquitoes-depend-on-standing-water-to-complete-their-larval-development.-lets-take-a-look-at-the-annual-precipitation-using-the-wx-data-frame.">Mosquito abundance is affected by weather. Mosquitoes depend on standing water to complete their larval development. Let’s take a look at the annual precipitation using the wx data frame.</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert DATE from character to Date type using as.Date and specifying the format</span></span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>wx<span class="sc">$</span>DATE <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(wx<span class="sc">$</span>DATE, <span class="at">format=</span><span class="st">"%m/%d/%y"</span>)</span>
-<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a><span class="co"># The as.Date function treats years in the format "yy" as follows:</span></span>
-<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Years 00-68 are treated as 2000-2068, and years 69-99 are treated as 1969-1999.</span></span>
-<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Adjust this according to your data's actual year range if needed.</span></span>
-<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the year from each DATE</span></span>
-<span id="cb61-9"><a href="#cb61-9" aria-hidden="true" tabindex="-1"></a>wx<span class="sc">$</span>Year <span class="ot">&lt;-</span> <span class="fu">format</span>(wx<span class="sc">$</span>DATE, <span class="st">"%Y"</span>) <span class="sc">%&gt;%</span> <span class="fu">as.numeric</span>()</span>
-<span id="cb61-10"><a href="#cb61-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-11"><a href="#cb61-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Now that we have the years as numeric values, let's filter for 2013 to 2020</span></span>
-<span id="cb61-12"><a href="#cb61-12" aria-hidden="true" tabindex="-1"></a>filtered_wx <span class="ot">&lt;-</span> wx <span class="sc">%&gt;%</span></span>
-<span id="cb61-13"><a href="#cb61-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Year <span class="sc">&gt;=</span> <span class="dv">2013</span> <span class="sc">&amp;</span> Year <span class="sc">&lt;=</span> <span class="dv">2020</span>)</span>
-<span id="cb61-14"><a href="#cb61-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-15"><a href="#cb61-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Sum PRCP by Year for the filtered data</span></span>
-<span id="cb61-16"><a href="#cb61-16" aria-hidden="true" tabindex="-1"></a>summed_prcp_by_year_filtered <span class="ot">&lt;-</span> filtered_wx <span class="sc">%&gt;%</span></span>
-<span id="cb61-17"><a href="#cb61-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Year) <span class="sc">%&gt;%</span></span>
-<span id="cb61-18"><a href="#cb61-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Total_PRCP =</span> <span class="fu">sum</span>(PRCP, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb61-19"><a href="#cb61-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-20"><a href="#cb61-20" aria-hidden="true" tabindex="-1"></a><span class="co"># View the result</span></span>
-<span id="cb61-21"><a href="#cb61-21" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(summed_prcp_by_year_filtered)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert DATE from character to Date type using as.Date and specifying the format</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>wx<span class="sc">$</span>DATE <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(wx<span class="sc">$</span>DATE, <span class="at">format=</span><span class="st">"%m/%d/%y"</span>)</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="co"># The as.Date function treats years in the format "yy" as follows:</span></span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Years 00-68 are treated as 2000-2068, and years 69-99 are treated as 1969-1999.</span></span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Adjust this according to your data's actual year range if needed.</span></span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the year from each DATE</span></span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a>wx<span class="sc">$</span>Year <span class="ot">&lt;-</span> <span class="fu">format</span>(wx<span class="sc">$</span>DATE, <span class="st">"%Y"</span>) <span class="sc">%&gt;%</span> <span class="fu">as.numeric</span>()</span>
+<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Now that we have the years as numeric values, let's filter for 2013 to 2020</span></span>
+<span id="cb59-12"><a href="#cb59-12" aria-hidden="true" tabindex="-1"></a>filtered_wx <span class="ot">&lt;-</span> wx <span class="sc">%&gt;%</span></span>
+<span id="cb59-13"><a href="#cb59-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Year <span class="sc">&gt;=</span> <span class="dv">2013</span> <span class="sc">&amp;</span> Year <span class="sc">&lt;=</span> <span class="dv">2020</span>)</span>
+<span id="cb59-14"><a href="#cb59-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-15"><a href="#cb59-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Sum PRCP by Year for the filtered data</span></span>
+<span id="cb59-16"><a href="#cb59-16" aria-hidden="true" tabindex="-1"></a>summed_prcp_by_year_filtered <span class="ot">&lt;-</span> filtered_wx <span class="sc">%&gt;%</span></span>
+<span id="cb59-17"><a href="#cb59-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Year) <span class="sc">%&gt;%</span></span>
+<span id="cb59-18"><a href="#cb59-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Total_PRCP =</span> <span class="fu">sum</span>(PRCP, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb59-19"><a href="#cb59-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-20"><a href="#cb59-20" aria-hidden="true" tabindex="-1"></a><span class="co"># View the result</span></span>
+<span id="cb59-21"><a href="#cb59-21" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(summed_prcp_by_year_filtered)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 8 × 2
    Year Total_PRCP
@@ -1073,20 +1083,20 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 7  2019       50.0
 8  2020       41.8</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(summed_prcp_by_year_filtered, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.factor</span>(Year), <span class="at">y =</span> Total_PRCP)) <span class="sc">+</span></span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
-<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Total Precipitation by Year (2013-2020)"</span>,</span>
-<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Year"</span>,</span>
-<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Total Precipitation (inches)"</span>) <span class="sc">+</span></span>
-<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>)) <span class="co"># Improve readability of year labels</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="MADAproject_pt2_ruiz_files/figure-html/annual%20precip-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the ggplot object and assign it to a variable</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>precip_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(summed_prcp_by_year_filtered, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.factor</span>(Year), <span class="at">y =</span> Total_PRCP)) <span class="sc">+</span></span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Total Precipitation by Year (2013-2020)"</span>,</span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Year"</span>,</span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Total Precipitation (inches)"</span>) <span class="sc">+</span></span>
+<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span>
+<span id="cb61-9"><a href="#cb61-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-10"><a href="#cb61-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify the file path where you want to save the plot</span></span>
+<span id="cb61-11"><a href="#cb61-11" aria-hidden="true" tabindex="-1"></a>file_path_precip <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"results"</span>, <span class="st">"figures"</span>, <span class="st">"annual_precip.png"</span>)</span>
+<span id="cb61-12"><a href="#cb61-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-13"><a href="#cb61-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Use ggsave to save the plot, make sure to use the plot object</span></span>
+<span id="cb61-14"><a href="#cb61-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(file_path_precip, <span class="at">plot =</span> precip_plot, <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">6</span>, <span class="at">dpi =</span> <span class="dv">300</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
