@@ -4,6 +4,7 @@ library(here) #for data loading/saving
 library(dplyr)
 library(skimr)
 library(ggplot2)
+library(tidyverse)
 
 ## ---- loaddata --------
 #Path to data. Note the use of the here() package and not absolute paths

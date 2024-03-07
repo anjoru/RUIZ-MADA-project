@@ -50,7 +50,7 @@ file_path_mos <- here("data", "raw-data", "MOSQ_MADA.xlsx")
 file_exists_check <- file.exists(file_path_mos)
 file_path_mos <- here("data", "raw-data", "MOSQ_MADA.xlsx")
 
-file_exists_check <- file.exists("/Users/andrewruiz/MADA_course/RUIZ-MADA-project/data/raw-data/MOSQ_MADA.xlsx")
+#file_exists_check <- file.exists("/Users/andrewruiz/MADA_course/RUIZ-MADA-project/data/raw-data/MOSQ_MADA.xlsx")
 print(file_exists_check)  # Should return TRUE if the path is correct
 print(file_path_mos)
 
