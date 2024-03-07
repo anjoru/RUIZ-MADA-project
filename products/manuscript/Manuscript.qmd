@@ -18,9 +18,12 @@ editor:
 library(here)
 library(knitr)
 library(readxl)
+library(dplyr)
+library(kableExtra)
+library(dplyr)
+library(readr)
 
 here::set_here()
-
 
 ```
 
@@ -95,7 +98,7 @@ with their sources are outlined in the table below. Other datasets may
 be included based on availability and need.*
 
 | Data                         | Description                                                                                                                                           | Source                                |
-|------------------|-------------------------------|-----------------------|
+|------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------|
 | Mosquito Surveillance Data   | Records of mosquito species counts, locations, and dates of collection. Data on the presence of EEE in mosquito populations is particularly valuable. | XXX County Mosquito Control           |
 | Weather Data                 | Temperature, humidity, rainfall, and wind speed influence mosquito activity, population dynamics, and virus transmission.                             | NOAA                                  |
 | Bird Population Data         | Since birds are a natural reservoir for EEE, information on bird populations and migration patterns could be relevant.                                | eBird                                 |
@@ -197,47 +200,19 @@ include statistical tests to determine if there are possible
 associations between the environmental variables and the mosquito
 abundance as measured by trap counts or EEE virus activity.
 
-It is important to know where the mosquitoes infected with EEE are captured. Below is a table showing the virus isolations for EEE in trapped mosquitoes by county between 2014 and 2020. 
-```{r}
-# Create the table with kable and style it with kableExtra
-eee_positive_table <- kable(eee_positive_by_county, "html", 
-                            col.names = c("County", "EEE Positive Tests"),
-                            caption = "EEE Positive Tests by County",
-                            align = c('c','c')) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"),
-                full_width = FALSE, position = "center") %>%
-  column_spec(1, bold = TRUE) %>%
-  column_spec(2, bold = TRUE, color = "red")
+It is important to know where the mosquitoes infected with EEE are
+captured. Below is a table showing the virus isolations for EEE in
+trapped mosquitoes by county between 2014 and 2020.
 
-# Display the table
-eee_positive_table
-```
-The geographic focus for this study is Bristol County.
-One factor to consider is if early virus isolations are associated with
-cases in humans and other mammals. The table below shows the date of the
-first EEE virus isolation in mosquitoes and the number of human of other
+![](images/eee_isolation_county.png){fig-align="center"}
+
+The geographic focus for this study is Bristol County. One factor to
+consider is if early virus isolations are associated with cases in
+humans and other mammals. The table below shows the date of the first
+EEE virus isolation in mosquitoes and the number of human of other
 animal cases by year.
-```{r}
-# Use kable() to create a basic table
-library(knitr)
-library(kableExtra)
 
-# Creating the table with centered headings and data
-kable_table_isolation_case <- kable(combined_eee_data, "html", 
-                     col.names = c("Year", "First Positive EEE Test Date", "Human EEE Cases", "Animal EEE Cases"),
-                     caption = "Annual Summary of EEE Virus Activity",
-                     align = c('c','c','c','c')) %>% # This aligns all columns' data to center
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"),
-                full_width = F, position = "center") %>%
-  add_header_above(c(" " = 1, "EEE Virus Detection and Cases" = 3)) %>%
-  column_spec(1, bold = TRUE) %>%
-  column_spec(2, width = "8em") %>% # Adjusted width without altering alignment
-  column_spec(3, width = "5em", bold = TRUE, color = "red") %>%
-  column_spec(4, width = "5em", bold = TRUE, color = "blue")
-
-# Displaying the table
-kable_table_isolation_case
-```
+![](images/eee_isolation_cases-03.png){fig-align="center"}
 
 Unfortunately, the time horizon is limited by data availability.
 Additionally, EEE human infections are rare, so traditional statistical
@@ -271,14 +246,16 @@ higher than the other years. This suggest that there was enough water to
 support large MEL larval populations though out the winter.
 
 ## Basic statistical analysis
-*These will be generated in later phases of the exercise* 
+
+*These will be generated in later phases of the exercise*
 
 ## Fullanalysis
 
-*These will be generated in later phases of the exercise* 
-# Discussion *this section will be completed when analysis is done* 
+*These will be generated in later phases of the exercise* \# Discussion
+*this section will be completed when analysis is done*
 
-## Strengths and Limitations 
+## Strengths and Limitations
+
 *this section will be updated after analysis is complete*
 
 While the reliability of the mosquito trap data is high, the trap data
@@ -289,12 +266,12 @@ is released only on a county scale to ensure patient privacy. Some
 veterinary case data is available on the town-level, but most remains
 only on the county-level.
 
-These limitations are barriers to accurate spatial analysis. 
+These limitations are barriers to accurate spatial analysis.
 
 ## Conclusions *this section will be completed when analysis is done*
+
 {{< pagebreak >}}
 
 # References
 
 References will be added in part 3 of the project
-

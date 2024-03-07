@@ -45,8 +45,16 @@ library(htmlwidgets) #Facilitates the creation of R bindings to JavaScript libra
 
 ```{r trap-data-import}
 # Construct the path to the Excel file
-file_path_mos <- here("data", "processed-data", "MOSQ_MADA.xlsx")
+#file_path_mos <- here("data", "raw-data", "MOSQ_MADA.xlsx")
+file_path_mos <- here("data", "raw-data", "MOSQ_MADA.xlsx")
+file_exists_check <- file.exists(file_path_mos)
+file_path_mos <- here("data", "raw-data", "MOSQ_MADA.xlsx")
 
+file_exists_check <- file.exists("/Users/andrewruiz/MADA_course/RUIZ-MADA-project/data/raw-data/MOSQ_MADA.xlsx")
+print(file_exists_check)  # Should return TRUE if the path is correct
+print(file_path_mos)
+
+print(file_exists_check)  # This should return TRUE if the file path is correct
 # import the data to R and store it in a dataframe named "mosquito"
 mosquito_raw <- read_excel(file_path_mos)
 
