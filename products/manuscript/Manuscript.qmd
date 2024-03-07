@@ -98,7 +98,7 @@ with their sources are outlined in the table below. Other datasets may
 be included based on availability and need.*
 
 | Data                         | Description                                                                                                                                           | Source                                |
-|------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------|
+|--------------|--------------------------------------------|--------------|
 | Mosquito Surveillance Data   | Records of mosquito species counts, locations, and dates of collection. Data on the presence of EEE in mosquito populations is particularly valuable. | XXX County Mosquito Control           |
 | Weather Data                 | Temperature, humidity, rainfall, and wind speed influence mosquito activity, population dynamics, and virus transmission.                             | NOAA                                  |
 | Bird Population Data         | Since birds are a natural reservoir for EEE, information on bird populations and migration patterns could be relevant.                                | eBird                                 |
@@ -249,7 +249,7 @@ support large MEL larval populations though out the winter.
 
 *These will be generated in later phases of the exercise*
 
-## Fullanalysis
+## Full analysis
 
 *These will be generated in later phases of the exercise* \# Discussion
 *this section will be completed when analysis is done*
@@ -269,8 +269,6 @@ only on the county-level.
 These limitations are barriers to accurate spatial analysis.
 
 ## Conclusions *this section will be completed when analysis is done*
-
-{{< pagebreak >}}
 
 # References
 
