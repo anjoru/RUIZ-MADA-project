@@ -8,41 +8,34 @@ editor: visual
 ---
 
 # Introduction
-
 ## This file contains the process for loading, cleaning and exploring the datasets.
-
 # Loading libraries
-
+# this list contains the specific versions used in the script. 
 ```{r, message=FALSE, warning=FALSE}
-library(readxl) #for loading Excel files
-library(httr)   #for getting data from the web
-library(dplyr)  #for data processing/cleaning
-library(tidyr)  #for data processing/cleaning
-library(skimr)  #for visualizing data 
-library(here)   #allows relative pathways for data
-library(readr) #reading and writing data to and from CSV, TSV, and fixed-width files
-library(naniar) #tools to work with missing data
-library(ggplot2) #plot creation
-library(sf) #standardized way to encode spatial data
-library(topicmodels) #tools for topic modeling on text data
-library(openxlsx) #Facilitates reading from and writing to .xlsx files
-library(lubridate) #Simplifies the work with dates and times
-library(knitr) #Allows for dynamic report generation in R
-library(kableExtra) #generates simple HTML or LaTeX tables
-library(webshot2) #tools to take screenshots of web pages 
-library(magick) #advanced image processing in R
-library(leaflet) #Enables the creation of interactive maps
-library(htmlwidgets) #Facilitates the creation of R bindings to JavaScript libraries
+library(readxl) # for loading Excel files (version 1.4.0)
+library(httr) # for getting data from the web (version 1.4.2)
+library(dplyr) # for data processing/cleaning (version 1.0.7)
+library(tidyr) # for data processing/cleaning (version 1.1.3)
+library(skimr) # for visualizing data (version 2.1.3)
+library(here) # allows relative pathways for data (version 1.0.1)
+library(readr) # reading and writing data to and from CSV, TSV, and fixed-width files (version 2.0.1)
+library(naniar) # tools to work with missing data (version 0.6.1)
+library(ggplot2) # plot creation (version 3.3.5)
+library(sf) # standardized way to encode spatial data (version 1.0-2)
+library(topicmodels) # tools for topic modeling on text data (version 0.2-12)
+library(openxlsx) # Facilitates reading from and writing to .xlsx files (version 4.2.4)
+library(lubridate) # Simplifies the work with dates and times (version 1.7.10)
+library(knitr) # Allows for dynamic report generation in R (version 1.33)
+library(kableExtra) # generates simple HTML or LaTeX tables (version 1.3.4)
+library(webshot2) # tools to take screenshots of web pages (version 0.0.2)
+library(magick) # advanced image processing in R (version 2.7.3)
+library(leaflet) # Enables the creation of interactive maps (version 2.0.4.1)
+library(htmlwidgets) # Facilitates the creation of R bindings to JavaScript libraries (version 1.5.4)
 ```
 
 # Loading data
-
 ## Mosquito trap data
-
-### This dataset contains trap counts by species for all mosquito traps set in the Bristol County from 2007-2023
-
-### this dataset will undergo extensive processing below.
-
+### This dataset contains trap counts by species for all mosquito traps set in the Bristol County from 2007-2023 this dataset will undergo extensive processing below.
 ```{r trap-data-import}
 # Construct the path to the Excel file
 #file_path_mos <- here("data", "raw-data", "MOSQ_MADA.xlsx")
@@ -63,9 +56,7 @@ head(mosquito_raw)
 ```
 
 ## Mosquito trap sites
-
 ### Location for the mosquito trap sites
-
 ```{r}
 # Construct the path to the file
 file_path_trap = here("data", "processed-data", "BCMCP_trap_sites_2021.xlsx")
@@ -84,14 +75,17 @@ str(trap_location)
 trap_location_selected <- trap_location %>%
   select(`Trap Site Address`, MCD, Location, DecLat, DecLong)
 trap_location_selected
+
+# Define the path for the trap locations selected dataset RDS
+trap_location_selected_path_rds <- here("data", "processed-data", "rds", "trap_sites_selected.rds")
+
+# Save the trap_location_selected dataframe as an RDS file
+saveRDS(trap_location_selected, trap_location_selected_path_rds)
 ```
 
 ## Mosquito virus data
-
 ### The virus isolation data is stored in separate spreadsheets by year from 2014 to 2020
-
 ### This code will load all the files, combine them, and then save the combined file in the "raw data" folder
-
 ```{r}
 #Define the path to the folder with Excel files
 folder_path <- here("data", "processed-data", "virus_data")
@@ -114,15 +108,19 @@ combined_path <- here("data", "processed-data", "combined_virus_data.csv")
 # Save the combined data frame as a CSV file
 write.csv(combined_virus_data, combined_path, row.names = FALSE)
 
+# Define the path for the combined dataset RDS
+combined_path_rds <- here("data", "processed-data", "rds", "combined_virus_data.rds")
+
+# Save the combined data frame as an RDS file
+saveRDS(combined_virus_data, combined_path_rds)
+
 
 # View the first few rows to confirm it's loaded correctly
 head(combined_virus_data)
 ```
 
 ## Bird data
-
 ### The complete bird dataset is over 600 MB. Because it is too large for GitHub, it is stored locally. It contain variables and records that are not needed for this analysis. Eight of 50 varibles will be kept and the records will be filtered to show only birds from the Genus Corvus observed in Massachusetts after 2014-01-01
-
 ```{r}
 # Load complete bird data
 bird <- read.table("/Users/andrewruiz/0011508-240216155721649.csv", sep = "\t", header = TRUE, fill = TRUE)
@@ -150,15 +148,19 @@ write.csv(bird_select, output_file_path, row.names = FALSE)
 # Load the filtered bird data to R
 filtered_bird = read_csv(output_file_path, show_col_types = FALSE)
 
+# Define the path for the combined dataset RDS
+bird_path_rds <- here("data", "processed-data", "rds", "filtered_bird.rds")
+
+# Save the bird data frame as an RDS file
+saveRDS(filtered_bird, bird_path_rds)
+
 # ensure the csv loaded properly
 str(filtered_bird)
 head(filtered_bird)
 ```
 
 ## Weather data
-
 ### This dataset contains daily weather summaries from the Taunton, MA Airport from 2007-2023
-
 ```{r}
 # Construct the path to the file
 file_path_wx = here("data", "processed-data", "weather_airport.csv")
@@ -173,17 +175,26 @@ head(wx)
 wx_selected <- wx %>%
   select(STATION, NAME, DATE, PRCP)
 
+# Define the path for the RDS file
+output_path_wx <- here("data", "processed-data", "rds", "wx_selected.rds")
+
+# Save the wx_selected dataframe as an RDS file
+saveRDS(wx_selected, output_path_wx)
+
 head(wx_selected)
 ```
 
 ## Human and veterinary cases of eastern equine encephalitis and West Nile virus
-
 ```{r}
 # Construct the path to the human case data file
 file_path_human <- here("data", "processed-data", "human_cases.xlsx")
 
 # import the data to R and store it in a dataframe named "cases_human"
 cases_human <- read_excel(file_path_human)
+
+# Save 'cases_human' as an RDS file
+output_path_rds_human <- here("data", "processed-data", "rds", "human_cases_processed.rds")
+saveRDS(cases_human, output_path_rds_human)
 
 #load the first few rows of data to verify the data loaded as expected
 head(cases_human)
@@ -194,15 +205,17 @@ file_path_vet <- here("data", "processed-data", "animal_cases.xlsx")
 # import the data to R and store it in a dataframe named "cases_human"
 cases_vet <- read_excel(file_path_vet)
 
+# Save 'cases_vet' as an RDS file
+output_path_rds_vet <- here("data", "processed-data", "rds", "vet_cases_processed.rds")
+saveRDS(cases_vet, output_path_rds_vet)
+
 #load the first few rows of data to verify the data loaded as expected
 head(cases_vet)
 #date of onset is missing for some records, however, they are not needed for this project. 
 ```
 
 # Processing and cleaning the Mosquito trap data
-
 ### Examine the variables and change all column names to lower case
-
 ```{r}
 str(mosquito_raw)
 
@@ -215,7 +228,6 @@ head(mosquito_raw)
 ```
 
 ### Identify the time period the dataset covers
-
 ```{r}
 earliest_date <- min(mosquito_raw$`collection date`, na.rm = TRUE)
 latest_date <- max(mosquito_raw$`collection date`, na.rm = TRUE)
@@ -223,17 +235,13 @@ print(paste("Date range:", earliest_date," to ", latest_date))
 ```
 
 #### The mosquito dataset spans 2007 to 2023. However, the virus and case data only covers the years 2014 to 2020. Because mosquito populations can be influences by processes of the previous year. We will set the analytical horizon will span 2013 to 2021.*Collection data before 2013 and after 2021 will be removed* along with records with important missing variables identified below.
-
 ### Identify missing data
-
 ```{r}
 sapply(mosquito_raw, function(x) sum(is.na(x)))
 ```
 
 #### The majority of the missing data is in the "Submitted for Testing" variable. This is not a crucial variable, so we can keep those records.The other variable are important and so we will remove those records with the other missing data.
-
 ### The Massachussetts Department of Public Health adpoted a taxonomy change before it was fully vetted. The change divided the genus *Aedes* into a new genus: *Ochlerotatus*. To align with accepted standards, I will change them back to *Aedes*.
-
 ```{r}
 # Get unique values using dplyr
 unique_genus_values <- mosquito_raw %>%
@@ -252,7 +260,6 @@ unique(mosquito_raw$genus)
 ```
 
 ### Execute proposed changes.
-
 ```{r}
 # Create a copy of the dataframe to avoid modifying the original
 mosquito_modified <- mosquito_raw
@@ -293,11 +300,8 @@ str(mosquito_final)
 ```
 
 ## Reformat the collection data
-
 ### The Massachusetts Department of Public Health requires that all mosquito control district submit their colelction data in a specific format. This format divides each trap event into separate rows based on mosquito species. However, this format is not useful for certain calculations where a zero count for a species in not explicitly recorded. Even if you sort by species and calculate average count per trap, the average could be inflated since the records will not include trap events with a zero count of that species.
-
 ### In order to correct this, I will pivot the data and create a column for every unique "species code" and sum the "pool size" for each species code. The resulting table will have one row for every trap event -a trap event is when "town", "date of collection", "trap type" are all the same.
-
 ```{r}
 library(dplyr)
 library(tidyr)
@@ -338,12 +342,17 @@ write_csv(wide_data, file_path_wide)
 
 # Print the file path to confirm where the file has been saved
 print(paste("File saved to:", file_path_wide))
+
+# Define the path for the wide-format dataset RDS
+file_path_wide_rds <- here("data", "processed-data", "rds", "mosquito_wide.rds")
+
+# Save the wide-format data as an RDS file
+saveRDS(wide_data, file_path_wide_rds)
+
 ```
 
 # Exploring the Data
-
 ##Study location Below is a map of the mosquito trap sites. This is an interactive map and will only work on web or other html-friendly platforms.
-
 ```{r}
 # Create the map
 map_study <- leaflet(trap_location) %>%
@@ -361,11 +370,8 @@ saveWidget(map_study, file_path_map, selfcontained = TRUE)
 ```
 
 ## EEE in mosquitoes and mammals
-
 ### To give an idea of when EEE virus silled over from mosquitoes and birds and into mammal populations, lets take a look at the data. Let's see when the first EEE isolations were found in mosquitoes each year. Let's also look at the years that human and veterinary cases occured.
-
 ### From the table, we see that human or othe mammal cases were recorded in 2014, 2018, 2019, and 2020. 2019 had the highest case counts for both humans and other mammals. **Because of this, we will pay close attention to 2019 through out the exploration.**
-
 ```{r}
 library(dplyr)
 library(lubridate)
@@ -439,10 +445,21 @@ output_path_png <- here("results", "tables", "eee_isolation_cases.png")
 # Save the kableExtra table as an HTML file
 #save_kable(kable_table_isolation_case, file = output_path_quarto)
 save_kable(kable_table_isolation_case, file = output_path_png)
+
+# Define the paths for the RDS files
+first_positive_eee_test_by_year_path <- here("data", "processed-data", "rds", "first_positive_eee_test_by_year.rds")
+human_cases_by_year_path <- here("data", "processed-data", "rds", "human_cases_by_year.rds")
+animal_cases_by_year_path <- here("data", "processed-data", "rds", "animal_cases_by_year.rds")
+combined_eee_data_path <- here("data", "processed-data", "rds", "combined_eee_data.rds")
+
+# Save the data frames as RDS files
+saveRDS(first_positive_eee_test_by_year, first_positive_eee_test_by_year_path)
+saveRDS(human_cases_by_year, human_cases_by_year_path)
+saveRDS(animal_cases_by_year, animal_cases_by_year_path)
+saveRDS(combined_eee_data, combined_eee_data_path)
 ```
 
 ## Which county has the most EEE positive mosquitoes of those tested?
-
 ```{r}
 eee_positive_by_county <- combined_virus_data %>%
   filter(Virus == "EEE") %>%  # Filter for rows where Virus is EEE
@@ -465,7 +482,7 @@ eee_positive_table
 
 # Define the path where you want to save the HTML file
 #output_path_qmd <- here("results", "tables", "eee_isolation_county.html")
-output_path_county <- here("results", "tables", "eee_isolation_county.png")
+output_path_county <- here("results", "tables", "eee_isolation_county.html")
 
 # Save the kableExtra table as an HTML file
 #save_kable(eee_positive_table, file = output_path_qmd)
@@ -473,56 +490,66 @@ save_kable(eee_positive_table, file = output_path_county)
 ```
 
 ## *Culiseta melanura* (MEL) is the main enzootic vector of EEE. Some entomologist believe that high levels of MEL traps indicate higher risk for EEE transmission. Using the new mosquito collection table created from the pivot, let's calculate the proportion of MEL captured compared to all other mosquito vector species and create a plot to visualize it.
-
-### 
-
 ```{r}
+library(dplyr)
+library(ggplot2)
+library(readr) # For read_csv
+library(here)
+
 # Define path to the data file
-trap_wide_path = here("data", "processed-data", "mosquito_wide.csv")
+trap_wide_path <- here("data", "processed-data", "mosquito_wide.csv")
 
 # Read the data
-trap_proportion = read.csv(trap_wide_path)
+trap_proportion <- read_csv(trap_wide_path) %>%
+  mutate(Year = year(as.Date(`collection date`, format = "%Y-%m-%d")))
 
-# Convert 'collection.date' to Date type using the correct format and extract the year
-trap_proportion$Year <- year(ymd(trap_proportion$collection.date))
-
-# Sum all specified species by the calculated year, including any additional species codes you have
-yearly_sums <- trap_proportion %>%
+# Calculate the proportion of MEL out of the total for all species
+proportion_mel_by_year <- trap_proportion %>%
   group_by(Year) %>%
-  summarise(across(c("MEL", "PER", "PIP", "RES", "SAL", "TRI", "SAP"), sum, na.rm = TRUE)) %>%
-  # After summarising, calculate the total counts for all species per year
-  mutate(Total = rowSums(across(c("MEL", "PER", "PIP", "RES", "SAL", "TRI", "SAP"))),
-         # Calculate the proportion of MEL out of the total for all species
-         MEL_Prop = MEL / Total)
+  summarise(Total_MEL = sum(MEL, na.rm = TRUE),
+            Total_All = sum(MEL + PER + PIP + RES + SAL + TRI + SAP, na.rm = TRUE),
+            MEL_Prop = Total_MEL / Total_All)
 
-# View the result with the proportion of MEL
-print(yearly_sums)
+# Calculate the average number of MEL by year
+average_mel_by_year <- trap_proportion %>%
+  group_by(Year) %>%
+  summarise(Average_MEL = mean(MEL, na.rm = TRUE))
 
-library(ggplot2)
+# Save the processed data as RDS and CSV
+saveRDS(proportion_mel_by_year, here("data", "processed-data", "rds", "yearly_mel_proportion.rds"))
+write.csv(proportion_mel_by_year, here("data", "processed-data", "yearly_mel_proportion.csv"), row.names = FALSE)
 
-mel_plot = ggplot(yearly_sums, aes(x = factor(Year), y = MEL_Prop, fill = "MEL")) +
-  geom_bar(stat = "identity", color = "black") +
-  labs(title = expression(Proportion ~ of ~ italic("Culiseta melanura") ~ (MEL) ~ Mosquitoes ~ by ~ Year),
-       x = NULL,
+saveRDS(average_mel_by_year, here("data", "processed-data", "rds", "yearly_mel_average.rds"))
+write.csv(average_mel_by_year, here("data", "processed-data", "yearly_mel_average.csv"), row.names = FALSE)
+
+# Plot for the proportion of MEL by year
+ggplot(proportion_mel_by_year, aes(x = factor(Year), y = MEL_Prop)) +
+  geom_col(fill = "steelblue") +
+  labs(title = "Proportion of Culiseta melanura (MEL) by Year",
+       x = "Year",
        y = "Proportion of MEL") +
-  scale_fill_discrete(name = "Species") +
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
-mel_plot
-# Specify the file path where you want to save the plot
-#file_path_mel = here("results", "figures", "mel_proportion.png")
-# Use ggsave to save the plot
-#ggsave(file_path_mel, plot = mel_plot, width = 8, height = 6, dpi = 300)
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
+ggsave(here("results", "figures", "mel_proportion_by_year.png"), width = 8, height = 6, dpi = 300)
 
+# Plot for the average count of MEL by year
+mel_plot = ggplot(average_mel_by_year, aes(x = factor(Year), y = Average_MEL, fill = "Year")) +
+  geom_col() +
+  labs(title = "Average Count of Culiseta melanura (MEL) by Year",
+       x = "Year",
+       y = "Average Count of MEL") +
+  scale_fill_viridis_d() +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+ggsave(here("results", "figures", "average_mel_by_year.png"), plot = mel_plot, width = 8, height = 6, dpi = 300)
 
 ```
 
 ## Mosquito abundance is affected by weather. Mosquitoes depend on standing water to complete their larval development. Let's take a look at the annual precipitation using the wx data frame.
 
 ```{r annual precip}
-
-
 # Convert DATE from character to Date type using as.Date and specifying the format
 wx$DATE <- as.Date(wx$DATE, format="%m/%d/%y")
 
@@ -537,10 +564,18 @@ wx$Year <- format(wx$DATE, "%Y") %>% as.numeric()
 filtered_wx <- wx %>%
   filter(Year >= 2013 & Year <= 2020)
 
+# Save the filtered weather data as an RDS file
+filtered_wx_path_rds <- here("data", "processed-data", "rds", "filtered_wx_2013_2020.rds")
+saveRDS(filtered_wx, filtered_wx_path_rds)
+
 # Sum PRCP by Year for the filtered data
 summed_prcp_by_year_filtered <- filtered_wx %>%
   group_by(Year) %>%
   summarise(Total_PRCP = sum(PRCP, na.rm = TRUE))
+
+# Save the summarized precipitation data as an RDS file
+summed_prcp_by_year_path_rds <- here("data", "processed-data", "rds", "summed_prcp_by_year_filtered_2013_2020.rds")
+saveRDS(summed_prcp_by_year_filtered, summed_prcp_by_year_path_rds)
 
 # View the result
 print(summed_prcp_by_year_filtered)
@@ -560,3 +595,45 @@ file_path_precip <- here("results", "figures", "annual_precip.png")
 # Use ggsave to save the plot, make sure to use the plot object
 ggsave(file_path_precip, plot = precip_plot, width = 8, height = 6, dpi = 300)
 ```
+### Now I want to plot the ave mel by year with the total precip by year
+
+```{r}
+
+# Load the datasets
+yearly_mel_ave <- readRDS(here("data", "processed-data", "rds", "yearly_mel_ave.rds"))
+summed_prcp_by_year_filtered <- readRDS(here("data", "processed-data", "rds", "summed_prcp_by_year_filtered_2013_2020.rds"))
+
+# Combine the datasets
+combined_data <- left_join(yearly_mel_ave, summed_prcp_by_year_filtered, by = "Year")
+
+# Define the path for the RDS file with a descriptive name
+combined_data_path_rds <- here("data", "processed-data", "rds", "combined_mel_avg_and_total_precip_2013_2020.rds")
+
+# Save the combined data as an RDS file
+saveRDS(combined_data, combined_data_path_rds)
+
+
+ggplot(data = combined_data) +
+  geom_col(aes(x = factor(Year), y = Average_MEL), fill = "blue") +
+  geom_line(aes(x = factor(Year), y = Total_PRCP, group = 1), color = "red", linetype = "dashed") +
+  geom_point(aes(x = factor(Year), y = Total_PRCP), color = "red", size = 3) +
+  geom_hline(yintercept = 45.6, linetype = "dotted", color = "darkgreen", size = 1) +
+  annotate("text", x = Inf, y = 45.6, label = "Avg Precip: 45.6 inches", 
+           hjust = 3.2, vjust = -1.1, color = "darkgreen", size = 3.5, fontface = "bold", angle = 0) +
+  scale_y_continuous(name = "Average Count of MEL", 
+                     sec.axis = sec_axis(~ ., name = "Total Precipitation (inches)")) +
+  labs(title = "Average Count of MEL Mosquitoes and Total Precipitation by Year",
+       x = "Year") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
+        axis.title.x = element_text(face = "bold"))
+# Save the plot
+ggsave(filename = here("results", "figures", "combined_trends_mel_precip.png"), plot = last_plot(), width = 10, height = 6, dpi = 300)
+
+
+```
+
+
+
+
+
