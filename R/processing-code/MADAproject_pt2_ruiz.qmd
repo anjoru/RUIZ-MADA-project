@@ -8,9 +8,10 @@ editor: visual
 ---
 
 # Introduction
+
 ## This file contains the process for loading, cleaning and exploring the datasets.
 # Loading libraries
-# this list contains the specific versions used in the script. 
+# This list contains the specific versions used in the script.
 ```{r, message=FALSE, warning=FALSE}
 library(readxl) # for loading Excel files (version 1.4.0)
 library(httr) # for getting data from the web (version 1.4.2)
@@ -31,11 +32,13 @@ library(webshot2) # tools to take screenshots of web pages (version 0.0.2)
 library(magick) # advanced image processing in R (version 2.7.3)
 library(leaflet) # Enables the creation of interactive maps (version 2.0.4.1)
 library(htmlwidgets) # Facilitates the creation of R bindings to JavaScript libraries (version 1.5.4)
+library(suncalc) # Calculates sunset and sunrise times based on location (version 0.5.1)
 ```
 
 # Loading data
 ## Mosquito trap data
 ### This dataset contains trap counts by species for all mosquito traps set in the Bristol County from 2007-2023 this dataset will undergo extensive processing below.
+#### The dataset was obtained though and open records request with the Commonwealth of MA.
 ```{r trap-data-import}
 # Construct the path to the Excel file
 #file_path_mos <- here("data", "raw-data", "MOSQ_MADA.xlsx")
@@ -56,7 +59,9 @@ head(mosquito_raw)
 ```
 
 ## Mosquito trap sites
+
 ### Location for the mosquito trap sites
+
 ```{r}
 # Construct the path to the file
 file_path_trap = here("data", "processed-data", "BCMCP_trap_sites_2021.xlsx")
@@ -84,8 +89,11 @@ saveRDS(trap_location_selected, trap_location_selected_path_rds)
 ```
 
 ## Mosquito virus data
+
 ### The virus isolation data is stored in separate spreadsheets by year from 2014 to 2020
+
 ### This code will load all the files, combine them, and then save the combined file in the "raw data" folder
+
 ```{r}
 #Define the path to the folder with Excel files
 folder_path <- here("data", "processed-data", "virus_data")
@@ -120,7 +128,9 @@ head(combined_virus_data)
 ```
 
 ## Bird data
+
 ### The complete bird dataset is over 600 MB. Because it is too large for GitHub, it is stored locally. It contain variables and records that are not needed for this analysis. Eight of 50 varibles will be kept and the records will be filtered to show only birds from the Genus Corvus observed in Massachusetts after 2014-01-01
+
 ```{r}
 # Load complete bird data
 bird <- read.table("/Users/andrewruiz/0011508-240216155721649.csv", sep = "\t", header = TRUE, fill = TRUE)
@@ -160,7 +170,9 @@ head(filtered_bird)
 ```
 
 ## Weather data
+
 ### This dataset contains daily weather summaries from the Taunton, MA Airport from 2007-2023
+
 ```{r}
 # Construct the path to the file
 file_path_wx = here("data", "processed-data", "weather_airport.csv")
@@ -185,6 +197,7 @@ head(wx_selected)
 ```
 
 ## Human and veterinary cases of eastern equine encephalitis and West Nile virus
+
 ```{r}
 # Construct the path to the human case data file
 file_path_human <- here("data", "processed-data", "human_cases.xlsx")
@@ -215,7 +228,9 @@ head(cases_vet)
 ```
 
 # Processing and cleaning the Mosquito trap data
+
 ### Examine the variables and change all column names to lower case
+
 ```{r}
 str(mosquito_raw)
 
@@ -228,6 +243,7 @@ head(mosquito_raw)
 ```
 
 ### Identify the time period the dataset covers
+
 ```{r}
 earliest_date <- min(mosquito_raw$`collection date`, na.rm = TRUE)
 latest_date <- max(mosquito_raw$`collection date`, na.rm = TRUE)
@@ -235,13 +251,17 @@ print(paste("Date range:", earliest_date," to ", latest_date))
 ```
 
 #### The mosquito dataset spans 2007 to 2023. However, the virus and case data only covers the years 2014 to 2020. Because mosquito populations can be influences by processes of the previous year. We will set the analytical horizon will span 2013 to 2021.*Collection data before 2013 and after 2021 will be removed* along with records with important missing variables identified below.
+
 ### Identify missing data
+
 ```{r}
 sapply(mosquito_raw, function(x) sum(is.na(x)))
 ```
 
 #### The majority of the missing data is in the "Submitted for Testing" variable. This is not a crucial variable, so we can keep those records.The other variable are important and so we will remove those records with the other missing data.
+
 ### The Massachussetts Department of Public Health adpoted a taxonomy change before it was fully vetted. The change divided the genus *Aedes* into a new genus: *Ochlerotatus*. To align with accepted standards, I will change them back to *Aedes*.
+
 ```{r}
 # Get unique values using dplyr
 unique_genus_values <- mosquito_raw %>%
@@ -260,6 +280,7 @@ unique(mosquito_raw$genus)
 ```
 
 ### Execute proposed changes.
+
 ```{r}
 # Create a copy of the dataframe to avoid modifying the original
 mosquito_modified <- mosquito_raw
@@ -300,8 +321,11 @@ str(mosquito_final)
 ```
 
 ## Reformat the collection data
+
 ### The Massachusetts Department of Public Health requires that all mosquito control district submit their colelction data in a specific format. This format divides each trap event into separate rows based on mosquito species. However, this format is not useful for certain calculations where a zero count for a species in not explicitly recorded. Even if you sort by species and calculate average count per trap, the average could be inflated since the records will not include trap events with a zero count of that species.
+
 ### In order to correct this, I will pivot the data and create a column for every unique "species code" and sum the "pool size" for each species code. The resulting table will have one row for every trap event -a trap event is when "town", "date of collection", "trap type" are all the same.
+
 ```{r}
 library(dplyr)
 library(tidyr)
@@ -352,7 +376,9 @@ saveRDS(wide_data, file_path_wide_rds)
 ```
 
 # Exploring the Data
+
 ##Study location Below is a map of the mosquito trap sites. This is an interactive map and will only work on web or other html-friendly platforms.
+
 ```{r}
 # Create the map
 map_study <- leaflet(trap_location) %>%
@@ -370,8 +396,11 @@ saveWidget(map_study, file_path_map, selfcontained = TRUE)
 ```
 
 ## EEE in mosquitoes and mammals
+
 ### To give an idea of when EEE virus silled over from mosquitoes and birds and into mammal populations, lets take a look at the data. Let's see when the first EEE isolations were found in mosquitoes each year. Let's also look at the years that human and veterinary cases occured.
+
 ### From the table, we see that human or othe mammal cases were recorded in 2014, 2018, 2019, and 2020. 2019 had the highest case counts for both humans and other mammals. **Because of this, we will pay close attention to 2019 through out the exploration.**
+
 ```{r}
 library(dplyr)
 library(lubridate)
@@ -438,11 +467,11 @@ kable_table_isolation_case <- kable(combined_eee_data, "html",
 # Displaying the table
 kable_table_isolation_case
 
-# Define the path where you want to save the HTML file
+# Define the path where you want 
 #output_path_quarto <- here("results", "tables", "eee_isolation_cases")
 output_path_png <- here("results", "tables", "eee_isolation_cases.png")
 
-# Save the kableExtra table as an HTML file
+
 #save_kable(kable_table_isolation_case, file = output_path_quarto)
 save_kable(kable_table_isolation_case, file = output_path_png)
 
@@ -460,6 +489,7 @@ saveRDS(combined_eee_data, combined_eee_data_path)
 ```
 
 ## Which county has the most EEE positive mosquitoes of those tested?
+
 ```{r}
 eee_positive_by_county <- combined_virus_data %>%
   filter(Virus == "EEE") %>%  # Filter for rows where Virus is EEE
@@ -490,6 +520,7 @@ save_kable(eee_positive_table, file = output_path_county)
 ```
 
 ## *Culiseta melanura* (MEL) is the main enzootic vector of EEE. Some entomologist believe that high levels of MEL traps indicate higher risk for EEE transmission. Using the new mosquito collection table created from the pivot, let's calculate the proportion of MEL captured compared to all other mosquito vector species and create a plot to visualize it.
+
 ```{r}
 library(dplyr)
 library(ggplot2)
@@ -595,8 +626,8 @@ file_path_precip <- here("results", "figures", "annual_precip.png")
 # Use ggsave to save the plot, make sure to use the plot object
 ggsave(file_path_precip, plot = precip_plot, width = 8, height = 6, dpi = 300)
 ```
-### Now I want to plot the ave mel by year with the total precip by year
 
+### Now I want to plot the ave mel by year with the total precip by year
 ```{r}
 
 # Load the datasets
@@ -629,11 +660,73 @@ ggplot(data = combined_data) +
         axis.title.x = element_text(face = "bold"))
 # Save the plot
 ggsave(filename = here("results", "figures", "combined_trends_mel_precip.png"), plot = last_plot(), width = 10, height = 6, dpi = 300)
-
-
 ```
 
+```{r}
+# Ensure the suncalc library is loaded
+library(suncalc)
+get_sun_times <- function(date, latitude, longitude) {
+  times <- getSunlightTimes(date = date, lat = latitude, lon = longitude, tz = "UTC")
+  
+  # Convert sunrise and sunset times to POSIXct directly without checking class
+  # Assume times are returned in a standard format that can be converted directly
+  sunrise <- as.POSIXct(times$sunrise, format = "%Y-%m-%dT%H:%M:%S", tz = "UTC")
+  sunset <- as.POSIXct(times$sunset, format = "%Y-%m-%dT%H:%M:%S", tz = "UTC")
+  
+  # Format sunrise and sunset times
+  formatted_sunrise <- format(sunrise, "%H:%M:%S", tz="UTC")
+  formatted_sunset <- format(sunset, "%H:%M:%S", tz="UTC")
+  
+  return(c(as.character(date), formatted_sunrise, formatted_sunset))
+}
+
+# Define the geographical coordinates for Bristol County, MA (latitude and longitude)
+latitude <- 41.8744
+longitude <- -71.0166
+
+# Generate a sequence of dates from 2015-01-01 to 2024-12-31
+dates <- seq(as.Date("2015-01-01"), as.Date("2024-12-31"), by = "day")
+
+# Calculate sunrise and sunset times for each date
+sun_times <- lapply(dates, function(date) {
+  get_sun_times(date, latitude, longitude)
+})
+
+# Convert the list to a data frame
+sun_times_df <- do.call(rbind, sun_times)
+colnames(sun_times_df) <- c("Date", "Sunrise", "Sunset")
+
+# Write the data frame to a CSV file
+write.csv(sun_times_df, file = "sunrise_sunset_times_bristol_county_ma.csv", row.names = FALSE)
+
+# Define the file path where you want to save the sunrise and sunset times data frame
+sunrise_sunset_times_path <- here("data", "processed-data", "rds", "sunrise_sunset_times_bristol_county_ma.rds")
+
+# Save the sun_times_df data frame as an RDS file
+saveRDS(sun_times_df, sunrise_sunset_times_path)
+
+# Output to confirm file saving
+cat("Sunrise and sunset times saved to:", sunrise_sunset_times_path, "\n")
 
 
+#moon
+# Generate a sequence of dates from 2015-01-01 to 2022-12-31
+dates <- seq(as.Date("2015-01-01"), as.Date("2022-12-31"), by = "day")
 
+# Function to get moon phase for a given date
+get_moon_phase <- function(date) {
+  illumination <- getMoonIllumination(date)
+  phase <- illumination$phase
+  return(phase)
+}
+
+# Calculate moon phase for each date
+moon_phases <- sapply(dates, get_moon_phase)
+
+# Create a data frame with dates and their corresponding moon phases
+moon_phases_df <- data.frame(Date = dates, MoonPhase = moon_phases)
+
+# View the first few rows of the data frame
+head(moon_phases_df)
+```
 
