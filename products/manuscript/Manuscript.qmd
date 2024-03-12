@@ -43,14 +43,18 @@ melanura are an early warning sign that EEEv is circulating in the
 ecosystem. Isolations in bridge vector mosquito species indicate
 heightened transmission risk to humans.
 
-This project will lay the foundation for my dissertation research. **The
-goal for this phase of the project is to answer which environmental,
-ecological, and temporal factors influence the transmission cycles for
-EEE in southeastern Massachusetts.**
+# Problem statement
+
+Which environmental,ecological, and temporal factors influence the
+transmission cycles for EEE in southeastern Massachusetts and which
+models best describe the relationship between these factors.
+
+This project will lay the foundation for dissertation research that will
+begin in June, 2024. The research will focus on three
 
 # Introduction
 
-## General Background Information
+## Background
 
 Humans and other mammals are dead-end hosts for EEE. About 94% of human
 EEE infections are asymptomatic. While symptomatic cases are rare, the
@@ -66,39 +70,81 @@ resulting in 22 deaths. There are no human vaccines for EEE, and
 treatment consists of palliative care only. Prevention measures include
 personal behaviors to avoid mosquito bites and decreasing the mosquito
 population through pesticide use and environmental modifications like
-removing standing water. The Bristol County Mosquito Control Project
-(BCMCP) coordinates mosquito surveillance and testing in the county from
-June to October. BCMCP has used the same sentinel collection sites and
-trapping methods for over 20 years. Once trapped, mosquitoes are sorted
-by species, and vector species are submitted to the Massachusetts
-Department of Health’s (MDPH) State Lab for PCR virus testing. Results
-are available within 24 hours of submission. When rates of EEE mosquito
-infections are above a defined threshold, MDPH notifies the local boards
-of health and recommends preventive measures. Recommended measures
-include outreach and education to increase personal protective practices
-. Additionally, MDPH may recommend that cities and towns in the affected
-areas cancel evening outdoor events and discourage outdoor activities
-when mosquito vectors are most active (dawn and dusk). When infection
-rates are high enough to indicate imminent human transmission, the
-Commonwealth of Massachusetts will recommend and fund aerial pesticide
-applications over the affected areas.
+removing standing water.
 
-## Description of data and data source
+The Bristol County Mosquito Control Project (BCMCP) coordinates mosquito
+surveillance and testing in the county from June to October. BCMCP has
+used the same sentinel collection sites and trapping methods for over 20
+years. Once trapped, mosquitoes are sorted by species, and vector
+species are submitted to the Massachusetts Department of Health’s (MDPH)
+State Lab for PCR virus testing. Results are available within 24 hours
+of submission. When rates of EEE mosquito infections are above a defined
+threshold, MDPH notifies the local boards of health and recommends
+preventive measures. Recommended measures include outreach and education
+to increase personal protective practices . Additionally, MDPH may
+recommend that cities and towns in the affected areas cancel evening
+outdoor events and discourage outdoor activities when mosquito vectors
+are most active (dawn and dusk). When infection rates are high enough to
+indicate imminent human transmission, the Commonwealth of Massachusetts
+will recommend and fund aerial pesticide applications over the affected
+areas.
 
-*The cornerstone of this research will be the mosquito collection data
-provided by a mosquito control project in SE Massachusetts. A formal
-data-sharing agreement will be in place by January 2024. The dataset
-encompasses nearly two decades of detailed mosquito surveillance. The
-datasets include spatial identifiers. Mosquito collection data will be
-integrated with other datasets using spatial or temporal attributes.
-These datasets will include biological and ecological data,
-environmental and spatial data, and demographic data, which are crucial
-in understanding the transmission dynamics of EEE. Potential datasets
-with their sources are outlined in the table below. Other datasets may
-be included based on availability and need.*
+# Methods
+
+## Study area
+
+Bristol County, Massachusetts covers an area of 691 square miles with a
+population density of 962 people per square mile. It borders Rhode
+Island to the west, Plymouth County, MA to the east, and Norfolk County,
+MA to the north.The county is situated on Buzzard's Bay to the south.
+
+Atlantic White Cedar (AWC) swamps span over 4,300 acres within
+Massachusetts, primarily concentrated in Plymouth and Bristol counties.
+These swamps serve as critical breeding habitats for Culiseta melanura
+(MEL), which is recognized as the primary enzootic vector for Eastern
+Equine Encephalitis (EEE). AWC trees have large roots that form "crypts"
+that hold water throughout the year. These crypts serve as a main
+habitat for MEL larval growth.
+
+Between 2003 and 2022 Plymouth and Bristol counties were the epicenters
+for EEE transmission in Massachusetts, accounting for 24 out of the
+state's 41 human EEE cases.The Bristol County Mosquito Control Project
+(BCMCP) conducts mosquito surveillance and abatement activities for the
+county and often coordinates activities with Plymouth County Mosquito
+Control Project.
+
+## Data collection and processing
+
+The cornerstone of this project is mosquito surveillance data. This
+dataset includes mosquito counts by species for all mosquito traps set
+in Bristol County, MA between 2007 to 2023. In addition to mosquito
+counts by species, the dataset includes the town or city in which they
+were collected, the collection data, and whether the mosquitoes were
+submitted for virus testing.
+
+While the surveillance data provide insight into mosquito population
+estimates and changes in species composition, it is missing one key
+feature. The virus isolation results are not included in this dataset.
+However, virus isolations in mosquitoes are published on the MDPH
+website by town/city and collection date. With this information, one can
+identify the trap event contained in the dataset which allow for
+calculations of key measure, such as minimum infection rate (MIR).
+
+The surveillance dataset is structured to conform with state and federal
+reporting requirements. As a result, the format of the data must be
+transformed to in order to make it ready for analysis. Once the data
+structure is corrected, it can be joined to other relevant datasets
+using spatial or temporal attributes.
+
+This dataset will be integrated with other datasets using spatial or
+temporal attributes. These datasets will include biological and
+ecological data, environmental and spatial data, and demographic data,
+which are crucial in understanding the transmission dynamics of EEE.
+Potential datasets with their sources are outlined in the table below.
+Other datasets may be included based on availability and need.
 
 | Data                         | Description                                                                                                                                           | Source                                |
-|--------------|--------------------------------------------|--------------|
+|-------------------|----------------------------------|-------------------|
 | Mosquito Surveillance Data   | Records of mosquito species counts, locations, and dates of collection. Data on the presence of EEE in mosquito populations is particularly valuable. | XXX County Mosquito Control           |
 | Weather Data                 | Temperature, humidity, rainfall, and wind speed influence mosquito activity, population dynamics, and virus transmission.                             | NOAA                                  |
 | Bird Population Data         | Since birds are a natural reservoir for EEE, information on bird populations and migration patterns could be relevant.                                | eBird                                 |
@@ -110,9 +156,11 @@ be included based on availability and need.*
 \*This project will lay the foundation for my dissertation research.
 **The goal for this phase of the project is to answer which
 environmental, ecological, and temporal factors influence the
-transmission cycles for EEE in southeastern Massachusetts.** While the
-following questions will not be addressed in this phase, this project
-will hopefully inform research that will answer the following questions:
+transmission cycles for EEE in southeastern Massachusetts.**
+
+While the following questions will not be addressed in this phase, this
+project will hopefully inform research that will answer the following
+questions:
 
 1\. Can an AI-driven model that leverages historic mosquito
 surveillance, ecological, and environmental data accurately quantify the
