@@ -33,6 +33,8 @@ library(magick) # advanced image processing in R (version 2.7.3)
 library(leaflet) # Enables the creation of interactive maps (version 2.0.4.1)
 library(htmlwidgets) # Facilitates the creation of R bindings to JavaScript libraries (version 1.5.4)
 library(suncalc) # Calculates sunset and sunrise times based on location (version 0.5.1)
+library(stringr) # Makes string manipulation easier and more consistent (version 1.5.1)
+library(ISOweek) # Calculates week number according to ISO 8601 standards (version 0.6-2)
 ```
 
 # Loading data
@@ -59,9 +61,7 @@ head(mosquito_raw)
 ```
 
 ## Mosquito trap sites
-
 ### Location for the mosquito trap sites
-
 ```{r}
 # Construct the path to the file
 file_path_trap = here("data", "processed-data", "BCMCP_trap_sites_2021.xlsx")
@@ -71,12 +71,11 @@ trap_location = read_excel(file_path_trap)
 
 #load the first few rows of data to verify the data loaded as expected
 head(trap_location)
-str(trap_location)
 
 #The last 3 columns have missing data. However, they are not important for the purposes of this project
 # there is not a need to delete the records
-#However, we will delete the columns
-
+# this is a free text field that provides notes about the location.
+# they are not needed so we will delete them
 trap_location_selected <- trap_location %>%
   select(`Trap Site Address`, MCD, Location, DecLat, DecLong)
 trap_location_selected
@@ -89,11 +88,10 @@ saveRDS(trap_location_selected, trap_location_selected_path_rds)
 ```
 
 ## Mosquito virus data
-
+### The data includes all the positive PCR results for EEE and WNV for all mosquitoes submitted for testing
+### These files were obtained from: https://www.mass.gov/lists/arbovirus-surveillance-plan-and-historical-data
 ### The virus isolation data is stored in separate spreadsheets by year from 2014 to 2020
-
 ### This code will load all the files, combine them, and then save the combined file in the "raw data" folder
-
 ```{r}
 #Define the path to the folder with Excel files
 folder_path <- here("data", "processed-data", "virus_data")
@@ -128,9 +126,7 @@ head(combined_virus_data)
 ```
 
 ## Bird data
-
 ### The complete bird dataset is over 600 MB. Because it is too large for GitHub, it is stored locally. It contain variables and records that are not needed for this analysis. Eight of 50 varibles will be kept and the records will be filtered to show only birds from the Genus Corvus observed in Massachusetts after 2014-01-01
-
 ```{r}
 # Load complete bird data
 bird <- read.table("/Users/andrewruiz/0011508-240216155721649.csv", sep = "\t", header = TRUE, fill = TRUE)
@@ -170,9 +166,8 @@ head(filtered_bird)
 ```
 
 ## Weather data
-
+### temperature and precipitation are important factors in mosquito population dynamics
 ### This dataset contains daily weather summaries from the Taunton, MA Airport from 2007-2023
-
 ```{r}
 # Construct the path to the file
 file_path_wx = here("data", "processed-data", "weather_airport.csv")
@@ -197,7 +192,8 @@ head(wx_selected)
 ```
 
 ## Human and veterinary cases of eastern equine encephalitis and West Nile virus
-
+### these were extracted from annual mosquito reports publised here: https://www.mass.gov/lists/arbovirus-surveillance-plan-and-historical-data
+### human cases are listed by county only. animal cases are listed by town/city (with the exception of 1 year)
 ```{r}
 # Construct the path to the human case data file
 file_path_human <- here("data", "processed-data", "human_cases.xlsx")
@@ -228,9 +224,7 @@ head(cases_vet)
 ```
 
 # Processing and cleaning the Mosquito trap data
-
 ### Examine the variables and change all column names to lower case
-
 ```{r}
 str(mosquito_raw)
 
@@ -250,18 +244,15 @@ latest_date <- max(mosquito_raw$`collection date`, na.rm = TRUE)
 print(paste("Date range:", earliest_date," to ", latest_date))
 ```
 
-#### The mosquito dataset spans 2007 to 2023. However, the virus and case data only covers the years 2014 to 2020. Because mosquito populations can be influences by processes of the previous year. We will set the analytical horizon will span 2013 to 2021.*Collection data before 2013 and after 2021 will be removed* along with records with important missing variables identified below.
+#### The mosquito dataset spans 2007 to 2023. However, the virus and case data only covers the years 2014 to 2020. Because mosquito populations can be influenced by processes of the previous year. We will set the analytical horizon will span 2013 to 2021.*Collection data before 2013 and after 2021 will be removed* along with records with important missing variables identified below.
 
 ### Identify missing data
-
 ```{r}
 sapply(mosquito_raw, function(x) sum(is.na(x)))
 ```
 
 #### The majority of the missing data is in the "Submitted for Testing" variable. This is not a crucial variable, so we can keep those records.The other variable are important and so we will remove those records with the other missing data.
-
 ### The Massachussetts Department of Public Health adpoted a taxonomy change before it was fully vetted. The change divided the genus *Aedes* into a new genus: *Ochlerotatus*. To align with accepted standards, I will change them back to *Aedes*.
-
 ```{r}
 # Get unique values using dplyr
 unique_genus_values <- mosquito_raw %>%
@@ -276,60 +267,64 @@ mosquito_raw$genus[mosquito_raw$genus == "Ochlerotatus"] <- "Aedes"
 
 # Check the first few rows to confirm changes, or use unique() to see the change in genus values
 unique(mosquito_raw$genus)
-
 ```
 
 ### Execute proposed changes.
-
 ```{r}
 # Create a copy of the dataframe to avoid modifying the original
 mosquito_modified <- mosquito_raw
 
-# Change records where genus is "Ochlerotatus" to "Aedes"
-#mosquito_modified$genus[mosquito_modified$genus == "Ochlerotatus"] <- "Aedes"
+# Change records where genus is "Ochlerotatus" to "Aedes" to adhere to current taxonomy standards
+mosquito_modified$genus[mosquito_modified$genus == "Ochlerotatus"] <- "Aedes"
 
-# Filter out records where Collection Date is before 2013 or after 2021
-# Ensure Collection Date is in Date format if it's not already
+# Ensure Collection Date is in Date format 
 mosquito_modified$`collection date` <- as.Date(mosquito_modified$`collection date`)
 
 # Convert all species code values to uppercase
+# This will minimize issues were data as entered incorrectly
+# for example Mel, mel, and MEL
 mosquito_modified <- mosquito_modified %>%
   mutate(`species code` = toupper(`species code`))
 
-# Now apply the date filter
-mosquito_modified <- mosquito_modified[mosquito_modified$`collection date` >= as.Date("2013-01-01") & 
-                                       mosquito_modified$`collection date` <= as.Date("2021-12-31"), ]
-
 # Remove rows with NA values in the remaining columns of the modified dataframe, 
 # except for "Submitted for Testing" which we'll handle separately
+# when Submitted for testing is NA or missing, it indicates that there were no mosquitoes captured during a trap event.
+# This is common at the beginning and end of season and also when a trap malfunctions
 temp_columns <- names(mosquito_modified)
 temp_columns <- temp_columns[temp_columns != "submitted for testing"]
+mosquito_modified <- na.omit(mosquito_modified, cols = temp_columns)
 
-# Applying NA omit on selected columns only
-mosquito_clean_except_submitted <- na.omit(mosquito_modified[temp_columns])
+# Add "week_num" column
+# This code ensures that the ISO 8601 standard is applied to the week number calculation
+# Week 1 of any year is the week that contains January 4th, or equivalently, it's the week that contains the first Thursday of January.
+# Weeks start on Monday and end on Sunday.
+# The last week of the year, week 52 or 53, is the one that contains December 28th.
+# we will use week_num to join tables
+# the format will be YYYY-WW. Week 8 of 2019 will look like: 2019-08
+mosquito_modified <- mosquito_modified %>%
+  mutate(
+    # Directly format the collection date into "YYYY-WW"
+    week_num = paste0(year(`collection date`), "-", 
+                      sprintf("%02d", isoweek(`collection date`)))
+  )
 
-# Since na.omit on selected columns messes with row alignment, let's filter the original dataset based on the cleaned IDs
-clean_ids <- row.names(mosquito_clean_except_submitted)
-mosquito_final <- mosquito_modified[clean_ids, ]
+# before filtering the dates to have a cleaned dataset with all the records.
+write_csv(mosquito_modified, here("data", "processed-data", "mosquito_clean_all.csv"))
+saveRDS(mosquito_modified, here("data", "processed-data", "rds", "mosquito_clean_all.rds"))
 
-# Add back "Submitted for Testing" from the original dataframe if needed
-# Note: This step might be redundant if "Submitted for Testing" was not actually removed or if it's included in the cleaning process
-mosquito_final$`submitted for testing` <- mosquito_raw$`submitted for testing`[clean_ids]
+# Now apply the date filter to match the analytical horizon of the project
+mosquito_final <- mosquito_modified %>%
+  filter(`collection date` >= as.Date("2013-01-01") & `collection date` <= as.Date("2021-12-31"))
 
 # Check the structure of the final cleaned dataframe
 str(mosquito_final)
 ```
 
 ## Reformat the collection data
-
-### The Massachusetts Department of Public Health requires that all mosquito control district submit their colelction data in a specific format. This format divides each trap event into separate rows based on mosquito species. However, this format is not useful for certain calculations where a zero count for a species in not explicitly recorded. Even if you sort by species and calculate average count per trap, the average could be inflated since the records will not include trap events with a zero count of that species.
-
+### The Massachusetts Department of Public Health and US CDC require that all mosquito control districts submit their colelction data in a specific format. This format divides each trap event into separate rows based on mosquito species. However, this format is not useful for certain calculations where a zero count for a species in not explicitly recorded. Even if you sort by species and calculate average count per trap, the average could be inflated since the records will not include trap events with a zero count of that species.
 ### In order to correct this, I will pivot the data and create a column for every unique "species code" and sum the "pool size" for each species code. The resulting table will have one row for every trap event -a trap event is when "town", "date of collection", "trap type" are all the same.
-
+### The resulting data frame will rectangle in shape and contain 1 row per trap event with all possible species as a separate column. 
 ```{r}
-library(dplyr)
-library(tidyr)
-
 # Group and summarize the mosquito data to prepare for wide format transformation.
 # This step aggregates the total 'pool size' for each unique combination of 
 # 'collection date', 'town', 'trap type', 'species code', and 'mcd' (Mosquito Control District),
@@ -376,9 +371,7 @@ saveRDS(wide_data, file_path_wide_rds)
 ```
 
 # Exploring the Data
-
 ##Study location Below is a map of the mosquito trap sites. This is an interactive map and will only work on web or other html-friendly platforms.
-
 ```{r}
 # Create the map
 map_study <- leaflet(trap_location) %>%
@@ -396,11 +389,8 @@ saveWidget(map_study, file_path_map, selfcontained = TRUE)
 ```
 
 ## EEE in mosquitoes and mammals
-
-### To give an idea of when EEE virus silled over from mosquitoes and birds and into mammal populations, lets take a look at the data. Let's see when the first EEE isolations were found in mosquitoes each year. Let's also look at the years that human and veterinary cases occured.
-
+### To give an idea of when EEE virus spilled over from mosquitoes and birds and into mammal populations, lets take a look at the data. Let's see when the first EEE isolations were found in mosquitoes each year. Let's also look at the years that human and veterinary cases occured.
 ### From the table, we see that human or othe mammal cases were recorded in 2014, 2018, 2019, and 2020. 2019 had the highest case counts for both humans and other mammals. **Because of this, we will pay close attention to 2019 through out the exploration.**
-
 ```{r}
 library(dplyr)
 library(lubridate)
@@ -489,7 +479,6 @@ saveRDS(combined_eee_data, combined_eee_data_path)
 ```
 
 ## Which county has the most EEE positive mosquitoes of those tested?
-
 ```{r}
 eee_positive_by_county <- combined_virus_data %>%
   filter(Virus == "EEE") %>%  # Filter for rows where Virus is EEE
@@ -520,7 +509,6 @@ save_kable(eee_positive_table, file = output_path_county)
 ```
 
 ## *Culiseta melanura* (MEL) is the main enzootic vector of EEE. Some entomologist believe that high levels of MEL traps indicate higher risk for EEE transmission. Using the new mosquito collection table created from the pivot, let's calculate the proportion of MEL captured compared to all other mosquito vector species and create a plot to visualize it.
-
 ```{r}
 library(dplyr)
 library(ggplot2)
@@ -579,7 +567,6 @@ ggsave(here("results", "figures", "average_mel_by_year.png"), plot = mel_plot, w
 ```
 
 ## Mosquito abundance is affected by weather. Mosquitoes depend on standing water to complete their larval development. Let's take a look at the annual precipitation using the wx data frame.
-
 ```{r annual precip}
 # Convert DATE from character to Date type using as.Date and specifying the format
 wx$DATE <- as.Date(wx$DATE, format="%m/%d/%y")

@@ -100,7 +100,7 @@ MA to the north.The county is situated on Buzzard's Bay to the south.
 
 Atlantic White Cedar (AWC) swamps span over 4,300 acres within
 Massachusetts, primarily concentrated in Plymouth and Bristol counties.
-These swamps serve as critical breeding habitats for Culiseta melanura
+These swamps serve as critical breeding habitats for *Culiseta melanura*
 (MEL), which is recognized as the primary enzootic vector for Eastern
 Equine Encephalitis (EEE). AWC trees have large roots that form "crypts"
 that hold water throughout the year. These crypts serve as a main
@@ -115,9 +115,11 @@ Control Project.
 
 ## Data collection and processing
 
-The cornerstone of this project is mosquito surveillance data. This
-dataset includes mosquito counts by species for all mosquito traps set
-in Bristol County, MA between 2007 to 2023. In addition to mosquito
+The mosquito surveillance dataset encompasses counts by species from all mosquito traps deployed in Bristol County, MA, from 2007 to 2023. The BCMCP, perform mosquito surveillance from June through October annually. During this interval, CDC light traps baited with carbon dioxide are placed at various sentinel sites each week. Some of the sentinel site have been used for over 50 years. The traps are installed in the afternoon and retrieved the following morning. Designed to attract mosquitoes in search of blood meals, light traps serve as a reliable measure of the actively feeding mosquito population, thereby establishing them as the standard method for EEE surveillance.
+
+Additionally, the county employs gravid traps, which are specifically aimed at attracting and capturing gravid *Culex* mosquitoes looking for egg-laying sites. While these traps are primarily used for West Nile Virus (WNV) surveillance, they hold significant value for EEE monitoring as well. Given the role of *Culex* species as bridge vectors for EEE, their capture in gravid traps provides critical insight into the risk of virus transmission.
+
+The  In addition to mosquito
 counts by species, the dataset includes the town or city in which they
 were collected, the collection data, and whether the mosquitoes were
 submitted for virus testing.
@@ -156,7 +158,42 @@ Other datasets may be included based on availability and need.
 \*This project will lay the foundation for my dissertation research.
 **The goal for this phase of the project is to answer which
 environmental, ecological, and temporal factors influence the
-transmission cycles for EEE in southeastern Massachusetts.**
+transmission cycles for EEE in southeastern Massachusetts.** From prior
+research we know that the mosquito life cyle is influenced by a number
+of factors. Temperature plays a major role in the mosquito life cyle
+virus transmission dynamics. As temperature increases, the rate of
+larval development also increases and the time between when a mosquito
+ingests virus in a bloodmeal and when it can transmit it decreases. The
+result is that the mosquito population can grow at faster rate and they
+will have more time to transmit the virus. Precipitation increases the
+amount of standing water and increases the chances of larval survival
+during the mosquito season and also during the winter months for those
+species that overwinter in the larval stage. For EEE, the main enzootic
+vector, MEL, overwinters as larvae.
+
+While these relationships are well known, they are not well described
+for EEE, especially in terms of quantifying the role these two factors
+play in EEE transmission. Specifically, there's a gap in our
+understanding of how these factors influence the number of mosquitoes
+caught in traps and the rate of virus infection among those mosquitoes.
+This gap is more pronounced when distinguishing the impacts on enzootic
+(mosquitoes that primarily feed on birds) versus bridge vector
+(mosquitoes that can transmit the virus from birds to humans) mosquito
+species. Even less well described is the effect the factors have on
+enzootic vs. bridge vector mosquito species.
+
+Moreover, the influence of other variables, such as bird populations,
+remains even less explored. Birds, particularly species of passerines,
+serve as amplifying hosts for EEEV and WNV, potentially affecting the
+level of virus present in an area. Despite their importance in the virus
+transmission cycle, the effect of fluctuations in bird populations on
+the prevalence of these viruses throughout a season has received minimal
+attention. Finally, given the migratory nature of many passerine
+species, it's worth exploring whether EEEV activity in the warmer
+regions of the United States, during the months preceding mosquito
+season in Massachusetts, could serve as an early indicator of virus
+activity in the state. Understanding these dynamics is crucial for
+predicting outbreaks and implementing effective control measures.
 
 While the following questions will not be addressed in this phase, this
 project will hopefully inform research that will answer the following
