@@ -1,4 +1,5 @@
 # Overview
+Most of the work associated with Part 3 is in the R/eda-code folder. it is still under development, as is the manuscript. 
 
 The file for Part 2 is located here:/R/processing-code/MADAproject_pt2_ruiz.qmd
 This file will contain all the material needed to reproduce the processing of the data and limited exploration described in the manuscript. 
