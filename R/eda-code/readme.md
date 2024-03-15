@@ -5,5 +5,12 @@ This code should be run after the /R/processing-code/MADAproject_pt2_ruiz.qmd fi
 
 The code is contained in an R script that you can run which does all the computations (PT3_edacode.R). 
 
-PT3_eda-v2.qmd is a Quarto file where the code is pulled in from the R script and run.
+PT3_eda-v2.qmd is a Quarto file where the code is pulled in from the R script and run. It is currently under development
 
+For now, EDA is performed in separate R files in this folder:
+
+MIR.R
+Model.mir.temp.R
+Logistic_pos_temp_precip.R
+
+in this phase most of the exploration will take place in R files then called into qmd using rds

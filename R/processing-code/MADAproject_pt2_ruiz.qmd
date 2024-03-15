@@ -129,6 +129,8 @@ head(combined_virus_data)
 ### The complete bird dataset is over 600 MB. Because it is too large for GitHub, it is stored locally. It contain variables and records that are not needed for this analysis. Eight of 50 varibles will be kept and the records will be filtered to show only birds from the Genus Corvus observed in Massachusetts after 2014-01-01
 ```{r}
 # Load complete bird data
+# this uses an absolute path because the file is too large to store on github. 
+# the filtered_bird_data.csv file will be the one used for any analysis
 bird <- read.table("/Users/andrewruiz/0011508-240216155721649.csv", sep = "\t", header = TRUE, fill = TRUE)
 
 # Select variables to keep and then filter records based on order, stateProvince, and eventDate
@@ -175,19 +177,24 @@ file_path_wx = here("data", "processed-data", "weather_airport.csv")
 # import the data to R and store it in a dataframe named "wx"
 wx = read.csv(file_path_wx)
 
+wx <- wx %>%
+  mutate(
+    DATE = mdy(DATE),  # Parse the DATE column from "month/day/year"
+    week_num = paste0(year(DATE), "-", sprintf("%02d", isoweek(DATE)))  # Create week_num
+  )
 #load the first few rows of data to verify the data loaded as expected
 head(wx)
 
 #the columns below are the only ones needed for this project. 
 wx_selected <- wx %>%
-  select(STATION, NAME, DATE, PRCP)
+  select(STATION, NAME, DATE, PRCP, TMAX, week_num)
 
 # Define the path for the RDS file
 output_path_wx <- here("data", "processed-data", "rds", "wx_selected.rds")
-
+output_csv_wx <- here("data", "processed-data", "wx_selected.csv")
 # Save the wx_selected dataframe as an RDS file
 saveRDS(wx_selected, output_path_wx)
-
+write.csv(wx_selected, output_csv_wx, row.names = FALSE)
 head(wx_selected)
 ```
 
@@ -244,8 +251,7 @@ latest_date <- max(mosquito_raw$`collection date`, na.rm = TRUE)
 print(paste("Date range:", earliest_date," to ", latest_date))
 ```
 
-#### The mosquito dataset spans 2007 to 2023. However, the virus and case data only covers the years 2014 to 2020. Because mosquito populations can be influenced by processes of the previous year. We will set the analytical horizon will span 2013 to 2021.*Collection data before 2013 and after 2021 will be removed* along with records with important missing variables identified below.
-
+#### The mosquito dataset spans 2007 to 2023. However, the virus and case data only covers the years 2012 to 2020. We will create two datasets One that filters the dates to cover the virus and case data. And one with all records. 
 ### Identify missing data
 ```{r}
 sapply(mosquito_raw, function(x) sum(is.na(x)))
@@ -303,21 +309,14 @@ mosquito_modified <- na.omit(mosquito_modified, cols = temp_columns)
 # the format will be YYYY-WW. Week 8 of 2019 will look like: 2019-08
 mosquito_modified <- mosquito_modified %>%
   mutate(
-    # Directly format the collection date into "YYYY-WW"
-    week_num = paste0(year(`collection date`), "-", 
-                      sprintf("%02d", isoweek(`collection date`)))
+    week_num = paste0(year(`collection date`), "-", sprintf("%02d", isoweek(`collection date`)))
   )
+# Check the structure of the final cleaned dataframe
+str(mosquito_modified)
 
 # before filtering the dates to have a cleaned dataset with all the records.
 write_csv(mosquito_modified, here("data", "processed-data", "mosquito_clean_all.csv"))
 saveRDS(mosquito_modified, here("data", "processed-data", "rds", "mosquito_clean_all.rds"))
-
-# Now apply the date filter to match the analytical horizon of the project
-mosquito_final <- mosquito_modified %>%
-  filter(`collection date` >= as.Date("2013-01-01") & `collection date` <= as.Date("2021-12-31"))
-
-# Check the structure of the final cleaned dataframe
-str(mosquito_final)
 ```
 
 ## Reformat the collection data
@@ -329,10 +328,13 @@ str(mosquito_final)
 # This step aggregates the total 'pool size' for each unique combination of 
 # 'collection date', 'town', 'trap type', 'species code', and 'mcd' (Mosquito Control District),
 # while excluding 'submitted for testing' from the grouping to avoid potential inconsistencies.
-mosquito_summarized <- mosquito_final %>%
+mosquito_summarized <- mosquito_modified %>%
   group_by(`collection date`, town, `trap type`, `species code`, mcd, `submitted for testing`) %>%
   summarise(pool_size_sum = sum(`pool size`, na.rm = TRUE), .groups = 'drop')
    # Ensure that the summarization does not drop any groups by setting .groups = 'drop'.
+mosquito_summarized <- mosquito_modified %>%
+  group_by(`collection date`, week_num, town, `trap type`, `species code`, mcd, `submitted for testing`) %>%
+  summarise(pool_size_sum = sum(`pool size`, na.rm = TRUE), .groups = 'drop')
 
 
 # Transform the summarized mosquito data to a wide format where each 'species code' becomes a separate column.
@@ -343,9 +345,10 @@ wide_data <- mosquito_summarized %>%
   pivot_wider(
     names_from = `species code`,
     values_from = pool_size_sum,
-    values_fill = list(pool_size_sum = 0),
-    id_cols = c(`collection date`, town, `trap type`, mcd)
-  )
+    id_cols = c(`collection date`, week_num, town, `trap type`, mcd)
+  ) %>%
+  # Now use replace_na() to fill in NAs, specifying columns dynamically or by name after checking what columns are created
+  replace_na(list(your_dynamic_or_specific_column_names_here = 0))  
 
 # Output the transformed wide-format data to inspect its structure and content.
 # This step is crucial for verifying that the pivot operation produced the expected wide-format dataset,
@@ -354,19 +357,35 @@ head(wide_data)
 
 # Save the new file
 # Specify the file path using here()
-file_path_wide <- here("data", "processed-data", "mosquito_wide.csv")
+file_path_wide <- here("data", "processed-data", "mosquito_wide_all.csv")
 
 # Save the wide-format data to the specified path
 write_csv(wide_data, file_path_wide)
 
-# Print the file path to confirm where the file has been saved
-print(paste("File saved to:", file_path_wide))
-
 # Define the path for the wide-format dataset RDS
-file_path_wide_rds <- here("data", "processed-data", "rds", "mosquito_wide.rds")
+file_path_wide_rds <- here("data", "processed-data", "rds", "mosquito_wide_all.rds")
 
 # Save the wide-format data as an RDS file
 saveRDS(wide_data, file_path_wide_rds)
+
+# Now we will filter the the mosquito data to match the time period of the virus data. 
+# Since mosquito populations can be affected by the previous year's populations, we will filter for 2011-
+
+# Filter wide_data for the specified date range
+filtered_mosquito_data <- wide_data %>%
+  filter(`collection date` >= as.Date("2011-01-01") & `collection date` <= as.Date("2022-12-31"))
+
+# Define the path for the CSV file
+file_path_filtered_csv <- here("data", "processed-data", "mosquito_wide_filtered.csv")
+
+# Save the filtered wide-format data to the specified CSV path
+write_csv(filtered_mosquito_data, file_path_filtered_csv)
+
+# Define the path for the RDS file
+file_path_filtered_rds <- here("data", "processed-data", "rds", "mosquito_wide_filtered.rds")
+
+# Save the filtered wide-format data as an RDS file
+saveRDS(filtered_mosquito_data, file_path_filtered_rds)
 
 ```
 

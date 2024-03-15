@@ -14,4 +14,6 @@ here are the current folders with data:
 /results/tables
 /data/raw-data
 /data/processed-data
+R/eda-code
+  this contains material associate with part 3 of the project. the folder is still under development and will be cleaned and refined once eda is      complete.
 
